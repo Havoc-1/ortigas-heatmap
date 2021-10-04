@@ -79,10 +79,11 @@ public class Register extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet what</title>");            
+            out.println("<link rel=\"stylesheet\" href=\"./style.css\"/>\n" +"");
+            out.println("<title>Heatmap Register</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet what at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Heatmap</h1>");
             out.println(redir);
             out.println(checkedUser);
             out.println(checkedPass);

@@ -13,19 +13,21 @@
         <link rel="stylesheet" href="./style.css"/>
         <title>Login Page</title>
     </head>
-    <body>
-        <div class ="center">
-        <h1>Log In: </h1>
-        <form action="do.authenticate" method="POST">
-            <div class="txt_field">
-            <lable>Username</label>
-            <input type="text" name="userLogin" required>
-            <span></span>
+   <body>
+    <section class="login">
+    <div class ="txt1">
+        <form action="do.authenticate" method = "POST">
+            <h1>Sign in</h1>
+            <span>or use your account</span>
+            <input type="text" name="userLogin" placeholder="Username" required>
             <input type="password" name="passLogin" placeholder="Password" required>
-            <input type="submit" value="Submit">
-        <a href="add.jsp">Sign up</a> <br />
-        <a href="index.jsp">Home</a> <br />
+            <a href="fpass.jsp">Forgot your password?</a>
+            <input class="button" type="submit" value="Sign In" />
+            <a href="add.jsp">
+            <input type="button" value="Sign Up" />
+            </a>
         </form>
-        </div>
-    </body>
+    </div>
+    </section>
+</body>
 </html>
