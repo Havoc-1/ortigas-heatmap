@@ -8,26 +8,36 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name ="viewport" content="with=device-width, initial-scale=1.0"> <%-- to make the webpage responsive --%>
+        <meta name ="viewport" content="with=device-width, initial-scale=1.0"> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="./style.css"/>
-        <title>Login Page</title>
+        <title>Heatmap Login</title>
     </head>
    <body>
-    <section class="login">
-    <div class ="txt1">
-        <form action="do.authenticate" method = "POST">
-            <h1>Sign in</h1>
-            <span>or use your account</span>
-            <input type="text" name="userLogin" placeholder="Username" required>
-            <input type="password" name="passLogin" placeholder="Password" required>
-            <a href="fpass.jsp">Forgot your password?</a>
-            <input class="button" type="submit" value="Sign In" />
-            <a href="add.jsp">
-            <input type="button" value="Sign Up" />
-            </a>
-        </form>
+    <section class ="txt1">
+    <div class="center">
+      <h1>Login</h1>
+      <form action ="do.authenticate" method="post">
+        <div class="txt_field">
+          <input type="text" required>
+          <span></span>
+          <label>Username</label>
+        </div>
+        <div class="txt_field">
+          <input type="password" required>
+          <span></span>
+          <label>Password</label>
+        </div>
+        <a href="#"> <%-- include forgot password link here--%>
+            <div class="pass"> Forgot Password? </div> 
+        </a>
+        <input type="submit" value="Login">
+        <div class="signup_link">
+          Not a member? <a href="add.jsp">Signup</a>
+        </div>
+      </form>
     </div>
     </section>
+  </body>
 </body>
 </html>

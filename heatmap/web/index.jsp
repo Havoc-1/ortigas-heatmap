@@ -15,6 +15,8 @@
     <body>
         <%-- SPLASH PAGE --%>
         <section class ="splash">
+        <a href ="add.jsp" class="reg-btn">Register</a>
+        <a href ="login.jsp" class ="log-btn">Login</a>
         <div class ="text-box">
             <h1>Heatmap</h1>
             <p>a group 2 webdev project</p>
@@ -61,12 +63,12 @@
                         <br />3rd Year BSIT University of Asia and the Pacific</div>
                 </div>
             </div>
+        </section>
             
-            <br> <br> <br> <br> <br>  <%-- if you know how to adjust bottom border without messing up the styling of img - please fix --%>
         <%-- THE TEAM --%>
         <section class ="action">
             <div class ="text-box1">
-                <h1>What are you waiting for?</h1> <br>
+                <h1>What are you waiting for?</h1> <br> <br> <br>
                 <p>Sign up now.</p>
                 <a href ="login.jsp" class="start1-btn">Get started</a>
             </div>
