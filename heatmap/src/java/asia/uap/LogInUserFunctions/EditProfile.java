@@ -1,13 +1,18 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package asia.uap;
+package asia.uap.LogInUserFunctions;
 
+
+import asia.uap.Accounts;
+import asia.uap.SQLThing;
+import asia.uap.UpdatePassword;
+import asia.uap.Utils;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,8 +23,13 @@ import javax.servlet.http.HttpSession;
  *
  * @author Nofuente
  */
-public class Auth extends HttpServlet {
-
+public class EditProfile extends HttpServlet {
+    private Accounts account;
+    SQLThing db = new SQLThing();
+    
+    public void init() {
+        account = new Accounts();
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,50 +42,42 @@ public class Auth extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        Utils util = new Utils();
+        HttpSession session = request.getSession();
         
-        String u = request.getParameter("userLogin");
-        String p = request.getParameter("passLogin");
-        String redir = null;
+        String u = util.checkNull(request, "username");
+        String p = util.checkNull(request, "pass");
+        String am = util.checkNull(request, "abt_me");
+        String up = util.checkNull(request, "photo");
         
-        if(u == null || u.isEmpty()) {
-            redir = "<h1>No username input has been recorded</h1>\n<a href=add.jsp>Go back to form</a>"; 
-        } else if (p == null || p.isEmpty()) {
-            redir = "<h1>No password input has been recorded</h1>\n<a href=add.jsp>Go back to form</a>"; 
+        if (u.equals(util.NO_VALUE)) {
+            response.sendRedirect("login.jsp");
+        } else if (p.equals(util.NO_VALUE)) {
+            response.sendRedirect("login.jsp");
+        } else if (am.equals(util.NO_VALUE)) {
+            response.sendRedirect("login.jsp");
+        } else if (up.equals(util.NO_VALUE)) {
+            response.sendRedirect("login.jsp");
         } else {
-            HttpSession session = request.getSession();
-            
-            ArrayList<String> existingUserList = (ArrayList<String>) session.getAttribute("nameList");
-            ArrayList<String> existingPassList = (ArrayList<String>) session.getAttribute("passList");
-            if (existingUserList == null){
-                    redir = "<h1>No existing registered users yet.</h1>\n<a href=add.jsp>Sign Up</a>";
-            }else{
-                for(int i = 0; i < existingUserList.size(); i++) {  
-                    if (existingUserList.get(i).equals(u)){
-                        if(existingPassList.get(i).equals(p)){
-                            redir = "<h1>You are verified in the eyes of God</h1>\n<a href=home.jsp>Go Home</a>";
-                            response.sendRedirect("home.jsp");
-                            session.setAttribute("currentUser", existingUserList.get(i));
-                        }else{
-                            redir = "<h1>Wrong Password</h1>\n<a href=login.jsp>Go back to index</a>";
-                        }
-                    } else{
-                        redir = "<h1>Username does not exist</h1>\n<a href=login.jsp>Go back to index</a>";
-                    }
-                } 
-            }
+            Accounts account = new Accounts();
+            account.setUsername(u);
+            account.setPassword(p);
+            account.setAboutMe(am);
+            account.setUrlPhoto(up);
+
+            db.registerUser(account);
+
+            response.sendRedirect("home.jsp");
         }
-        
-        
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet savedata</title>");            
+            out.println("<title>Servlet UpdatePassword</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet savedata at " + request.getContextPath() + "</h1>");
-            out.println(redir);
+            out.println("<h1>Servlet UpdatePassword at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }

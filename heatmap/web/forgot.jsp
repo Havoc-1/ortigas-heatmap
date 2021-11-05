@@ -12,7 +12,13 @@
         <title>Forgot Password</title>
     </head>
     <body>
-        <h1>Forgot Password</h1>
-        <a href ="index.jsp">Home</a>
+         <div align ="center">
+            <h1>Forgot Password</h1>
+            <form action="do.forgor" method="post" >
+                <label for = "forgotUser">Enter username</label><br>
+                <input type ="text" name="forgotUser" required><br>
+                <input type ="submit" value="Submit">
+            </form>
+        </div>
     </body>
 </html>

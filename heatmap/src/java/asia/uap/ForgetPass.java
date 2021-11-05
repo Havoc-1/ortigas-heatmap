@@ -4,6 +4,7 @@
  */
 package asia.uap;
 
+import asia.uap.Utils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -16,8 +17,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Nofuente
  */
-public class Logout extends HttpServlet {
-
+public class ForgetPass extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -27,29 +27,48 @@ public class Logout extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private Accounts account;
+    SQLThing db = new SQLThing();
+    
+    public void init() {
+        account = new Accounts();
+    }
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        Utils util = new Utils();
+        HttpSession session = request.getSession();
         
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.removeAttribute("currentUser");
-            session.removeAttribute("currentUserUID");
-            response.sendRedirect("index.jsp");
-        }
+        String checkedUser = util.checkNull(request, "forgotUser");
         
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Logout</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Logout at " + request.getContextPath() + "</h1>");
-            out.println("<h1> wow log out</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        if(checkedUser.equals(util.NO_VALUE)) {
+            System.out.println(checkedUser + "wHAT");
+            System.out.println(checkedUser + request.getParameter("forgotUser"));
+            response.sendRedirect("forgot.jsp");
+        } else {
+            Accounts account = new Accounts();
+            account.setUsername(checkedUser);
+            
+            try (PrintWriter out = response.getWriter()) {
+                String st = db.getSecQues(account);
+                out.println("<!DOCTYPE html>");
+                out.println("<html>");
+                out.println("<head>");
+                out.println("<title>Servlet ForgetPass</title>");            
+                out.println("</head>");
+                out.println("<body>");
+                out.println("<h1>" + st + "</h1>\n" +
+"        <form action=\"do.moreForgor\" method=\"POST\">\n" +
+"            <label for=\"sec_ques_ans\">Security Question Answer:</label> <br />\n" +
+"            <input type=\"text\" name=\"sec_ques_ans\" required> <br /><br />\n" +
+"            <input type=\"hidden\" name=\"forgotUser\" value=\"" + checkedUser + "\">" +
+"            \n" + "<input type=\"submit\" value=\"Submit\"> <br /><br />");
+                out.println("</body>");
+                out.println("</html>");
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -76,12 +95,14 @@ public class Logout extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         processRequest(request, response);
     }
-
+    
     /**
      * Returns a short description of the servlet.
      *
@@ -91,5 +112,6 @@ public class Logout extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
+
+

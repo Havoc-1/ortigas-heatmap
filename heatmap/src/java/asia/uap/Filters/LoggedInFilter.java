@@ -1,9 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Filter.java to edit this template
  */
-package asia.uap;
+package asia.uap.Filters;
+
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Nofuente
  */
-public class HomeFilter implements Filter {
+public class LoggedInFilter implements Filter {
     
     private static final boolean debug = true;
 
@@ -32,13 +32,13 @@ public class HomeFilter implements Filter {
     // configured. 
     private FilterConfig filterConfig = null;
     
-    public HomeFilter() {
+    public LoggedInFilter() {
     }    
     
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("HomeFilter:DoBeforeProcessing");
+            log("LoggedInFilter:DoBeforeProcessing");
         }
 
         // Write code here to process the request and/or response before
@@ -66,7 +66,7 @@ public class HomeFilter implements Filter {
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("HomeFilter:DoAfterProcessing");
+            log("LoggedInFilter:DoAfterProcessing");
         }
 
         // Write code here to process the request and/or response after
@@ -102,7 +102,7 @@ public class HomeFilter implements Filter {
             throws IOException, ServletException {
         
         if (debug) {
-            log("HomeFilter:doFilter()");
+            log("LoggedInFilter:doFilter()");
         }
         
         doBeforeProcessing(request, response);
@@ -115,13 +115,13 @@ public class HomeFilter implements Filter {
         
         log(loggedIn+"");
         
-        if (loggedIn == false){
-            httpResponse.sendRedirect("login.jsp");
-            log("boo ur not logged in bro");
+        if (loggedIn == true){
+            httpResponse.sendRedirect("home.jsp");
+            log("ur logged in already bro");
         }
         
-        
         Throwable problem = null;
+        
         try {
             chain.doFilter(request, response);
         } catch (Throwable t) {
@@ -176,7 +176,7 @@ public class HomeFilter implements Filter {
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
             if (debug) {                
-                log("HomeFilter:Initializing filter");
+                log("LoggedInFilter:Initializing filter");
             }
         }
     }
@@ -187,9 +187,9 @@ public class HomeFilter implements Filter {
     @Override
     public String toString() {
         if (filterConfig == null) {
-            return ("HomeFilter()");
+            return ("LoggedInFilter()");
         }
-        StringBuffer sb = new StringBuffer("HomeFilter(");
+        StringBuffer sb = new StringBuffer("LoggedInFilter(");
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());

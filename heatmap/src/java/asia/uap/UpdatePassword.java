@@ -4,8 +4,12 @@
  */
 package asia.uap;
 
+import asia.uap.Accounts;
+import asia.uap.Utils;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +20,13 @@ import javax.servlet.http.HttpSession;
  *
  * @author Nofuente
  */
-public class Logout extends HttpServlet {
-
+public class UpdatePassword extends HttpServlet {
+    private Accounts account;
+    SQLThing db = new SQLThing();
+    
+    public void init() {
+        account = new Accounts();
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,23 +40,45 @@ public class Logout extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.removeAttribute("currentUser");
-            session.removeAttribute("currentUserUID");
-            response.sendRedirect("index.jsp");
-        }
+        Utils util = new Utils();
+        HttpSession session = request.getSession();
         
+        String ans = util.checkNull(request, "sec_ques_ans");
+        String fu = util.checkNull(request, "forgotUser");
+        String p = util.checkNull(request, "password");
+        String pc = util.checkNull(request, "passwordConfirm");
+        
+        if(ans.equals(util.NO_VALUE)) {
+            response.sendRedirect("do.successForgot");
+        } else if(fu.equals(util.NO_VALUE)) {
+            response.sendRedirect("do.successForgot");
+        } else if (p.equals(util.NO_VALUE)) {
+            response.sendRedirect("do.successForgot");
+        } else if (pc.equals(util.NO_VALUE)) {
+            response.sendRedirect("do.successForgot");
+        } else if (p.equals(pc)) {
+            account.setUsername(fu);
+            account.setSecQuesAns(ans);
+            account.setPassword(p);
+            
+            try {
+                db.updatePass(account);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(UpdatePassword.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            response.sendRedirect("index.jsp");
+        } else{
+            response.sendRedirect("do.successForgot");
+        }
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Logout</title>");            
+            out.println("<title>Servlet UpdatePassword</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Logout at " + request.getContextPath() + "</h1>");
-            out.println("<h1> wow log out</h1>");
+            out.println("<h1>Servlet UpdatePassword at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }

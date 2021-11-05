@@ -17,18 +17,18 @@
     <section class ="txt1">
     <div class="center">
       <h1>Login</h1>
-      <form action ="do.authenticate" method="post">
+      <form action ="do.signin" method="post">
         <div class="txt_field">
-          <input type="text" required>
+          <input type="text" name="userLogin" required>
           <span></span>
           <label>Username</label>
         </div>
         <div class="txt_field">
-          <input type="password" required>
+          <input type="password" name="passLogin" required>
           <span></span>
           <label>Password</label>
         </div>
-        <a href="#"> <%-- include forgot password link here--%>
+        <a href="do.forgor"> <%-- include forgot password link here--%>
             <div class="pass"> Forgot Password? </div> 
         </a>
         <input type="submit" value="Login">

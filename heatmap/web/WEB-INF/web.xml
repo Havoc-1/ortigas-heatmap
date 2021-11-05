@@ -1,24 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <filter>
-        <filter-name>LoggedInFilter</filter-name>
-        <filter-class>asia.uap.LoggedInFilter</filter-class>
+        <filter-name>HomeFilter</filter-name>
+        <filter-class>asia.uap.Filters.HomeFilter</filter-class>
     </filter>
     <filter>
-        <filter-name>HomeFilter</filter-name>
-        <filter-class>asia.uap.HomeFilter</filter-class>
+        <filter-name>LoggedInFilter</filter-name>
+        <filter-class>asia.uap.Filters.LoggedInFilter</filter-class>
     </filter>
-    <filter-mapping>
-        <filter-name>HomeFilter</filter-name>
-        <url-pattern>/home.jsp</url-pattern>
-    </filter-mapping>
     <filter-mapping>
         <filter-name>LoggedInFilter</filter-name>
         <url-pattern>/login.jsp</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>HomeFilter</filter-name>
+        <url-pattern>/home.jsp</url-pattern>
+    </filter-mapping>
     <servlet>
-        <servlet-name>Auth</servlet-name>
-        <servlet-class>asia.uap.Auth</servlet-class>
+        <servlet-name>ForgetPass</servlet-name>
+        <servlet-class>asia.uap.ForgetPass</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ForgetPass2</servlet-name>
+        <servlet-class>asia.uap.ForgetPass2</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ForgetPassSuccess</servlet-name>
+        <servlet-class>asia.uap.ForgetPassSuccess</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>asia.uap.Login</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Logout</servlet-name>
@@ -28,9 +40,29 @@
         <servlet-name>Register</servlet-name>
         <servlet-class>asia.uap.Register</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdatePassword</servlet-name>
+        <servlet-class>asia.uap.UpdatePassword</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditProfile</servlet-name>
+        <servlet-class>asia.uap.LogInUserFunctions.EditProfile</servlet-class>
+    </servlet>
     <servlet-mapping>
-        <servlet-name>Auth</servlet-name>
-        <url-pattern>/do.authenticate</url-pattern>
+        <servlet-name>ForgetPass</servlet-name>
+        <url-pattern>/do.forgor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgetPass2</servlet-name>
+        <url-pattern>/do.moreForgor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgetPassSuccess</servlet-name>
+        <url-pattern>/do.successForget</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/do.signin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
@@ -39,6 +71,14 @@
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
         <url-pattern>/do.register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdatePassword</servlet-name>
+        <url-pattern>/do.updatePass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditProfile</servlet-name>
+        <url-pattern>/do.editProfile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

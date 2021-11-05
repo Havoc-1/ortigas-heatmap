@@ -4,8 +4,11 @@
  */
 package asia.uap;
 
+
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +19,13 @@ import javax.servlet.http.HttpSession;
  *
  * @author Nofuente
  */
-public class Logout extends HttpServlet {
-
+public class ForgetPassSuccess extends HttpServlet {
+    private Accounts account;
+    SQLThing db = new SQLThing();
+    
+    public void init() {
+        account = new Accounts();
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -27,30 +35,52 @@ public class Logout extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        Utils util = new Utils();
+        HttpSession session = request.getSession();
         
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.removeAttribute("currentUser");
-            session.removeAttribute("currentUserUID");
-            response.sendRedirect("index.jsp");
-        }
+        String ans = util.checkNull(request, "sec_ques_ans");
+        String fu = util.checkNull(request, "forgotUser");
         
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Logout</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Logout at " + request.getContextPath() + "</h1>");
-            out.println("<h1> wow log out</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        if(ans.equals(util.NO_VALUE)) {
+            response.sendRedirect("do.moreForgor");
+        } else if(fu.equals(util.NO_VALUE)) {
+            response.sendRedirect("do.moreForgor");
+        } else {
+            Accounts account = new Accounts();
+            account.setUsername(fu);
+            account.setSecQuesAns(fu);
+            
+            try (PrintWriter out = response.getWriter()) {
+                try {
+                    String st = db.getSecQues(account);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ForgetPassSuccess.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                out.println("<!DOCTYPE html>");
+                out.println("<html>");
+                out.println("<head>");
+                out.println("<title>Servlet ForgetPass</title>");            
+                out.println("</head>");
+                out.println("<body>");
+                out.println("<h1>Update password</h1>\n" +
+"               <form action=\"do.updatePass\" method=\"POST\">\n" +
+"                   <label for=\"password\">New Passowrd:</label> <br />\n" +
+"                   <input type=\"password\" name=\"password\" required><br>" +
+                        
+"                   <label for=\"passwordConfirm\">Confirm New Password:</label> <br />\n" +
+"                   <input type=\"password\" name=\"passwordConfirm\" required><br>" +
+                        
+"                   <input type=\"hidden\" name=\"sec_ques_ans\" value=\"" + ans + "\">" +
+"                   <input type=\"hidden\" name=\"forgotUser\" value=\"" + fu + "\">" +
+        
+"            \n" + "<input type=\"submit\" value=\"Submit\"> <br /><br />");
+                out.println("</body>");
+                out.println("</html>");
+            }        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -93,3 +123,5 @@ public class Logout extends HttpServlet {
     }// </editor-fold>
 
 }
+
+
