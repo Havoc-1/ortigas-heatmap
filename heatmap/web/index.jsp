@@ -27,7 +27,7 @@
         <%-- FEATURES --%>
         <section class="features">
             <h1>Features</h1>
-            <p>Description of features</p>
+            <p>Descriasdasdasdption of features</p>
             <div class ="row">
              <div class="feature-col">
                     <h3>Something 1</h3>
