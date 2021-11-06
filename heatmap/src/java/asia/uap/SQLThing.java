@@ -56,10 +56,10 @@ public class SQLThing {
          return result;
     }
     
-    public int updateProfile(Accounts account) {
-        String insert = "INSERT INTO users" +  //sql statement
-        "(username, pass, about_me, url_photo, sec_ques_no, sec_ques_ans) SELECT " +
-        "?, SHA2(?, 256), ?, ?, ?, ?;";
+    public int updateProfile(Accounts account, int uid) {
+        String insert = "UPDATE users " +
+                        "SET username = ?, pass = SHA2(?, 256), about_me = ?, url_photo = ?" +
+                        "WHERE uid = ?;";
         
         int result = 0;
         Connection conn = null;
@@ -81,8 +81,7 @@ public class SQLThing {
             stmt.setString(2, account.getPassword());
             stmt.setString(3, account.getAbout_Me());
             stmt.setString(4, account.getUrl_Photo());
-            stmt.setInt(5, account.getSecQuesNo());
-            stmt.setString(6, account.getSecQuesAns());
+            stmt.setInt(5, uid);
             
             System.out.println(stmt);
             result = stmt.executeUpdate();
@@ -90,6 +89,42 @@ public class SQLThing {
             printSQLException(e);
         }
          return result;
+    }
+    
+    public Accounts getAccount(int uid) {
+        String getAcc = "SELECT username, about_me, url_photo from users " +  //sql statement
+        "WHERE uid = ?;";
+        
+        Accounts account = new Accounts();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch(ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        
+        
+         try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/loginreg_db","root","root");
+            stmt = conn.prepareStatement(getAcc);
+            
+            stmt.setInt(1, uid);
+            
+            System.out.println(stmt);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                account.setUsername(rs.getString("username"));
+                account.setAboutMe(rs.getString("about_me"));
+                account.setUrlPhoto(rs.getString("url_photo"));
+                return account;
+            }
+            System.out.println("oh no it passed through");
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+         return account;
     }
     
     public boolean checkLogin(Accounts account) throws ClassNotFoundException {
@@ -157,6 +192,37 @@ public class SQLThing {
             printSQLException(e);
         }
         return uid;
+    }
+    
+   public boolean checkPass(String u, String p) throws ClassNotFoundException {
+        boolean status = false;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        //sql statement
+        String check = "select uid from users where username = ? and pass = SHA2(?, 256)";
+        
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch(ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/loginreg_db","root","root");
+            stmt = conn.prepareStatement(check);
+            stmt.setString(1, u);
+            stmt.setString(2, p);
+            
+            System.out.println(stmt);
+            ResultSet rs = stmt.executeQuery();
+            status = rs.next();
+            
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return status;
     }
     
     public boolean checkForgotPass(Accounts account) throws ClassNotFoundException {

@@ -48,6 +48,10 @@
         <servlet-name>EditProfile</servlet-name>
         <servlet-class>asia.uap.LogInUserFunctions.EditProfile</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ConfirmProfileEdits</servlet-name>
+        <servlet-class>asia.uap.LogInUserFunctions.ConfirmProfileEdits</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgetPass</servlet-name>
         <url-pattern>/do.forgor</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>EditProfile</servlet-name>
         <url-pattern>/do.editProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConfirmProfileEdits</servlet-name>
+        <url-pattern>/do.confirmEdits</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

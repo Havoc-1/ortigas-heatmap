@@ -28,7 +28,7 @@
           <span></span>
           <label>Password</label>
         </div>
-        <a href="do.forgor"> <%-- include forgot password link here--%>
+        <a href="do.forgor">
             <div class="pass"> Forgot Password? </div> 
         </a>
         <input type="submit" value="Login">

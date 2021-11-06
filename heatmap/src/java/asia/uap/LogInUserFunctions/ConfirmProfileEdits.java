@@ -1,15 +1,17 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package asia.uap.LogInUserFunctions;
-
 
 import asia.uap.Accounts;
 import asia.uap.SQLThing;
 import asia.uap.Utils;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,9 +22,10 @@ import javax.servlet.http.HttpSession;
  *
  * @author Nofuente
  */
-public class EditProfile extends HttpServlet {
+public class ConfirmProfileEdits extends HttpServlet {
     private Accounts account;
     SQLThing db = new SQLThing();
+
     
     public void init() {
         account = new Accounts();
@@ -40,35 +43,51 @@ public class EditProfile extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        Utils util = new Utils();
+        int uid = (int) session.getAttribute("currentUserUID");
+        Accounts account = db.getAccount(uid);
+        
+        String checkedUser = util.checkNull(request, "username");
+        String checkedPass = util.checkNull(request, "password");
+        String checkedConfPass = util.checkNull(request, "passwordConfirm");
+        String checkedAboutMe = util.checkNull(request, "abtme");
+        String checkedPhoto = util.checkNull(request, "url_photo");
+        String checkedSecQuesAns = util.checkNull(request, "sec_ques_ans");
+        
+        if (!checkedPass.equals(util.NO_VALUE) && checkedPass.equals(checkedConfPass)) {
+            try {
+                if (!db.checkPass(account.getUsername(), checkedPass)){
+                    account.setPassword(checkedPass);
+                }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ConfirmProfileEdits.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+                response.sendRedirect("do.editProfile");
+        }
+        if (!checkedUser.equals(util.NO_VALUE) && !checkedUser.equals(account.getUsername()) ) {
+            account.setUsername(checkedUser);
+        } 
+        if (!checkedAboutMe.equals(util.NO_VALUE) && !checkedAboutMe.equals(account.getAbout_Me())) {
+            account.setAboutMe(checkedAboutMe);
+        }
+        if (!checkedPhoto.equals(util.NO_VALUE) && !checkedPhoto.equals(account.getUrl_Photo())) {
+            account.setUrlPhoto(checkedPhoto);
+        }
 
+
+        db.updateProfile(account, uid);
+
+        response.sendRedirect("home.jsp");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdatePassword</title>");            
+            out.println("<title>Servlet ConfirmProfileEdits</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Edit Profile</h1>");
-            out.println("<h3>For user details that does not want to be edited, leave the input box blank.</h3>");
-            out.println("<form action =\"do.confirmEdits\" method =\"post\">\n" +
-"                <label for=\"username\">New Username:</label><br>\n" +
-"                <input type=\"text\" name=\"username\"><br>\n" +
-"                \n" +
-"                <label for=\"password\">New Password:</label><br>\n" +
-"                <input type=\"password\" name=\"password\"><br>\n" +
-"                \n" +
-"                <label for=\"passwordConfirm\">Confirm New Password:</label><br>\n" +
-"                <input type=\"password\" name=\"passwordConfirm\"><br>\n" +
-"                \n" +                 
-"                <label for=\"abtme\">New About Me:</label><br>\n" +
-"                <input type=\"text\" name=\"abtme\"><br>\n" +
-"                \n" +
-"                <label for=\"url_photo\">New URL Photo:</label><br>\n" +
-"                <input type=\"text\" name=\"url_photo\"><br><br>\n" +
-"\n" +
-"                <input type=\"submit\" value=\"Submit\">\n" +
-"            </form>");
+            out.println("<h1>Edit Succesful!</h1>");
             out.println("</body>");
             out.println("</html>");
         }

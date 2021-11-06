@@ -49,7 +49,7 @@
                 <h1>The Team</h1>
                 <div class ="member">
                     <img src="img/deo_pic.png" class="img-responsive img-thumbnail" alt="Responsive image" />
-                    <div class ="name">Dei Nofuente
+                    <div class ="name">Deo Nofuente
                         <br />3rd Year BSIT University of Asia and the Pacific</div>
                 </div>
                 <div class ="member">
