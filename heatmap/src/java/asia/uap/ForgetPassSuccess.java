@@ -68,7 +68,7 @@ public class ForgetPassSuccess extends HttpServlet {
                 out.println("<body>");
                 out.println("<h1>Update password</h1>\n" +
 "               <form action=\"do.updatePass\" method=\"POST\">\n" +
-"                   <label for=\"password\">New Passowrd:</label> <br />\n" +
+"                   <label for=\"password\">New Password:</label> <br />\n" +
 "                   <input type=\"password\" name=\"password\" required><br>" +
                         
 "                   <label for=\"passwordConfirm\">Confirm New Password:</label> <br />\n" +

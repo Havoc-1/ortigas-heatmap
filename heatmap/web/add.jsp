@@ -31,7 +31,7 @@
     <!-- form area -->
     <section class="regarea">
         <div id="one"></div>
-        <form id="form1" class="formarea">
+        <form action="do.register" id="form1" class="formarea">
             <fieldset>
                 <label for="username" class="q">Username</label> <br> <br>
                 <input type="text" class="reg" name="username" required> <br> 
@@ -39,7 +39,7 @@
                 <label for="password" class="q">Password</label>  <br> <br>
                 <input type="password" class="regp" name="password" id="password" onkeyup='check();' required> <br>
                 
-                <label for="passwordConfirm" class="q">Password</label>  <br> <br>
+                <label for="passwordConfirm" class="q">Confirm Password</label>  <br> <br>
                 <input type="password" class="regp" name="passwordConfirm" onkeyup='check();' required> <br>
                 
                 <label for="email" class="q">Email</label> <br> <br>
@@ -48,7 +48,7 @@
                 <label for="addr" class="q">Address</label> <br> <br>
                 <input type="text" class="reg" name="address" required> <br> <br> 
                 
-                <input type="checkbox">
+                <input type="checkbox" required="">
                 <label for="tos" class="ans">I agree to the <a href="tos.jsp">Terms
                         and Service</a></label> <br> <br> <br>
                 <a class="next">next</a>
@@ -71,42 +71,42 @@
                     chills, body aches for unknown reasons, shortness of breath 
                     for unknown<br> reasons, loss of smell, loss of taste, high fever?</h3>
                     <!-- any radio button with same name will deselect other choice-->
-                    <input type="radio" name="sq1">  
+                    <input type="radio" name="sq1" value='Yes' required>  
                     <label for ="sq1" class="ans">Yes</label> <br>
-                    <input type="radio" name="sq1">  
-                    <label for ="sq2" class="ans">No</label> <br>
+                    <input type="radio" name="sq1" value='No'>  
+                    <label for ="sq1" class="ans">No</label> <br>
                     <h3 class="survq">If yes, kindly check the symptoms:</h3>
-                    <input type="checkbox">
+                    <input type="checkbox" name='symptoms' value='Sore throat'>
                     <label for="st" class="ans">Sore throat</label> <br>
-                    <input type="checkbox">
+                    <input type="checkbox" name='symptoms' value='Cough'>
                     <label for="ch" class="ans">Cough</label> <br>
-                    <input type="checkbox">
+                    <input type="checkbox" name='symptoms' value='Chills'>
                     <label for="cs" class="ans">Chills</label> <br>
-                    <input type="checkbox">
+                    <input type="checkbox" name='symptoms' value='Body Aches'>
                     <label for="bs" class="ans">Body aches</label> <br>
-                    <input type="checkbox">
+                    <input type="checkbox" name='symptoms' value='Loss of breath'>
                     <label for="ls" class="ans">loss of breath for unknown reasons</label>
                     <!-- survey question 2 / sq2-->
                     <h3 class="survq">Have you or anyone in your household been 
                     tested for COVID-19?</h3>
-                    <input type="radio" name="sq2">  
+                    <input type="radio" name="sq2" value='Yes' required>  
                     <label for ="sq2" class="ans">Yes</label> <br>
-                    <input type="radio" name="sq2">  
+                    <input type="radio" name="sq2" value='No'>  
                     <label for ="sq2" class="ans">No</label> <br>
                     <!-- survey question 3 / sq3-->
                     <h3 class="survq">Have you or anyone in your household 
                     traveled in or outside the Philippines in the 
                     past 14 days</h3>
-                    <input type="radio" name="sq3">  
+                    <input type="radio" name="sq3" value='Yes' required>  
                     <label for ="sq3" class="ans">Yes</label> <br>
-                    <input type="radio" name="sq3">  
+                    <input type="radio" name="sq3" value='No'>  
                     <label for ="sq3" class="ans">No</label> <br>
                     <!-- survey question 4 / sq4-->
                     <h3 class="survq">Were you admitted to the hospital in the
                     past 14 days?</h3>
-                    <input type="radio" name="sq4">  
+                    <input type="radio" name="sq4" value='Yes' required>  
                     <label for ="sq4" class="ans">Yes</label> <br>
-                    <input type="radio" name="sq4">  
+                    <input type="radio" name="sq4" value='No'>  
                     <label for ="sq4" class="ans">No</label> <br>
                 </div>
             <br> <br> <br>

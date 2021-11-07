@@ -34,6 +34,14 @@ public class Utils {
         }
         return str;
     }
+    
+    public boolean isArrayEmpty(HttpServletRequest request, String att){
+        String[] arrSt = request.getParameterValues(att);
+        if(arrSt == null || arrSt.length > 0) {
+            return true;
+        }
+        return false;
+    }
 
     public String generateRandomPassword(int len)
     {

@@ -31,14 +31,8 @@ public class Register extends HttpServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException { 
-        Utils util = new Utils();
-        
-        String checkedUser = util.checkNull(request, "username");
-        String checkedPass = util.checkNull(request, "password");
-        String checkedAboutMe = util.checkNull(request, "abtme");
-        String checkedPhoto = util.checkNull(request, "url_photo");
-        String checkedSecQuesAns = util.checkNull(request, "sec_ques_ans");
-        
+        processRequest(request, response);
+        /*
         if (checkedUser.equals(util.NO_VALUE)) {
             response.sendRedirect("login.jsp");
         } else if (checkedPass.equals(util.NO_VALUE)) {
@@ -64,11 +58,51 @@ public class Register extends HttpServlet {
 
             response.sendRedirect("home.jsp");
         }
+        */
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        Utils util = new Utils();
+       
+        //user details
+        String user = util.checkNull(request, "username");
+        String pass = util.checkNull(request, "password");
+        String passCon = util.checkNull(request, "passwordConfirm");
+        String email = util.checkNull(request, "email");
+        String addr = util.checkNull(request, "address");
+        String secQ = util.checkNull(request, "sec_ques_no");
+        String secAns = util.checkNull(request, "sec_ques_ans");
+        
+        //covid form
+        String sq1 = util.checkNull(request, "sq1");
+        String sq2 = util.checkNull(request, "sq2");
+        String sq3 = util.checkNull(request, "sq3");
+        String sq4 = util.checkNull(request, "sq4");
+        String[] symptoms = new String[]{};
+        symptoms = request.getParameterValues("symptoms");
+        
+        
+        System.out.println("User: " + user);
+        System.out.println("Pass: " + pass);
+        System.out.println("PassCon: " + passCon);
+        System.out.println("Email: " + email);
+        System.out.println("Address: " + addr);
+        System.out.println("Sec Ques No: " + secQ);
+        System.out.println("Sec Ans: " + secAns);
+        
+        System.out.println("Sq1: " + sq1);
+        System.out.println("Sq2: " + sq2);
+        System.out.println("Sq3: " + sq3);
+        System.out.println("Sq4: " + sq4);
+        if (symptoms != null && symptoms.length > 0){
+            for (String s : symptoms) {
+                System.out.println("Symptoms: " + s);
+            }
+        }
+        
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
