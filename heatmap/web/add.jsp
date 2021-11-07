@@ -50,14 +50,21 @@
                 
                 <input type="checkbox" required="">
                 <label for="tos" class="ans">I agree to the <a href="tos.jsp">Terms
-                        and Service</a></label> <br> <br> <br>
+                        and Service</a></label> <br> <br>
                 <a class="next">next</a>
             </fieldset>
             <fieldset>
-                <label for="secu1" class="q">Security Question 1</label> <br> <br>
-                <input type="text" class="reg" name="secu1"> <br> 
-                <label for="secu1" class="q">Security Question 2</label> <br> <br>
-                <input type="text" class="reg" name="secu2">
+               <label for="sec_ques_no" class="q">Choose a security question:</label> <br>
+                <div class="select">
+                    <select name="sec_ques_no" id="sec_ques_no">
+                        <option value="1">Question 1</option>
+                        <option value="2">Question 2</option>
+                        <option value="3">Question 3</option>
+                        <option value="4">Question 4</option>
+                    </select> <br>
+                    <label for="sec_ques_ans" class="q">Answer:</label><br>
+                    <input type="password" class="regp" name="sec_ques_ans" required><br><br>
+                </div>
                 <br /><br /><br />
                 <a class="prev">prev</a>
                 <a class="next">next</a>    

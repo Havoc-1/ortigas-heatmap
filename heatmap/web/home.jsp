@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name ="viewport" content="with=device-width, initial-scale=1.0"> <%-- to make the webpage responsive --%>
+        <meta name ="viewport" content="width=device-width, initial-scale=1.0"> <%-- to make the webpage responsive --%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Heatmap</title>
         <link rel="stylesheet" href="./style.css"/>
@@ -39,9 +39,9 @@
                 <h3>Num. of people</h3> <p>120 pax</p>
                 <h3>People per hour</h3> <p>5 per hour</p>
                 <h3>Time spent</h3> <p>~1 hour</p>
-                <h3>Reviews</h3><img src="img/thumb_up.png"<p>60%</p><img src="img/thumb_down.png"<p>40%</p>
+                <h3>Reviews</h3><img src="img/thumb_up.png"><p>60%</p><img src="img/thumb_down.png"><p>40%</p>
                 <h3>Recent visits</h3> <p>Alyssa, 2 days ago</p>
-                <h3>COVID Positive</h3> <img src="img/warning.png"<p>Miggy Reyes, Mia Salazar</p>
+                <h3>COVID Positive</h3> <img src="img/warning.png"><p>Miggy Reyes, Mia Salazar</p>
                 <button data-modal-target="#modal2"><u>See more</u></button>
                 <%-- SEE MORE POPUP --%>
                     <div class = "modal2" id="modal2"> 
@@ -53,14 +53,14 @@
                             <h3>Num. of people</h3> <p>120 pax</p>
                             <h3>People per hour</h3> <p>5 per hour</p>
                             <h3>Time spent</h3> <p>~1 hour</p>
-                            <h3>Feedback</h3><img src="img/thumb_up.png"<p>60%</p><img src="img/thumb_down.png"<p>40%</p>
+                            <h3>Feedback</h3><img src="img/thumb_up.png"><p>60%</p><img src="img/thumb_down.png"><p>40%</p>
                             <h3>Remarks</h3>
                             <p>Sandro Yguico</p>
                             <p>I'm too poor for this shit</p>
                             <h3>Recent visits</h3> <p>Alyssa, 2 days ago</p>
                             <p>Mia, 8 days ago</p>
                             <p>Miggy, 5 days ago</p>
-                            <h3>COVID Positive</h3> <img src="img/warning.png"<p>Miggy Reyes, Mia Salazar</p>
+                            <h3>COVID Positive</h3> <img src="img/warning.png"><p>Miggy Reyes, Mia Salazar</p>
                         </div>
                     </div>
             </div>        
