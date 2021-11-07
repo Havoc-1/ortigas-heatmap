@@ -58,7 +58,10 @@ public class SQLThing {
     
     public int updateProfile(Accounts account, int uid) {
         String insert = "UPDATE users " +
-                        "SET username = ?, pass = SHA2(?, 256), about_me = ?, url_photo = ?" +
+                        "SET username = ?, pass = SHA2(?, 256), about_me = ?, url_photo = ? " +
+                        "WHERE uid = ?;";
+        String insert2 = "UPDATE users " +
+                        "SET username = ?, about_me = ?, url_photo = ? " +
                         "WHERE uid = ?;";
         
         int result = 0;
@@ -74,15 +77,22 @@ public class SQLThing {
         
          try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/loginreg_db","root","root");
-            stmt = conn.prepareStatement(insert);
-            
-            //stmt.setInt(1,1); //IMPLEMENT AUTO INCREMENT LOGIC HERE
-            stmt.setString(1, account.getUsername());
-            stmt.setString(2, account.getPassword());
-            stmt.setString(3, account.getAbout_Me());
-            stmt.setString(4, account.getUrl_Photo());
-            stmt.setInt(5, uid);
-            
+            String s = account.getPassword();
+            if(s == null || s.isEmpty()) {
+                stmt = conn.prepareStatement(insert2);
+                stmt.setString(1, account.getUsername());
+                stmt.setString(2, account.getAbout_Me());
+                stmt.setString(3, account.getUrl_Photo());
+                stmt.setInt(4, uid);
+            }else{
+                stmt = conn.prepareStatement(insert);
+                stmt.setString(1, account.getUsername());
+                stmt.setString(2, s);
+                stmt.setString(3, account.getAbout_Me());
+                stmt.setString(4, account.getUrl_Photo());
+                stmt.setInt(5, uid);
+            } 
+
             System.out.println(stmt);
             result = stmt.executeUpdate();
         } catch (SQLException e) {

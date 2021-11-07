@@ -34,13 +34,20 @@
         <form id="form1" class="formarea">
             <fieldset>
                 <label for="username" class="q">Username</label> <br> <br>
-                <input type="text" class="reg" name="username"> <br> 
+                <input type="text" class="reg" name="username" required> <br> 
+                
                 <label for="password" class="q">Password</label>  <br> <br>
-                <input type="password" class="regp" name="password" id="password"> <br>
+                <input type="password" class="regp" name="password" id="password" onkeyup='check();' required> <br>
+                
+                <label for="passwordConfirm" class="q">Password</label>  <br> <br>
+                <input type="password" class="regp" name="passwordConfirm" onkeyup='check();' required> <br>
+                
                 <label for="email" class="q">Email</label> <br> <br>
-                <input type="text" class="reg2" name="#"> <br>
+                <input type="text" class="reg2" name="email" required> <br>
+                
                 <label for="addr" class="q">Address</label> <br> <br>
-                <input type="text" class="reg" name="address"> <br> <br> 
+                <input type="text" class="reg" name="address" required> <br> <br> 
+                
                 <input type="checkbox">
                 <label for="tos" class="ans">I agree to the <a href="tos.jsp">Terms
                         and Service</a></label> <br> <br> <br>
@@ -99,7 +106,7 @@
                     past 14 days?</h3>
                     <input type="radio" name="sq4">  
                     <label for ="sq4" class="ans">Yes</label> <br>
-                    <input type="radio" name="sq3">  
+                    <input type="radio" name="sq4">  
                     <label for ="sq4" class="ans">No</label> <br>
                 </div>
             <br> <br> <br>
@@ -114,6 +121,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
     <script src='./hideForm.js'></script>
+    <script src='./onKeyUp.js'></script>
     
     </body>
 </html>

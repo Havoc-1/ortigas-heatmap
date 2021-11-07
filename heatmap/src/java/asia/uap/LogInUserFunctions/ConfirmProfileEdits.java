@@ -54,17 +54,14 @@ public class ConfirmProfileEdits extends HttpServlet {
         String checkedPhoto = util.checkNull(request, "url_photo");
         String checkedSecQuesAns = util.checkNull(request, "sec_ques_ans");
         
-        if (!checkedPass.equals(util.NO_VALUE) && checkedPass.equals(checkedConfPass)) {
-            try {
-                if (!db.checkPass(account.getUsername(), checkedPass)){
-                    account.setPassword(checkedPass);
-                }
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ConfirmProfileEdits.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            if (!db.checkPass(account.getUsername(), checkedPass) && !checkedPass.equals(util.NO_VALUE) && checkedPass.equals(checkedConfPass)){
+                account.setPassword(checkedPass);
             }
-        }else{
-                response.sendRedirect("do.editProfile");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ConfirmProfileEdits.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         if (!checkedUser.equals(util.NO_VALUE) && !checkedUser.equals(account.getUsername()) ) {
             account.setUsername(checkedUser);
         } 
@@ -77,7 +74,7 @@ public class ConfirmProfileEdits extends HttpServlet {
 
 
         db.updateProfile(account, uid);
-
+        
         response.sendRedirect("home.jsp");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */

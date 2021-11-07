@@ -56,10 +56,10 @@ public class EditProfile extends HttpServlet {
 "                <input type=\"text\" name=\"username\"><br>\n" +
 "                \n" +
 "                <label for=\"password\">New Password:</label><br>\n" +
-"                <input type=\"password\" name=\"password\"><br>\n" +
+"                <input type=\"password\" name=\"password\" onkeyup='check();'><br>\n" +
 "                \n" +
 "                <label for=\"passwordConfirm\">Confirm New Password:</label><br>\n" +
-"                <input type=\"password\" name=\"passwordConfirm\"><br>\n" +
+"                <input type=\"password\" name=\"passwordConfirm\" onkeyup='check();'><br>\n" +
 "                \n" +                 
 "                <label for=\"abtme\">New About Me:</label><br>\n" +
 "                <input type=\"text\" name=\"abtme\"><br>\n" +
@@ -69,7 +69,9 @@ public class EditProfile extends HttpServlet {
 "\n" +
 "                <input type=\"submit\" value=\"Submit\">\n" +
 "            </form>");
+            out.println("<script src='onKeyUp.js'></script>");
             out.println("</body>");
+            
             out.println("</html>");
         }
     }
