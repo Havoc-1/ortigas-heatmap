@@ -10,11 +10,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name ="viewport" content="width=device-width, initial-scale=1.0"> <%-- to make the webpage responsive --%>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="./style.css"/>
         <title>Terms of Service Agreement</title>
     </head>
     <body>
-        <section class="toserv">
+        <div class="card">
             <h2 style="text-align: center;"><b>TERMS AND CONDITIONS</b></h2>
             <p>Last updated: 2021-11-06</p>
             <p>1. <b>Introduction</b></p>
@@ -105,6 +106,9 @@
             <p>22. <b>Contact Us</b></p>
             <p>Please send your feedback, comments, requests for technical support by email: <b>juan.yguico@uap.asia</b>.</p>
             <p style="margin-top: 5em; font-size: 0.7em;">These <a href="https://policymaker.io/terms-and-conditions/">Terms of Service</a> were created for <b>heatmap.com</b> by <a href="https://policymaker.io">PolicyMaker.io</a> on 2021-11-06.</p>
-        </section>
+            <p class="back">
+                <a href="add.jsp">Go back</a>
+            </p>
+        </div>
     </body>
 </html>

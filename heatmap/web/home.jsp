@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta name ="viewport" content="width=device-width, initial-scale=1.0"> <%-- to make the webpage responsive --%>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">        
         <title>Heatmap</title>
         <link rel="stylesheet" href="./style.css"/>
         <script defer src="card.js"></script>

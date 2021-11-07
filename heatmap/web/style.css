@@ -636,6 +636,39 @@ select:focus + .focus {
   border-radius: inherit;
 }
 
+/* ----- TOS ----*/
+
+.card {
+  
+  background-color: #192824;
+  display: block;
+  max-width: 100%;
+  min-height: 90px;
+  cursor: pointer;
+  padding: 15px;
+  
+}
+
+.card p {
+  color: white;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.card h2 {
+  font-size: 18px;
+  font-weight: normal;
+  color: white;
+}
+
+p.back {
+    color:white;
+    font-size: 15px;
+    text-align: center;
+    text-transform: uppercase;
+}
 /* ----- NAVBAR-MAIN ----*/
 
 nav img {
@@ -1057,4 +1090,34 @@ nav img {
 
 .modal4-body {
   padding: 10px 15px; 
+}
+
+/* ----- ADMIN PAGE ----*/
+
+.container {
+  padding: 2rem 0rem;
+}
+
+.admintab {
+    background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+    color: white;
+    height: 100vh;
+}
+
+admintab.h4 {
+  margin: 2rem 0rem 1rem;  
+}
+
+.table-image {
+  td, th {
+    vertical-align: middle;
+  }
+}
+
+.previous {
+  background-color: #FFBB0D;
+  color: black;
+  position:absolute;
+  left: 380px;
+  padding: 20px;
 }
