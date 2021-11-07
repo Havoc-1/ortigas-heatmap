@@ -21,13 +21,13 @@
         int uid = (int) session.getAttribute("currentUserUID");
         Accounts account = db.getAccount(uid);
         String user = account.getUsername();
-        String abtMe = account.getAbout_Me();
-        String url = account.getUrl_Photo();
+        String email = account.getEmail();
+        String address = account.getAddress();
         %>
         <h1> User Profile</h1>
         <h3>Username = <%out.print(user);%></h3>
-        <h3>About Me = <%out.print(abtMe);%></h3>
-        <h3>URL Photo = <%out.print(url);%></h3>
+        <h3>About Me = <%out.print(email);%></h3>
+        <h3>URL Photo = <%out.print(address);%></h3>
         <a href ="do.editProfile">Edit Profile</a>
     </body>
 </html>

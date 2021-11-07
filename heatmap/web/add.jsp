@@ -78,9 +78,9 @@
                     chills, body aches for unknown reasons, shortness of breath 
                     for unknown<br> reasons, loss of smell, loss of taste, high fever?</h3>
                     <!-- any radio button with same name will deselect other choice-->
-                    <input type="radio" name="sq1" value='Yes' required>  
+                    <input type="radio" name="sq1" value='1' required>  
                     <label for ="sq1" class="ans">Yes</label> <br>
-                    <input type="radio" name="sq1" value='No'>  
+                    <input type="radio" name="sq1" value='0'>  
                     <label for ="sq1" class="ans">No</label> <br>
                     <h3 class="survq">If yes, kindly check the symptoms:</h3>
                     <input type="checkbox" name='symptoms' value='Sore throat'>
@@ -96,24 +96,24 @@
                     <!-- survey question 2 / sq2-->
                     <h3 class="survq">Have you or anyone in your household been 
                     tested for COVID-19?</h3>
-                    <input type="radio" name="sq2" value='Yes' required>  
+                    <input type="radio" name="sq2" value='1' required>  
                     <label for ="sq2" class="ans">Yes</label> <br>
-                    <input type="radio" name="sq2" value='No'>  
+                    <input type="radio" name="sq2" value='0'>  
                     <label for ="sq2" class="ans">No</label> <br>
                     <!-- survey question 3 / sq3-->
                     <h3 class="survq">Have you or anyone in your household 
                     traveled in or outside the Philippines in the 
                     past 14 days</h3>
-                    <input type="radio" name="sq3" value='Yes' required>  
+                    <input type="radio" name="sq3" value='1' required>  
                     <label for ="sq3" class="ans">Yes</label> <br>
-                    <input type="radio" name="sq3" value='No'>  
+                    <input type="radio" name="sq3" value='0'>  
                     <label for ="sq3" class="ans">No</label> <br>
                     <!-- survey question 4 / sq4-->
                     <h3 class="survq">Were you admitted to the hospital in the
                     past 14 days?</h3>
-                    <input type="radio" name="sq4" value='Yes' required>  
+                    <input type="radio" name="sq4" value='1' required>  
                     <label for ="sq4" class="ans">Yes</label> <br>
-                    <input type="radio" name="sq4" value='No'>  
+                    <input type="radio" name="sq4" value='0'>  
                     <label for ="sq4" class="ans">No</label> <br>
                 </div>
             <br> <br> <br>

@@ -14,10 +14,15 @@ public class Accounts implements Serializable {
     private int uid;
     private String username;
     private String pass;
-    private String about_me;
-    private String url_photo;
+    private String email;
+    private String address;
     private String sec_ques_ans;
     private int sec_ques_no;
+    private int sq1;
+    private int sq2;
+    private int sq3;
+    private int sq4;
+    private String symptoms;
 
     //getter methods
 
@@ -33,12 +38,12 @@ public class Accounts implements Serializable {
         return pass;
     }
 
-    public String getAbout_Me() {
-        return about_me;
+    public String getEmail() {
+        return email;
     }
 
-    public String getUrl_Photo() {
-        return url_photo;
+    public String getAddress() {
+        return address;
     }
 
     public String getSecQuesAns() {
@@ -47,6 +52,26 @@ public class Accounts implements Serializable {
 
     public int getSecQuesNo() {
         return sec_ques_no;
+    }
+    
+    public int getSQ1() {
+        return sq1;
+    }
+    
+    public int getSQ2() {
+        return sq2;
+    }
+    
+    public int getSQ3() {
+        return sq3;
+    }
+    
+    public int getSQ4() {
+        return sq4;
+    }
+    
+    public String getSymptoms() {
+        return symptoms;
     }
 
    //setter methods
@@ -62,12 +87,12 @@ public class Accounts implements Serializable {
        this.pass = p;
    }
 
-   public void setAboutMe(String ab) {
-       this.about_me = ab;
+   public void setEmail(String e) {
+       this.email = e;
    }
 
-   public void setUrlPhoto(String url) {
-       this.url_photo = url;
+   public void setAddress(String a) {
+       this.address = a;
    }
 
    public void setSecQuesAns(String sqa) {
@@ -76,5 +101,25 @@ public class Accounts implements Serializable {
 
    public void setSecQuesNo(int sqn) {
        this.sec_ques_no = sqn;
+   }
+
+   public void setSQ1(int s1) {
+       this.sq1 = s1;
+   }
+
+   public void setSQ2(int s2) {
+       this.sq1 = s2;
+   }
+
+   public void setSQ3(int s3) {
+       this.sq1 = s3;
+   }
+
+   public void setSQ4(int s4) {
+       this.sq1 = s4;
+   }
+
+   public void setSymptoms(String s) {
+       this.symptoms = s;
    }
 }

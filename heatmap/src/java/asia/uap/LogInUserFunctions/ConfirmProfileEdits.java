@@ -50,9 +50,8 @@ public class ConfirmProfileEdits extends HttpServlet {
         String checkedUser = util.checkNull(request, "username");
         String checkedPass = util.checkNull(request, "password");
         String checkedConfPass = util.checkNull(request, "passwordConfirm");
-        String checkedAboutMe = util.checkNull(request, "abtme");
-        String checkedPhoto = util.checkNull(request, "url_photo");
-        String checkedSecQuesAns = util.checkNull(request, "sec_ques_ans");
+        String checkedEmail = util.checkNull(request, "email");
+        String checkedAddress = util.checkNull(request, "address");
         
         try {
             if (!db.checkPass(account.getUsername(), checkedPass) && !checkedPass.equals(util.NO_VALUE) && checkedPass.equals(checkedConfPass)){
@@ -65,13 +64,12 @@ public class ConfirmProfileEdits extends HttpServlet {
         if (!checkedUser.equals(util.NO_VALUE) && !checkedUser.equals(account.getUsername()) ) {
             account.setUsername(checkedUser);
         } 
-        if (!checkedAboutMe.equals(util.NO_VALUE) && !checkedAboutMe.equals(account.getAbout_Me())) {
-            account.setAboutMe(checkedAboutMe);
+        if (!checkedEmail.equals(util.NO_VALUE) && !checkedEmail.equals(account.getEmail())) {
+            account.setEmail(checkedEmail);
         }
-        if (!checkedPhoto.equals(util.NO_VALUE) && !checkedPhoto.equals(account.getUrl_Photo())) {
-            account.setUrlPhoto(checkedPhoto);
+        if (!checkedAddress.equals(util.NO_VALUE) && !checkedAddress.equals(account.getAddress())) {
+            account.setAddress(checkedAddress);
         }
-
 
         db.updateProfile(account, uid);
         

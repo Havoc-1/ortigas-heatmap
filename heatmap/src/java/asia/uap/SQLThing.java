@@ -16,14 +16,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SQLThing {
     
     //to add a new user
     public int registerUser(Accounts account) {
         String insert = "INSERT INTO users" +  //sql statement
-        "(username, pass, about_me, url_photo, sec_ques_no, sec_ques_ans) SELECT " +
-        "?, SHA2(?, 256), ?, ?, ?, ?;";
+        "(username, password, email, address, sec_ques_no, sec_ques_ans) SELECT " +
+        "?, SHA2(?, 256), ?, ?, ?, SHA2(?, 256);";
         
         int result = 0;
         Connection conn = null;
@@ -40,11 +42,10 @@ public class SQLThing {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/loginreg_db","root","root");
             stmt = conn.prepareStatement(insert);
             
-            //stmt.setInt(1,1); //IMPLEMENT AUTO INCREMENT LOGIC HERE
             stmt.setString(1, account.getUsername());
             stmt.setString(2, account.getPassword());
-            stmt.setString(3, account.getAbout_Me());
-            stmt.setString(4, account.getUrl_Photo());
+            stmt.setString(3, account.getEmail());
+            stmt.setString(4, account.getAddress());
             stmt.setInt(5, account.getSecQuesNo());
             stmt.setString(6, account.getSecQuesAns());
             
@@ -56,12 +57,82 @@ public class SQLThing {
          return result;
     }
     
+    public int registerUserSurvey(Accounts account) {
+        String insert = "INSERT INTO covidquestions " +  //sql statement
+        "(sq1, sq2, sq3, sq4, symptoms) SELECT " +
+        "?, ?, ?, ?, ? ;";
+        
+        int result = 0;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch(ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        
+        
+         try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/loginreg_db","root","root");
+            stmt = conn.prepareStatement(insert);
+            
+            stmt.setInt(1, account.getSQ1());
+            stmt.setInt(2, account.getSQ2());
+            stmt.setInt(3, account.getSQ3());
+            stmt.setInt(4, account.getSQ4());
+            stmt.setString(5, account.getSymptoms());
+            
+            System.out.println(stmt);
+            result = stmt.executeUpdate();
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+         return result;
+    }
+    
+    public int updateUserSurvey(Accounts account) {
+        String insert = "UPDATE covidquestions " +  //sql statement
+        "(sq1, sq2, sq3, sq4, symptoms) SELECT " +
+        "?, ?, ?, ?, ? " +
+        "WHERE uid = ?";
+        
+        int result = 0;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch(ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        
+        
+         try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/loginreg_db","root","root");
+            stmt = conn.prepareStatement(insert);
+            
+            stmt.setInt(1, account.getSQ1());
+            stmt.setInt(2, account.getSQ2());
+            stmt.setInt(3, account.getSQ3());
+            stmt.setInt(4, account.getSQ4());
+            stmt.setString(5, account.getSymptoms());
+            stmt.setInt(6, account.getUid());
+            
+            System.out.println(stmt);
+            result = stmt.executeUpdate();
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+         return result;
+    }
+    
     public int updateProfile(Accounts account, int uid) {
         String insert = "UPDATE users " +
-                        "SET username = ?, pass = SHA2(?, 256), about_me = ?, url_photo = ? " +
+                        "SET username = ?, pass = SHA2(?, 256), email = ?, address = ? " +
                         "WHERE uid = ?;";
         String insert2 = "UPDATE users " +
-                        "SET username = ?, about_me = ?, url_photo = ? " +
+                        "SET username = ?, email = ?, address = ? " +
                         "WHERE uid = ?;";
         
         int result = 0;
@@ -81,15 +152,15 @@ public class SQLThing {
             if(s == null || s.isEmpty()) {
                 stmt = conn.prepareStatement(insert2);
                 stmt.setString(1, account.getUsername());
-                stmt.setString(2, account.getAbout_Me());
-                stmt.setString(3, account.getUrl_Photo());
+                stmt.setString(2, account.getEmail());
+                stmt.setString(3, account.getAddress());
                 stmt.setInt(4, uid);
             }else{
                 stmt = conn.prepareStatement(insert);
                 stmt.setString(1, account.getUsername());
                 stmt.setString(2, s);
-                stmt.setString(3, account.getAbout_Me());
-                stmt.setString(4, account.getUrl_Photo());
+                stmt.setString(3, account.getEmail());
+                stmt.setString(4, account.getAddress());
                 stmt.setInt(5, uid);
             } 
 
@@ -102,8 +173,11 @@ public class SQLThing {
     }
     
     public Accounts getAccount(int uid) {
-        String getAcc = "SELECT username, about_me, url_photo from users " +  //sql statement
-        "WHERE uid = ?;";
+        String getAcc = "SELECT u.username, u.email, u.address, cq.sq1, cq.sq2, cq.sq3, cq.sq4, cq.symptoms " +
+                        "FROM users u " +
+                        "INNER JOIN covidquestions cq " +
+                        "ON u.uid = cq.userUID " +
+                        "WHERE u.uid = ?;";
         
         Accounts account = new Accounts();
         Connection conn = null;
@@ -125,12 +199,18 @@ public class SQLThing {
             System.out.println(stmt);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                account.setUsername(rs.getString("username"));
-                account.setAboutMe(rs.getString("about_me"));
-                account.setUrlPhoto(rs.getString("url_photo"));
+                account.setUsername(rs.getString("u.username"));
+                account.setEmail(rs.getString("u.email"));
+                account.setAddress(rs.getString("u.address"));
+                account.setSQ1(rs.getInt("cq.sq1"));
+                account.setSQ2(rs.getInt("cq.sq2"));
+                account.setSQ3(rs.getInt("cq.sq3"));
+                account.setSQ4(rs.getInt("cq.sq4"));
+                account.setSymptoms(rs.getString("cq.symptoms"));
+                System.out.println("RETURNING ACCOUNT");
                 return account;
             }
-            System.out.println("oh no it passed through");
+            System.out.println("it did not return the account first try");
         } catch (SQLException e) {
             printSQLException(e);
         }
@@ -143,7 +223,7 @@ public class SQLThing {
         PreparedStatement stmt = null;
         
         //sql statement
-        String check = "select * from users where username = ? and pass = SHA2(?, 256)";
+        String check = "select * from users where username = ? and password = SHA2(?, 256)";
         
         
         try {
@@ -174,8 +254,7 @@ public class SQLThing {
         PreparedStatement stmt = null;
         
         //sql statement
-        String check = "select uid from users where username = ? and pass = SHA2(?, 256)";
-        
+        String check = "select uid from users where username = ? and password = SHA2(?, 256)";
         
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -210,7 +289,7 @@ public class SQLThing {
         PreparedStatement stmt = null;
         
         //sql statement
-        String check = "select uid from users where username = ? and pass = SHA2(?, 256)";
+        String check = "select uid from users where username = ? and password = SHA2(?, 256)";
         
         
         try {
@@ -272,7 +351,7 @@ public class SQLThing {
         PreparedStatement stmt = null;
         
         //sql statement
-        String update = "UPDATE users SET pass = SHA2(?, 256) WHERE username = ? and sec_ques_ans = ?;";
+        String update = "UPDATE users SET password = SHA2(?, 256) WHERE username = ? and sec_ques_ans = ?;";
         
         
         try {

@@ -59,5 +59,19 @@ public class Utils {
  
         return sb.toString();
     }
-
+    
+    public String arrToString(String[] s){
+      StringBuilder sb = new StringBuilder();
+      if(s == null || s.length > 0) {
+            return NO_VALUE;
+        }
+      for(int i = 0; i < s.length; i++) {
+         sb.append(s[i]);
+      }
+      String str = sb.toString();
+      if(str == null || str.isEmpty()) {
+            return NO_VALUE;
+       }
+      return str;
+    }
 }

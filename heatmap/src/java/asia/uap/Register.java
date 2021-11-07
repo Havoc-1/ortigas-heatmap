@@ -7,6 +7,7 @@ package asia.uap;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.Integer.parseInt;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -83,23 +84,60 @@ public class Register extends HttpServlet {
         String sq4 = util.checkNull(request, "sq4");
         String[] symptoms = new String[]{};
         symptoms = request.getParameterValues("symptoms");
+        String symp = util.arrToString(symptoms);
         
-        
-        System.out.println("User: " + user);
-        System.out.println("Pass: " + pass);
-        System.out.println("PassCon: " + passCon);
-        System.out.println("Email: " + email);
-        System.out.println("Address: " + addr);
-        System.out.println("Sec Ques No: " + secQ);
-        System.out.println("Sec Ans: " + secAns);
-        
-        System.out.println("Sq1: " + sq1);
-        System.out.println("Sq2: " + sq2);
-        System.out.println("Sq3: " + sq3);
-        System.out.println("Sq4: " + sq4);
-        if (symptoms != null && symptoms.length > 0){
-            for (String s : symptoms) {
-                System.out.println("Symptoms: " + s);
+        if(user.equals(util.NO_VALUE)) {
+            response.sendRedirect("add.jsp");
+        } else if(pass.equals(util.NO_VALUE)){
+            response.sendRedirect("add.jsp");
+        } else if(passCon.equals(util.NO_VALUE)){
+            response.sendRedirect("add.jsp");
+        } else if(email.equals(util.NO_VALUE)){
+            response.sendRedirect("add.jsp");
+        } else if(addr.equals(util.NO_VALUE)){
+            response.sendRedirect("add.jsp");
+        } else if(secQ.equals(util.NO_VALUE)){
+            response.sendRedirect("add.jsp");
+        } else if(secAns.equals(util.NO_VALUE)){
+            response.sendRedirect("add.jsp");
+        } else if(sq1.equals(util.NO_VALUE)){
+            response.sendRedirect("add.jsp");
+        } else if(sq2.equals(util.NO_VALUE)){
+            response.sendRedirect("add.jsp");
+        } else if(sq3.equals(util.NO_VALUE)){
+            response.sendRedirect("add.jsp");
+        } else if(sq4.equals(util.NO_VALUE)){
+            response.sendRedirect("add.jsp");
+        } else {
+            if(symp.equals(util.NO_VALUE)){
+                symp = "None";
+            }
+            if (pass.equals(passCon)){
+                Accounts account = new Accounts();
+                account.setUsername(user);
+                account.setPassword(pass);
+                account.setEmail(email);
+                account.setAddress(addr);
+                account.setSecQuesNo(parseInt(secQ));
+                account.setSecQuesAns(secAns);
+                account.setSQ1(parseInt(sq1));
+                account.setSQ2(parseInt(sq2));
+                account.setSQ3(parseInt(sq3));
+                account.setSQ4(parseInt(sq4));
+                account.setSymptoms(symp);
+
+                db.registerUser(account);
+                int uid;
+                try {
+                    uid = db.getUID(account);
+                    account.setUid(uid);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                db.registerUserSurvey(account);
+                response.sendRedirect("login.jsp");
+            } else{
+                response.sendRedirect("add.jsp");
             }
         }
         

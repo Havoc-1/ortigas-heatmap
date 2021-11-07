@@ -61,11 +61,11 @@ public class EditProfile extends HttpServlet {
 "                <label for=\"passwordConfirm\">Confirm New Password:</label><br>\n" +
 "                <input type=\"password\" name=\"passwordConfirm\" onkeyup='check();'><br>\n" +
 "                \n" +                 
-"                <label for=\"abtme\">New About Me:</label><br>\n" +
-"                <input type=\"text\" name=\"abtme\"><br>\n" +
+"                <label for=\"abtme\">New Email:</label><br>\n" +
+"                <input type=\"text\" name=\"email\"><br>\n" +
 "                \n" +
-"                <label for=\"url_photo\">New URL Photo:</label><br>\n" +
-"                <input type=\"text\" name=\"url_photo\"><br><br>\n" +
+"                <label for=\"url_photo\">New Address:</label><br>\n" +
+"                <input type=\"text\" name=\"address\"><br><br>\n" +
 "\n" +
 "                <input type=\"submit\" value=\"Submit\">\n" +
 "            </form>");
