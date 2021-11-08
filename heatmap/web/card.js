@@ -3,42 +3,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
 
+//getting modal open buttons
+var modalBtns = document.querySelectorAll('.modal-open');
 
-const openModalButtons = document.querySelectorAll('[data-modal-target]');
-const closeModalButtons = document.querySelectorAll('[data-close-button]');
-const overlay = document.getElementById('overlay');
-const overlay2 = document.getElementById('overlay2');
-const overlay3 = document.getElementById('overlay3');
-
-openModalButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    const modal = document.querySelector(button.dataset.modalTarget);
-    openModal(modal);
-  });
+modalBtns.forEach(function(btn) {
+    btn.onclick = function() {
+        var modal = btn.getAttribute("data-modal");
+        document.getElementById(modal).style.display = "block";
+    };  
 });
 
-overlay.addEventListener('click', () => {
-  const modals = document.querySelectorAll('.modal.active');
-  modals.forEach(modal => {
-    closeModal(modal);
-  });
+var closeBtns = document.querySelectorAll('.modal-close');
+
+closeBtns.forEach(function(btn){
+    btn.onclick = function() {
+        var modal = btn.closest(".modal").style.display = "none";
+    };
 });
 
-closeModalButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    const modal = button.closest('.modal');
-    closeModal(modal);
-  });
-});
+window.onclick = function(e) {
+    if(e.target.className === "modal") {
+        e.target.style.display = "none";
+    }
+};
 
-function openModal(modal) {
-  if (modal == null) return
-  modal.classList.add('active');
-  overlay.classList.add('active');
-}
-
-function closeModal(modal) {
-  if (modal == null) return
-  modal.classList.remove('active');
-  overlay.classList.remove('active');
-}

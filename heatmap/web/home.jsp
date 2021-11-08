@@ -12,8 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">        
         <title>Heatmap</title>
         <link rel="stylesheet" href="./style.css"/>
-        <script defer src="gmaps.js"></script>
-        <script defer src="card.js"></script>
+        <script defer src="./card.js"></script>
     </head>
     <body>
         <%-- MAVBAR --%>
@@ -29,8 +28,6 @@
                 </div>
             </div>
         </div>
-        <%-- MODAL POPUP --%>
-        <button data-modal-target="#modal" class="mapbtn"><img src = "img/place.png" class="icon"></button>
         <%-- GOOGLE MAPS HERE --%>
         <div id="map"></div>
         <%-- GOOGLE MAPS FUNCTIONS --%>
@@ -99,9 +96,20 @@
                 }
             }
         </script>
+        <button class="modal-open" data-modal="modal1">Check In / Check out</button> 
+        <div class="modal" id="modal1">
+            <div class="modal-content">
+                <div class="modal-header">Modal 1
+                    <button class="icon modal-close"><i class="material-icons">close</i></button>
+            </div>
+                <div class="modal-body"></div>Put in form here
+                <div class="modal-footer"><button class="link modal-close">Close</button></div>
+            </div>
+        </div>        
         <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1lu_0BTo_fZeii_e_SvY5G7O4bvUKjp4&callback=initMap&v=weekly&channel=2"
       async
-    ></script>   
+    ></script>
+    
     </body>
 </html>
