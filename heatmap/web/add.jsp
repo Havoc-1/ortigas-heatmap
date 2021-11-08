@@ -54,16 +54,16 @@
                 <a class="next">next</a>
             </fieldset>
             <fieldset>
-               <label for="sec_ques_no" class="q">Choose a security question:</label> <br>
+                <label for="sec_ques_no" class="secq">Choose a security question:</label> <br> <br>
                 <div class="select">
                     <select name="sec_ques_no" id="sec_ques_no">
                         <option value="1">Question 1</option>
                         <option value="2">Question 2</option>
                         <option value="3">Question 3</option>
                         <option value="4">Question 4</option>
-                    </select> <br>
-                    <label for="sec_ques_ans" class="q">Answer:</label><br>
-                    <input type="password" class="regp" name="sec_ques_ans" required><br><br>
+                    </select> <br> <br> <br>
+                    <label for="sec_ques_ans" class="secq">Answer:</label><br>
+                    <input type="password" class="secans" name="sec_ques_ans" required><br><br>
                 </div>
                 <br /><br /><br />
                 <a class="prev">prev</a>

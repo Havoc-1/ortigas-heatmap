@@ -578,6 +578,29 @@ input.sympt[type="checkbox"]{
     color: white;
     margin: 3px 3px 3px 3px;
 }
+
+label.secq {
+    color: white;
+    background-color: #FFBB0D;
+    font-size: 26px;
+    display: inline-block;
+    padding-right: 2vh;
+    
+}
+
+input.secans[type=password] {
+    width: 50%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 170px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid #3B3B3B;
+    color: white;
+}
+
+
 /* ----- SCROLL BAR ----*/
 
 ::-webkit-scrollbar {
@@ -602,17 +625,12 @@ input.sympt[type="checkbox"]{
 
 select {
   appearance: none;
-  background-color: #FFBB0D;
+  background-color: #EC632D;
   border: none;
-  
-  padding-right: 40px;
-  margin: 0 0 0 1em;
-  width: 100%;
   font-family: inherit;
   font-size: inherit;
   cursor: inherit;
   line-height: inherit;
-  
   outline: none;
 }
 
@@ -621,9 +639,6 @@ select {
   grid-template-areas: "select";
   align-items: center;
   position: relative;
-  border: 1px solid var(--select-border);
-  border-radius: 0.25em;
-  padding: 0.25em 0.5em;
 }
 
 select:focus + .focus {
