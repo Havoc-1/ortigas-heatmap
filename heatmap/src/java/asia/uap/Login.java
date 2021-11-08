@@ -59,9 +59,22 @@ public class Login extends HttpServlet {
             
             try {
                 if (db.checkLogin(account)) {
+                    String redir = "";
                     session.setAttribute("currentUser", username);
-                    session.setAttribute("currentUserUID", db.getUID(account));
-                    response.sendRedirect("home.jsp");
+                    int i = db.getUID(account);
+                    session.setAttribute("currentUserUID", i);
+                    java.sql.Date d1 = db.getDate(i);
+                    java.sql.Date d2 = new java.sql.Date(System.currentTimeMillis());  
+                    long difference = d2.getTime() - d1.getTime();
+                    float daysBetween = (difference / (1000*60*60*24));
+                    System.out.println("daysBetween: " + daysBetween);
+                    if (daysBetween > 0 ){
+                        redir = "survey.jsp";
+                    } else{
+                        redir = "home.jsp";
+                    }
+                    db.updateDate(d2, i);
+                    response.sendRedirect(redir);
                 } else{
                     response.sendRedirect("index.jsp");
                 }

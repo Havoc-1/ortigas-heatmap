@@ -8,6 +8,7 @@ package asia.uap;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.Integer.parseInt;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -67,6 +68,7 @@ public class Register extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         Utils util = new Utils();
+        Date date = new Date();
        
         //user details
         String user = util.checkNull(request, "username");
@@ -125,8 +127,11 @@ public class Register extends HttpServlet {
                 account.setSQ3(parseInt(sq3));
                 account.setSQ4(parseInt(sq4));
                 account.setSymptoms(symp);
-
-                db.registerUser(account);
+                System.out.println(symp);
+                
+                java.sql.Date sqlDate = new java.sql.Date(date.getTime()); 
+                
+                db.registerUser(account, sqlDate);
                 int uid;
                 try {
                     uid = db.getUID(account);
@@ -134,7 +139,7 @@ public class Register extends HttpServlet {
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                db.registerUserSurvey(account);
+                db.registerUserSurvey(account, sqlDate);
                 response.sendRedirect("login.jsp");
             } else{
                 response.sendRedirect("add.jsp");

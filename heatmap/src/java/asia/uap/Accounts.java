@@ -5,6 +5,7 @@
 package asia.uap;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
@@ -23,6 +24,7 @@ public class Accounts implements Serializable {
     private int sq3;
     private int sq4;
     private String symptoms;
+    private Date lastLogin;
 
     //getter methods
 
@@ -73,6 +75,10 @@ public class Accounts implements Serializable {
     public String getSymptoms() {
         return symptoms;
     }
+    
+    public Date getLastLogin() {
+        return lastLogin;
+    }
 
    //setter methods
    public void setUid(int u) {
@@ -121,5 +127,9 @@ public class Accounts implements Serializable {
 
    public void setSymptoms(String s) {
        this.symptoms = s;
+   }
+
+   public void setLastLogin(Date d) {
+       this.lastLogin = d;
    }
 }

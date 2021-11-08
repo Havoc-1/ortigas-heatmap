@@ -12,6 +12,7 @@ package asia.uap;
 import java.io.IOException;
 import asia.uap.Accounts;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,10 +23,10 @@ import java.util.logging.Logger;
 public class SQLThing {
     
     //to add a new user
-    public int registerUser(Accounts account) {
+    public int registerUser(Accounts account, Date d) {
         String insert = "INSERT INTO users" +  //sql statement
-        "(username, password, email, address, sec_ques_no, sec_ques_ans) SELECT " +
-        "?, SHA2(?, 256), ?, ?, ?, SHA2(?, 256);";
+        "(username, password, email, address, sec_ques_no, sec_ques_ans, lastLogin) SELECT " +
+        "?, SHA2(?, 256), ?, ?, ?, SHA2(?, 256), ?;";
         
         int result = 0;
         Connection conn = null;
@@ -48,6 +49,7 @@ public class SQLThing {
             stmt.setString(4, account.getAddress());
             stmt.setInt(5, account.getSecQuesNo());
             stmt.setString(6, account.getSecQuesAns());
+            stmt.setDate(7, d);
             
             System.out.println(stmt);
             result = stmt.executeUpdate();
@@ -57,10 +59,10 @@ public class SQLThing {
          return result;
     }
     
-    public int registerUserSurvey(Accounts account) {
+    public int registerUserSurvey(Accounts account, Date d) {
         String insert = "INSERT INTO covidquestions " +  //sql statement
-        "(sq1, sq2, sq3, sq4, symptoms) SELECT " +
-        "?, ?, ?, ?, ? ;";
+        "(sq1, sq2, sq3, sq4, symptoms, lastUpdated) SELECT " +
+        "?, ?, ?, ?, ?, ?;";
         
         int result = 0;
         Connection conn = null;
@@ -82,6 +84,7 @@ public class SQLThing {
             stmt.setInt(3, account.getSQ3());
             stmt.setInt(4, account.getSQ4());
             stmt.setString(5, account.getSymptoms());
+            stmt.setDate(6, d);
             
             System.out.println(stmt);
             result = stmt.executeUpdate();
@@ -91,10 +94,10 @@ public class SQLThing {
          return result;
     }
     
-    public int updateUserSurvey(Accounts account) {
+    public int updateUserSurvey(Accounts account, Date d) {
         String insert = "UPDATE covidquestions " +  //sql statement
-        "(sq1, sq2, sq3, sq4, symptoms) SELECT " +
-        "?, ?, ?, ?, ? " +
+        "(sq1, sq2, sq3, sq4, symptoms, lastUpdated) SELECT " +
+        "?, ?, ?, ?, ?, ? " +
         "WHERE uid = ?";
         
         int result = 0;
@@ -117,7 +120,8 @@ public class SQLThing {
             stmt.setInt(3, account.getSQ3());
             stmt.setInt(4, account.getSQ4());
             stmt.setString(5, account.getSymptoms());
-            stmt.setInt(6, account.getUid());
+            stmt.setDate(6, d);
+            stmt.setInt(7, account.getUid());
             
             System.out.println(stmt);
             result = stmt.executeUpdate();
@@ -173,7 +177,7 @@ public class SQLThing {
     }
     
     public Accounts getAccount(int uid) {
-        String getAcc = "SELECT u.username, u.email, u.address, cq.sq1, cq.sq2, cq.sq3, cq.sq4, cq.symptoms " +
+        String getAcc = "SELECT u.username, u.email, u.address, u.lastLogin, cq.sq1, cq.sq2, cq.sq3, cq.sq4, cq.symptoms " +
                         "FROM users u " +
                         "INNER JOIN covidquestions cq " +
                         "ON u.uid = cq.userUID " +
@@ -202,19 +206,78 @@ public class SQLThing {
                 account.setUsername(rs.getString("u.username"));
                 account.setEmail(rs.getString("u.email"));
                 account.setAddress(rs.getString("u.address"));
+                account.setLastLogin(rs.getDate("u.lastLogin"));
                 account.setSQ1(rs.getInt("cq.sq1"));
                 account.setSQ2(rs.getInt("cq.sq2"));
                 account.setSQ3(rs.getInt("cq.sq3"));
                 account.setSQ4(rs.getInt("cq.sq4"));
                 account.setSymptoms(rs.getString("cq.symptoms"));
-                System.out.println("RETURNING ACCOUNT");
                 return account;
             }
-            System.out.println("it did not return the account first try");
         } catch (SQLException e) {
             printSQLException(e);
         }
          return account;
+    }
+    
+    public Date getDate(int uid) {
+        String getDate = "SELECT lastLogin FROM users where uid = ?";
+        
+        Date d = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch(ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        
+        
+         try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/loginreg_db","root","root");
+            stmt = conn.prepareStatement(getDate);
+            
+            stmt.setInt(1, uid);
+            
+            System.out.println(stmt);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getDate("lastLogin");
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+         return d;
+    }
+    
+    public int updateDate(Date d, int uid) throws ClassNotFoundException {
+        int result = 0;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        //sql statement
+        String update = "UPDATE users SET lastLogin = ? WHERE uid = ?";
+        
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch(ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/loginreg_db","root","root");
+            stmt = conn.prepareStatement(update);
+            stmt.setDate(1, d);
+            stmt.setInt(2, uid);
+            
+            System.out.println(stmt);
+            result = stmt.executeUpdate();
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return result;
     }
     
     public boolean checkLogin(Accounts account) throws ClassNotFoundException {
@@ -248,6 +311,37 @@ public class SQLThing {
         return status;
     }
     
+    public boolean checkAdminLogin(Accounts account) throws ClassNotFoundException {
+        boolean status = false;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        //sql statement
+        String check = "select * from admins where username = ? and password = SHA2(?, 256)";
+        
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch(ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/loginreg_db","root","root");
+            stmt = conn.prepareStatement(check);
+            stmt.setString(1, account.getUsername());
+            stmt.setString(2, account.getPassword());
+            
+            System.out.println(stmt);
+            ResultSet rs = stmt.executeQuery();
+            status = rs.next();
+            
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return status;
+    }
+    
     public int getUID(Accounts account) throws ClassNotFoundException {
         int uid = 0;
         Connection conn = null;
@@ -255,6 +349,41 @@ public class SQLThing {
         
         //sql statement
         String check = "select uid from users where username = ? and password = SHA2(?, 256)";
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch(ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/loginreg_db","root","root");
+            stmt = conn.prepareStatement(check);
+            stmt.setString(1, account.getUsername());
+            stmt.setString(2, account.getPassword());
+            
+            System.out.println(stmt);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                uid = rs.getInt("uid");
+                System.out.println(uid);
+                return uid;
+            }
+            System.out.println("oh no it passed through");
+            
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return uid;
+    }
+    
+    public int getAdminUID(Accounts account) throws ClassNotFoundException {
+        int uid = 0;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        //sql statement
+        String check = "select uid from admins where username = ? and password = SHA2(?, 256)";
         
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");

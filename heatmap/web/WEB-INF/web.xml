@@ -52,6 +52,14 @@
         <servlet-name>ConfirmProfileEdits</servlet-name>
         <servlet-class>asia.uap.LogInUserFunctions.ConfirmProfileEdits</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminLogin</servlet-name>
+        <servlet-class>asia.uap.AdminLogin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>updateSurvey</servlet-name>
+        <servlet-class>asia.uap.LogInUserFunctions.updateSurvey</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgetPass</servlet-name>
         <url-pattern>/do.forgor</url-pattern>
@@ -87,6 +95,14 @@
     <servlet-mapping>
         <servlet-name>ConfirmProfileEdits</servlet-name>
         <url-pattern>/do.confirmEdits</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminLogin</servlet-name>
+        <url-pattern>/do.adminLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateSurvey</servlet-name>
+        <url-pattern>/do.updateSurvey</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

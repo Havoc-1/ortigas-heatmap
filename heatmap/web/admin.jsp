@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ page import="java.sql.*" %>
+<% Class.forName("com.mysql.cj.jdbc.Driver"); %>
 <html>
     <head>
         <meta name ="viewport" content="width=device-width, initial-scale=1.0"> <%-- to make the webpage responsive --%>        
@@ -17,6 +19,19 @@
         <title>Admin Page</title>
     </head>
     <body>
+        <%
+            String sql = "SELECT u.uid, u.username, u.email, u.address, sq.question, cq.sq1, cq.sq2, cq.sq3, cq.sq4, cq.symptoms "
+                  + "FROM users u "
+                  + "INNER JOIN securityquestions sq "
+                  + "ON u.sec_ques_no = sq.id "
+                  + "INNER JOIN covidquestions cq "
+                  + "ON u.uid = cq.userUID;";
+            Connection connection = DriverManager.getConnection(
+            "jdbc:mysql://localhost:3306/loginreg_db","root","root");
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            System.out.println(stmt);
+            ResultSet rs = stmt.executeQuery();
+       %>
         <section class="admintab">
              <div class="container">
             <div class="row">
@@ -26,53 +41,49 @@
                     <tr>
                       <th scope="col">UID</th>
                       <th scope="col">Username</th>
-                      <th scope="col">Password</th>
-                      <th scope="col">URL_Photo</th>
-                      <th scope="col">Security Question No.</th>
-                      <th scope="col">Security Answer</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Address</th>
+                      <th scope="col">Security Question</th>
+                      <th scope="col">Status</th>
                       <th scope="col">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
+                    <% while(rs.next()){ %>
                     <tr>
-                      <th scope="row">1</th>
-                      <td>SQL Logic here</td>
-                      <td>SQL Logic here</td>
-                      <td>SQL Logic here</td>
-                      <td>SQL Logic here</td>
-                      <td>SQL Logic here</td>
+                      <td><%= rs.getString(1) %></td>
+                      <td><%= rs.getString(2) %></td>
+                      <td><%= rs.getString(3) %></td>
+                      <td><%= rs.getString(4) %></td>
+                      <td><%= rs.getString(5) %></td>
+                      <%
+                          boolean sq1 = rs.getBoolean(6);
+                          boolean sq2 = rs.getBoolean(7);
+                          boolean sq3 = rs.getBoolean(8);
+                          boolean sq4 = rs.getBoolean(9);
+                          String symp = rs.getString(10);
+                          boolean qStatus = false;
+                          
+                          String print = "";
+                          if (sq1 && sq2 && sq3 && sq4){
+                              qStatus = false;
+                          }else{
+                              qStatus = true;
+                          }
+                          if (qStatus && symp.equals("None")){
+                              print = "Safe";
+                          }else{
+                              print = "Compromised";
+                          }
+                      %>
+                      <td><%= print %></td>
                       <td> <%-- Implement administrator abilities here (icons are from bootstrap/fontisawesome --%> 
                         <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
                         <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
                         <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
                       </td>
                     </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>SQL Logic here</td>
-                      <td>SQL Logic here</td>
-                      <td>SQL Logic here</td>
-                      <td>SQL Logic here</td>
-                      <td>SQL Logic here</td>
-                      <td>
-                        <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
-                        <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                        <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>SQL Logic here</td>
-                      <td>SQL Logic here</td>
-                      <td>SQL Logic here</td>
-                      <td>SQL Logic here</td>
-                      <td>SQL Logic here</td>
-                      <td>
-                        <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
-                        <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                        <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                      </td>
-                    </tr>
+                    <% } %>
                   </tbody>
                 </table>
               </div>
