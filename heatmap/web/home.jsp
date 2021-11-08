@@ -30,6 +30,41 @@
         </div>
         <%-- MODAL POPUP --%>
         <button data-modal-target="#modal" class="mapbtn"><img src = "img/place.png" class="icon"></button>
+        
+        <%-- ADD POPUP 
+            this is broken image won't even show
+            i don't fucking know anymore someone help me please - yguico [7 PM]
+            I speculate something wrong with card.js or style.css [8 PM]
+        --%>
+        <%-- GOOGLE MAPS HERE --%>
+        
+        <div id="map"></div>
+        <%-- GOOGLE MAPS FUNCTIONS --%>
+        <script>
+            <%-- initialize map --%>
+            function initMap() {
+                var options = {
+                    zoom: 14,
+                    <%-- loc of ortigas --%>
+                    center: {lat:14.5838, lng: 121.0597}
+                };
+                <%-- map object --%>
+                var map = new google.maps.Map(document.getElementById('map'), options);
+                
+                <%-- add marker --%>
+                var marker = new google.maps.Marker({
+                    position:{lat: 14.5847, lng: 121.0573},
+                    map:map
+                    });
+            <%-- GOOGLE MAPS FUNCTIONS --%>
+                    
+            }
+        </script>
+        <%-- GOOGLE MAPS API CALL --%>
+        <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDzIaCz49OpE1W-8LofyUaLInsTwwc98k&callback=initMap&libraries=&v=weekly"
+      async
+        ></script>
         <div class="modal" id="modal">
             <div class="modal-header">
                 <div class="title">SM MegaMall</div>
@@ -65,36 +100,5 @@
                     </div>
             </div>        
         </div>
-        <%-- ADD POPUP 
-            this is broken image won't even show
-            i don't fucking know anymore someone help me please - yguico [7 PM]
-            I speculate something wrong with card.js or style.css [8 PM]
-        --%>
-        <button data-modal-target="#modal3" class="addbtn">CHECK-IN</button>
-        <div class ="modal3" id="modal3">
-            <div class="modal3-header">
-                <div class="title">Check-in</div>
-                <button data-close-button class="close-button">&times;</button>
-            </div>
-            <div class="modal3-body">
-                <p>This isn't working - I'm sad</p>
-            </div>
-        </div>
-        <button data-modal-target="#modal4" class="rmvbtn">CHECK-OUT</button>
-        <div class ="modal4" id="modal4">
-            <div class="modal4-header">
-                <div class="title">Check-out</div>
-                <button data-close-button class="close-button">&times;</button>
-            </div>
-            <div class="modal4-body">
-                <p>This isn't working - I'm sad</p>
-            </div>
-        </div>
-        <div class ="heatmap">
-            <img src ="img/sample.png">
-        </div>
-        <div id="overlay"></div>
-        <div id="overlay2"></div>
-        <div id="overlay3"></div>
     </body>
 </html>

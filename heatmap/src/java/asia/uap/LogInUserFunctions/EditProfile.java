@@ -46,32 +46,49 @@ public class EditProfile extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdatePassword</title>");            
+            out.println("<title>Update Password</title>");
+            out.println("<link rel=\"stylesheet\" href=\"./style.css\"/>");
             out.println("</head>");
             out.println("<body>");
+            //navbar
+            out.println("<div class=\"navbar\">");
+            out.println("<a href=\"home.jsp\"><img src =\"img/logo.png\"></a>");
+            out.println("<div class=\"dropdown\">");
+            out.println("<button class=\"dropbtn\">Wilbert De La Cruz");
+            out.println("<i class=\"fa fa-caret-down\"></i>");
+            out.println("</button>");
+            out.println("<div class=\"dropdown-content\">");
+            out.println("<a href=\"profile.jsp\">Profile Settings</a>");
+            out.println("<a href=\"do.logout\">Log Out</a>");
+            out.println("</div>");
+            out.println("</div>");
+            out.println("</div>");
+            //main page
+            out.println("<div class=\"viewprofile2\">");
+            out.println("<div class=\"sqlprof\">");
             out.println("<h1>Edit Profile</h1>");
             out.println("<h3>For user details that does not want to be edited, leave the input box blank.</h3>");
             out.println("<form action =\"do.confirmEdits\" method =\"post\">\n" +
-"                <label for=\"username\">New Username:</label><br>\n" +
-"                <input type=\"text\" name=\"username\"><br>\n" +
+"                <label for=\"username\" class=\"q\">New Username:</label><br>\n" +
+"                <input type=\"text\" class=\"profedit\" name=\"username\"><br>\n" +
 "                \n" +
-"                <label for=\"password\">New Password:</label><br>\n" +
-"                <input type=\"password\" name=\"password\" onkeyup='check();'><br>\n" +
+"                <label for=\"password\" class=\"q\">New Password:</label><br>\n" +
+"                <input type=\"password\" class=\"profeditp\" name=\"password\" onkeyup='check();'><br>\n" +
 "                \n" +
-"                <label for=\"passwordConfirm\">Confirm New Password:</label><br>\n" +
-"                <input type=\"password\" name=\"passwordConfirm\" onkeyup='check();'><br>\n" +
+"                <label for=\"passwordConfirm\" class=\"q\">Confirm New Password:</label><br>\n" +
+"                <input type=\"password\" class=\"profeditp\" name=\"passwordConfirm\" onkeyup='check();'><br>\n" +
 "                \n" +                 
-"                <label for=\"abtme\">New Email:</label><br>\n" +
-"                <input type=\"text\" name=\"email\"><br>\n" +
+"                <label for=\"abtme\" class=\"q\">New Email:</label><br>\n" +
+"                <input type=\"text\" class=\"profedit\" name=\"email\"><br>\n" +
 "                \n" +
-"                <label for=\"url_photo\">New Address:</label><br>\n" +
-"                <input type=\"text\" name=\"address\"><br><br>\n" +
+"                <label for=\"url_photo\" class=\"q\">New Address:</label><br>\n" +
+"                <input type=\"text\" class=\"profedit\" name=\"address\"><br><br>\n" +
 "\n" +
-"                <input type=\"submit\" value=\"Submit\">\n" +
+"                <input type=\"submit\" class=\"submitbtn2\" value=\"Submit\">\n" +
 "            </form>");
+            out.println("</div>");
             out.println("<script src='onKeyUp.js'></script>");
             out.println("</body>");
-            
             out.println("</html>");
         }
     }

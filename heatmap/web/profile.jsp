@@ -16,18 +16,38 @@
         <title>Profile Page</title>
     </head>
     <body>
-        <%
-        SQLThing db = new SQLThing();
-        int uid = (int) session.getAttribute("currentUserUID");
-        Accounts account = db.getAccount(uid);
-        String user = account.getUsername();
-        String email = account.getEmail();
-        String address = account.getAddress();
-        %>
-        <h1> User Profile</h1>
-        <h3>Username = <%out.print(user);%></h3>
-        <h3>About Me = <%out.print(email);%></h3>
-        <h3>URL Photo = <%out.print(address);%></h3>
-        <a href ="do.editProfile">Edit Profile</a>
+        <div class="navbar">
+            <a href="home.jsp"><img src ="img/logo.png"></a>
+            <div class="dropdown">
+                <button class="dropbtn">Wilbert De La Cruz <%-- Make this fetch username --%>
+                <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="profile.jsp">Profile Settings</a>
+                    <a href="do.logout">Log Out</a>
+                </div>
+            </div>
+        </div>
+        <div class="viewprofile">
+            <div class="sqlprof">
+                <%
+                SQLThing db = new SQLThing();
+                int uid = (int) session.getAttribute("currentUserUID");
+                Accounts account = db.getAccount(uid);
+                String user = account.getUsername();
+                String email = account.getEmail();
+                String address = account.getAddress();
+                %>
+                <h1> User Profile</h1>
+                <h3>Username</h3>
+                <h4><%out.print(user);%></h4>
+                <h3>Email</h3>
+                <h4><%out.print(email);%></h4>
+                <h3>Address</h3>
+                <h4><%out.print(address);%></h4> <br>
+                <a href ="do.editProfile" class="Edit">Edit Profile</a> <br>
+                <a href="home.jsp" class="Edit">Home</a>
+            </div>
+        </div>
     </body>
 </html>
