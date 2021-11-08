@@ -9,16 +9,29 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="./style.css"/>
         <title>Forgot Password</title>
+        
     </head>
     <body>
-         <div align ="center">
+      <section class ="txt1">
+         <div class ="center">
             <h1>Forgot Password</h1>
-            <form action="do.forgor" method="post" >
-                <label for = "forgotUser">Enter username</label><br>
-                <input type ="text" name="forgotUser" required><br>
-                <input type ="submit" value="Submit">
+            <form action="do.forgor" method="post">
+                <div class="txt_field">
+                    
+                    <input type ="text" name="forgotUser" required> 
+                    
+                    <label for = "forgotUser"> Enter username </label> 
+             
+                     
+                 
+                </div>
+                <input type ="submit" value="Submit"> <br><br>
             </form>
-        </div>
+         </div>
+        
+     </section>
+        
     </body>
 </html>
