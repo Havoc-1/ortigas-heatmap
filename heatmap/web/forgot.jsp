@@ -12,6 +12,7 @@
         <meta name ="viewport" content="with=device-width, initial-scale=1.0"> 
         <link rel="stylesheet" href="./style.css"/>
         <title>Forgot Password</title>
+        
     </head>
     <body>
         <section class="txt1">
