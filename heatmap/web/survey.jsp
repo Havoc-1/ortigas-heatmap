@@ -15,6 +15,7 @@
     </head>
     <body>
         <section class="regarea2">
+            <h1>Survey of the day</h1>
             <form action="do.updateSurvey" id="form1" class="formarea">
                 <fieldset>
                         <div class="survey">
