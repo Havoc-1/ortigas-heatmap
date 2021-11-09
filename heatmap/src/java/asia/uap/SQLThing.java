@@ -449,7 +449,7 @@ public class SQLThing {
         PreparedStatement stmt = null;
         
         //sql statement
-        String check = "select uid from users where username = ? and sec_ques_ans = ?";
+        String check = "select uid from users where username = ? and sec_ques_ans = SHA2(?, 256)";
         
         
         try {
