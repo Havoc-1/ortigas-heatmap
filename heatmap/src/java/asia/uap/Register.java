@@ -34,33 +34,6 @@ public class Register extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException { 
         processRequest(request, response);
-        /*
-        if (checkedUser.equals(util.NO_VALUE)) {
-            response.sendRedirect("login.jsp");
-        } else if (checkedPass.equals(util.NO_VALUE)) {
-            response.sendRedirect("login.jsp");
-        } else if (checkedAboutMe.equals(util.NO_VALUE)) {
-            response.sendRedirect("login.jsp");
-        } else if (checkedPhoto.equals(util.NO_VALUE)) {
-            response.sendRedirect("login.jsp");
-        } else if (checkedSecQuesAns.equals(util.NO_VALUE)) {
-            response.sendRedirect("login.jsp");
-        } else {
-            Accounts account = new Accounts();
-            account.setUsername(checkedUser);
-            account.setPassword(checkedPass);
-            account.setAboutMe(checkedAboutMe);
-            account.setUrlPhoto(checkedPhoto);
-            int i = Integer.parseInt(request.getParameter("sec_ques_no"));
-            account.setSecQuesNo(i);
-            account.setSecQuesAns(checkedSecQuesAns);
-
-
-            db.registerUser(account);
-
-            response.sendRedirect("home.jsp");
-        }
-        */
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -69,6 +42,8 @@ public class Register extends HttpServlet {
         
         Utils util = new Utils();
         Date date = new Date();
+        String redir = "";
+        String message = "";
        
         //user details
         String user = util.checkNull(request, "username");
@@ -140,23 +115,24 @@ public class Register extends HttpServlet {
                     Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 db.registerUserSurvey(account, sqlDate);
-                response.sendRedirect("login.jsp");
+                redir = "login.jsp";
+                message = "Register Succesful!";
             } else{
-                response.sendRedirect("add.jsp");
+                redir = "add.jsp";
+                message = "REgister Unsuccesful!";
             }
         }
-        
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-            String sq = (String) session.getAttribute("secques");
+
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet Register</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Register at " + request.getContextPath() + "</h1>");
+            out.println("<h1>" + message + "</h1>");
+            out.println("<a href=\"" + redir + "\">Next page</a>");
             out.println("</body>");
             out.println("</html>");
         }

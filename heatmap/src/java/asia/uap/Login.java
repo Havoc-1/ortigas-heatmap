@@ -47,6 +47,8 @@ public class Login extends HttpServlet {
         HttpSession session = request.getSession();
         String username = request.getParameter("userLogin");
         String password = request.getParameter("passLogin");
+        String redir = "";
+        String message = "";
         
         if(username == null || username.isEmpty()) {
             response.sendRedirect("login.jsp");
@@ -59,7 +61,6 @@ public class Login extends HttpServlet {
             
             try {
                 if (db.checkLogin(account)) {
-                    String redir = "";
                     session.setAttribute("currentUser", username);
                     int i = db.getUID(account);
                     session.setAttribute("currentUserUID", i);
@@ -73,14 +74,27 @@ public class Login extends HttpServlet {
                     } else{
                         redir = "home.jsp";
                     }
+                    message = "Login Succesful!";
                     db.updateDate(d2, i);
-                    response.sendRedirect(redir);
                 } else{
-                    response.sendRedirect("index.jsp");
+                    redir = "index.jsp";
+                    message = "Login Unsuccesful!";
                 }
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet Register</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>" + message + "</h1>");
+            out.println("<a href=\"" + redir + "\">Next page</a>");
+            out.println("</body>");
+            out.println("</html>");
         }
         
     }

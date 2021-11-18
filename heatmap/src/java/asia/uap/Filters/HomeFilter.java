@@ -117,6 +117,7 @@ public class HomeFilter implements Filter {
         if (loggedIn == false){
             httpResponse.sendRedirect("login.jsp");
             log("boo ur not logged in bro");
+            return;
         }
         
         

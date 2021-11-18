@@ -51,7 +51,8 @@
                   <tbody>
                     <% while(rs.next()){ %>
                     <tr>
-                      <td><%= rs.getString(1) %></td>
+                      <% String uid = rs.getString(1); %>
+                        <td><%= uid %></td>
                       <td><%= rs.getString(2) %></td>
                       <td><%= rs.getString(3) %></td>
                       <td><%= rs.getString(4) %></td>
@@ -80,7 +81,7 @@
                       <td> <%-- Implement administrator abilities here (icons are from bootstrap/fontisawesome --%> 
                         <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
                         <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                        <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                        <button type="button" class="btn btn-danger"><i class="far fa-trash-alt" ></i></button>
                       </td>
                     </tr>
                     <% } %>

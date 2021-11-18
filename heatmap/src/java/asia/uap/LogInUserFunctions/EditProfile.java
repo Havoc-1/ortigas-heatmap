@@ -69,9 +69,6 @@ public class EditProfile extends HttpServlet {
             out.println("<h1>Edit Profile</h1>");
             out.println("<h3>For user details that does not want to be edited, leave the input box blank.</h3>");
             out.println("<form action =\"do.confirmEdits\" method =\"post\">\n" +
-"                <label for=\"username\" class=\"q\">New Username:</label><br>\n" +
-"                <input type=\"text\" class=\"profedit\" name=\"username\"><br>\n" +
-"                \n" +
 "                <label for=\"password\" class=\"q\">New Password:</label><br>\n" +
 "                <input type=\"password\" class=\"profeditp\" name=\"password\" onkeyup='check();'><br>\n" +
 "                \n" +

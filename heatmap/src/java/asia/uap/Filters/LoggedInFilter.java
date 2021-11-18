@@ -118,6 +118,7 @@ public class LoggedInFilter implements Filter {
         if (loggedIn == true){
             httpResponse.sendRedirect("home.jsp");
             log("ur logged in already bro");
+            return;
         }
         
         Throwable problem = null;

@@ -47,23 +47,19 @@ public class ConfirmProfileEdits extends HttpServlet {
         int uid = (int) session.getAttribute("currentUserUID");
         Accounts account = db.getAccount(uid);
         
-        String checkedUser = util.checkNull(request, "username");
         String checkedPass = util.checkNull(request, "password");
         String checkedConfPass = util.checkNull(request, "passwordConfirm");
         String checkedEmail = util.checkNull(request, "email");
         String checkedAddress = util.checkNull(request, "address");
         
         try {
-            if (!db.checkPass(account.getUsername(), checkedPass) && !checkedPass.equals(util.NO_VALUE) && checkedPass.equals(checkedConfPass)){
+            if (!db.checkPass(uid, checkedPass) && !checkedPass.equals(util.NO_VALUE) && checkedPass.equals(checkedConfPass)){
                 account.setPassword(checkedPass);
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ConfirmProfileEdits.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        if (!checkedUser.equals(util.NO_VALUE) && !checkedUser.equals(account.getUsername()) ) {
-            account.setUsername(checkedUser);
-        } 
         if (!checkedEmail.equals(util.NO_VALUE) && !checkedEmail.equals(account.getEmail())) {
             account.setEmail(checkedEmail);
         }
@@ -73,7 +69,6 @@ public class ConfirmProfileEdits extends HttpServlet {
 
         db.updateProfile(account, uid);
         
-        response.sendRedirect("home.jsp");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -83,6 +78,7 @@ public class ConfirmProfileEdits extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Edit Succesful!</h1>");
+            out.println("<a href=\"home.jsp\">Back to Home</a>");
             out.println("</body>");
             out.println("</html>");
         }
