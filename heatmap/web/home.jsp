@@ -11,6 +11,12 @@
         <meta name ="viewport" content="width=device-width, initial-scale=1.0"> <%-- to make the webpage responsive --%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">        
         <title>Heatmap</title>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
         <link rel="stylesheet" href="./style.css"/>
         <script defer src="./card.js"></script>
     </head>
@@ -28,88 +34,32 @@
                 </div>
             </div>
         </div>
-        <%-- GOOGLE MAPS HERE --%>
-        <div id="map"></div>
-        <%-- GOOGLE MAPS FUNCTIONS --%>
+        <%-- MAVBAR END --%>
+        <%-- LEAFLETJS --%>
+        <div id="map"></div>        
         <script>
-            //map options
-            function initMap(){
-                var options = {
-                    zoom: 14,
-                    center: {lat:14.5838,lng:121.0597},
-                    mapId: '80b8998c20ecb721'
-                }   
-                //new map object
-                var map = new google.maps.Map(document.getElementById('map'), options);
-                
-                //array of markers
-                var markers = [
-                    {
-                        coords:{lat:14.5847,lng:121.0573},
-                        iconImage: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
-                        content: '<h1>SM Megamall</h1>\n\
-                            <h3>Num. of people</h3> <p>120 pax</p>\n\
-                            <h3>People per hour</h3> <p>5 per hour</p>\n\
-                            <h3>Time spent</h3> <p>~1 hour</p>\n\
-                            <h3>Reviews</h3><div class="gmaps"><img src="img/thumb_up.png"><p>60%</p><img src="img/thumb_down.png"></div><p>40%</p>\n\
-                            <h3>Recent visits</h3> <p>Alyssa, 2 days ago</p>\n\
-                            <h3>COVID Positive</h3> <img src="img/warning.png"><p>Miggy Reyes, Mia Salazar</p>'
-                    }, 
-                    {
-                        coords:{lat:14.5803,lng:121.0608},
-                        //undefined icon image - testing purposes
-                        content: '<h1>University of Asia & the Pacific</h1>\n\
-                        <h3>Num. of people</h3> <p>120 pax</p>\n\
-                        <h3>People per hour</h3> <p>5 per hour</p>\n\
-                        <h3>Time spent</h3> <p>~1 hour</p>\n\
-                        <h3>Reviews</h3><div class="gmaps"><img src="img/thumb_up.png"><p>60%</p><img src="img/thumb_down.png"></div><p>40%</p>\n\
-                        <h3>Recent visits</h3> <p>Alyssa, 2 days ago</p>\n\
-                        <h3>COVID Positive</h3> <img src="img/warning.png"><p>Miggy Reyes, Mia Salazar</p>'
-                    }
-                ];
-                
-                // loop through markers 
-                for(var i = 0; i < markers.length;i++) {
-                    addMarker(markers[i]);
-                }                
-                //add marker function
-                function addMarker(props) {
-                    var marker = new google.maps.Marker({
-                        position: props.coords, //somewhat oop approach
-                        map:map,
-                        icon: props.iconImage //calls custom image per marker
-                    });
-                    //check for custom icon
-                    if(props.iconImage) {
-                        //set icon image
-                        marker.setIcon(props.iconImage);
-                    }
-                    //check content
-                    if(props.content) {
-                        var infoWindow = new google.maps.InfoWindow({
-                        content: props.content
-                    });
-                    marker.addListener('click', function(){
-                        infoWindow.open(map, marker);
-                        });
-                    }
-                }
-            }
+            var mymap = L.map('map').setView([14.5838, 121.0597], 13);
+                L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                maxZoom: 18,
+                id: 'mapbox/streets-v11',
+                tileSize: 512,
+                zoomOffset: -1,
+                accessToken: 'pk.eyJ1Ijoic3lndWljbyIsImEiOiJja3c0a3UzYXEweHU4MzJwZGszMXJnazRiIn0.ASuhvy3d0d4_oyvmQOfunw'
+            }).addTo(mymap);
         </script>
+        <%-- LEAFLETJS END --%>
+        <%-- MODALS --%>
         <button class="modal-open" data-modal="modal1">Check In / Check out</button> 
         <div class="modal" id="modal1">
             <div class="modal-content">
                 <div class="modal-header">Modal 1
                     <button class="icon modal-close"><i class="material-icons">close</i></button>
-            </div>
+                </div>
                 <div class="modal-body"></div>Put in form here
                 <div class="modal-footer"><button class="link modal-close">Close</button></div>
             </div>
-        </div>        
-        <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1lu_0BTo_fZeii_e_SvY5G7O4bvUKjp4&callback=initMap&v=weekly&channel=2"
-      async
-    ></script>
-    
+        </div>
+        <%-- MODALS END --%>
     </body>
 </html>

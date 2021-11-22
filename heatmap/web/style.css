@@ -16,6 +16,38 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     font-family: 'Lexend Deca', sans-serif;    
 }
 
+/* unvisited link */
+a.link1:link {
+  color: #19BDCE;
+  text-decoration: none;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #19BDCE;
+}
+
+/* visited link */
+a.link1:visited {
+  color: #2CB7A9;
+  text-decoration: none;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #2CB7A9;
+}
+
+/* mouse over link */
+a.link1:hover {
+  color: #FFBB0D;
+  text-decoration: none;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #FFBB0D;
+}
+
+/* selected link */
+a.link1:active {
+  color: #EC632D;
+  text-decoration: none;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #EC632D;
+}
+
 /* ----- splash page ----*/
 
 .splash {

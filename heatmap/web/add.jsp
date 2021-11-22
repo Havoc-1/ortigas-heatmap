@@ -49,7 +49,7 @@
                 <input type="text" class="reg" name="address" required> <br> <br> 
                 
                 <input type="checkbox" required="">
-                <label for="tos" class="ans">I agree to the <a href="tos.jsp">Terms
+                <label for="tos" class="ans">I agree to the <a href="tos.jsp" class="link1">Terms
                         and Service</a></label> <br> <br>
                 <a class="next">next</a>
             </fieldset>

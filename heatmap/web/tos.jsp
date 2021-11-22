@@ -75,7 +75,7 @@
             <p>13. <b>Links To Other Web Sites</b></p>
             <p>Our Service may contain links to third party web sites or services that are not owned or controlled by WebDev2LLC.</p>
             <p>WebDev2LLC has no control over, and assumes no responsibility for the content, privacy policies, or practices of any third party web sites or services. We do not warrant the offerings of any of these entities/individuals or their websites.</p>
-            <p>For example, the outlined <a href="https://policymaker.io/terms-and-conditions/">Terms of Use</a> have been created using <a href="https://policymaker.io/">PolicyMaker.io</a>, a free web application for generating high-quality legal documents. PolicyMaker’s <a href="https://policymaker.io/terms-and-conditions/">Terms and Conditions generator</a> is an easy-to-use free tool for creating an excellent standard Terms of Service template for a website, blog, e-commerce store or app.</p>
+            <p>For example, the outlined <a href="https://policymaker.io/terms-and-conditions/" class="link1">Terms of Use</a> have been created using <a href="https://policymaker.io/" class="link1">PolicyMaker.io</a>, a free web application for generating high-quality legal documents. PolicyMaker’s <a href="https://policymaker.io/terms-and-conditions/" class="link1">Terms and Conditions generator</a> is an easy-to-use free tool for creating an excellent standard Terms of Service template for a website, blog, e-commerce store or app.</p>
             <p>YOU ACKNOWLEDGE AND AGREE THAT COMPANY SHALL NOT BE RESPONSIBLE OR LIABLE, DIRECTLY OR INDIRECTLY, FOR ANY DAMAGE OR LOSS CAUSED OR ALLEGED TO BE CAUSED BY OR IN CONNECTION WITH USE OF OR RELIANCE ON ANY SUCH CONTENT, GOODS OR SERVICES AVAILABLE ON OR THROUGH ANY SUCH THIRD PARTY WEB SITES OR SERVICES.</p>
             <p>WE STRONGLY ADVISE YOU TO READ THE TERMS OF SERVICE AND PRIVACY POLICIES OF ANY THIRD PARTY WEB SITES OR SERVICES THAT YOU VISIT.</p>
             <p>14. <b>Disclaimer Of Warranty</b></p>
@@ -105,9 +105,9 @@
             <p>BY USING SERVICE OR OTHER SERVICES PROVIDED BY US, YOU ACKNOWLEDGE THAT YOU HAVE READ THESE TERMS OF SERVICE AND AGREE TO BE BOUND BY THEM.</p>
             <p>22. <b>Contact Us</b></p>
             <p>Please send your feedback, comments, requests for technical support by email: <b>juan.yguico@uap.asia</b>.</p>
-            <p style="margin-top: 5em; font-size: 0.7em;">These <a href="https://policymaker.io/terms-and-conditions/">Terms of Service</a> were created for <b>heatmap.com</b> by <a href="https://policymaker.io">PolicyMaker.io</a> on 2021-11-06.</p>
+            <p style="margin-top: 5em; font-size: 0.7em;">These <a href="https://policymaker.io/terms-and-conditions/" class="link1">Terms of Service</a> were created for <b>heatmap.com</b> by <a href="https://policymaker.io" class="link1">PolicyMaker.io</a> on 2021-11-06.</p>
             <p class="back">
-                <a href="add.jsp">Go back</a>
+                <a href="add.jsp" class="link1">Go back</a>
             </p>
         </div>
     </body>
