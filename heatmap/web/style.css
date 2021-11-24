@@ -832,6 +832,7 @@ nav img {
     position: absolute;
     left: 10px;
     bottom: 20px;
+    z-index: 400;
 }
 
 .modal-open1 {
@@ -854,7 +855,7 @@ nav img {
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: 20;
+  z-index: 400;
   background-color: white;
   width: 500px;
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
