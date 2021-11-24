@@ -10,14 +10,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name ="viewport" content="width=device-width, initial-scale=1.0"> <%-- to make the webpage responsive --%>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="./style.css"/>
         <title>Terms of Service Agreement</title>
     </head>
     <body>
         <div class="card">
-            <h2 style="text-align: center;"><b>TERMS AND CONDITIONS</b></h2>
-            <p>Last updated: 2021-11-06</p>
+            <h2><b>TERMS AND CONDITIONS</b></h2><br> 
+            <p style="text-align: center;">Last updated: 2021-11-06</p> <br>
             <p>1. <b>Introduction</b></p>
             <p>Welcome to <b>WebDev2LLC</b> (“Company”, “we”, “our”, “us”)!</p>
             <p>These Terms of Service (“Terms”, “Terms of Service”) govern your use of our website located at <b>heatmap.com</b> (together or individually “Service”) operated by <b>WebDev2LLC</b>.</p>

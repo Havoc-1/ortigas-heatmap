@@ -706,7 +706,7 @@ select:focus + .focus {
   max-width: 100%;
   min-height: 90px;
   cursor: pointer;
-  padding: 15px;
+  padding: 100px;
   
 }
 
@@ -719,9 +719,10 @@ select:focus + .focus {
 }
 
 .card h2 {
-  font-size: 18px;
+  font-size: 80px;
   font-weight: normal;
   color: white;
+  text-align: center;
 }
 
 p.back {
