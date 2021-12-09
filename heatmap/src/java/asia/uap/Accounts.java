@@ -25,6 +25,7 @@ public class Accounts implements Serializable {
     private int sq4;
     private String symptoms;
     private Date lastLogin;
+    private boolean covidStatus;
 
     //getter methods
 
@@ -79,6 +80,11 @@ public class Accounts implements Serializable {
     public Date getLastLogin() {
         return lastLogin;
     }
+    
+    public boolean getCovidStatus() {
+        setCovidStatus();
+        return covidStatus;
+    }
 
    //setter methods
    public void setUid(int u) {
@@ -132,4 +138,10 @@ public class Accounts implements Serializable {
    public void setLastLogin(Date d) {
        this.lastLogin = d;
    }
+   
+   public void setCovidStatus() {
+       boolean qStatus = false;
+       qStatus = this.sq1 == 0 && this.sq2 == 0 && this.sq3 == 0 && this.sq4 == 0;
+       this.covidStatus = !(qStatus = true && symptoms.equals("None"));
+   }     
 }

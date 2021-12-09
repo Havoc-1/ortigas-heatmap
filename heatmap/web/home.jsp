@@ -31,6 +31,7 @@
                 </button>
                 <div class="dropdown-content"> 
                     <a href="profile.jsp">Profile Settings</a>
+                    <a href="checkout.jsp">Check Out</a>
                     <a href="do.logout">Log Out</a>
                 </div>
             </div>

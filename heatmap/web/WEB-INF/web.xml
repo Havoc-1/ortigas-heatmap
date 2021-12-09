@@ -60,6 +60,34 @@
         <servlet-name>updateSurvey</servlet-name>
         <servlet-class>asia.uap.LogInUserFunctions.updateSurvey</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CheckOut</servlet-name>
+        <servlet-class>asia.uap.CheckOut</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterLocation</servlet-name>
+        <servlet-class>asia.uap.RegisterLocation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ApproveLocation</servlet-name>
+        <servlet-class>asia.uap.ApproveLocation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RejectLoc</servlet-name>
+        <servlet-class>asia.uap.RejectLoc</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminOnLoad</servlet-name>
+        <servlet-class>asia.uap.AdminOnLoad</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminOnApprove</servlet-name>
+        <servlet-class>asia.uap.AdminOnApprove</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminViewCLocation</servlet-name>
+        <servlet-class>asia.uap.AdminViewCLocation</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgetPass</servlet-name>
         <url-pattern>/do.forgor</url-pattern>
@@ -103,6 +131,34 @@
     <servlet-mapping>
         <servlet-name>updateSurvey</servlet-name>
         <url-pattern>/do.updateSurvey</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckOut</servlet-name>
+        <url-pattern>/do.checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterLocation</servlet-name>
+        <url-pattern>/do.regLoc</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ApproveLocation</servlet-name>
+        <url-pattern>/do.confirmLoc</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RejectLoc</servlet-name>
+        <url-pattern>/do.rejectLoc</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminOnLoad</servlet-name>
+        <url-pattern>/do.admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminOnApprove</servlet-name>
+        <url-pattern>/do.adminApprove</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminViewCLocation</servlet-name>
+        <url-pattern>/do.adminViewLoc</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

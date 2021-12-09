@@ -7,19 +7,20 @@ package asia.uap;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.Float.parseFloat;
+import static java.lang.Integer.parseInt;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Nofuente
  */
-public class AdminLogin extends HttpServlet {
+public class ApproveLocation extends HttpServlet {
     private Accounts account;
     SQLThing db = new SQLThing();
     
@@ -38,17 +39,44 @@ public class AdminLogin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AdminLogin</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AdminLogin at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        Utils util = new Utils();
+        
+        String id = util.checkNull(request, "id");
+        String address = util.checkNull(request, "address");
+        String name = util.checkNull(request, "name");
+        String lat = util.checkNull(request, "lat");
+        String longi = util.checkNull(request, "long");
+        
+        if(id.equals(util.NO_VALUE)) {
+            System.out.println("1");
+            response.sendRedirect("WEB-INF/adminApproveLocation.jsp");
+        } else if(address.equals(util.NO_VALUE)){
+            System.out.println("2");
+            response.sendRedirect("WEB-INF/adminApproveLocation.jsp");
+        } else if(name.equals(util.NO_VALUE)){
+            System.out.println("3");
+            response.sendRedirect("WEB-INF/adminApproveLocation.jsp");
+        } else if(lat.equals(util.NO_VALUE)){
+            System.out.println("4");
+            response.sendRedirect("WEB-INF/adminApproveLocation.jsp");
+        } else if(longi.equals(util.NO_VALUE)){
+            System.out.println("5");
+            response.sendRedirect("WEB-INF/adminApproveLocation.jsp");;
+        } else {
+            Location l = new Location();
+            l.setUid(parseInt(id));
+            System.out.println("AOPWEJPA ID: " + id);
+            l.setAddress(address);
+            l.setName(name);
+            l.setLat(parseFloat(lat));
+            l.setLong(parseFloat(longi));
+            
+            try {
+                db.updateLocation(l);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ApproveLocation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            response.sendRedirect("do.admin");;
         }
     }
 
@@ -78,31 +106,6 @@ public class AdminLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String username = request.getParameter("userLogin");
-        String password = request.getParameter("passLogin");
-        
-        if(username == null || username.isEmpty()) {
-            response.sendRedirect("adminLogin.jsp");
-        } else if (password == null || password.isEmpty()) {
-            response.sendRedirect("adminLogin.jsp");
-        } else {
-            Accounts account = new Accounts();
-            account.setUsername(username);
-            account.setPassword(password);
-            
-            try {
-                if (db.checkAdminLogin(account)) {
-                    session.setAttribute("currentAdmin", username);
-                    session.setAttribute("currentAdminUID", db.getAdminUID(account));
-                    response.sendRedirect("do.admin");
-                } else{
-                    response.sendRedirect("index.jsp");
-                }
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
         processRequest(request, response);
     }
 
