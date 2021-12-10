@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,11 +15,12 @@
     </head>
     <body>
         <form action="do.checkout" id="form1" class="formarea">
-            <label for="address" class="q">Address</label> <br> <br>
-            <input type="text" class="reg" name="address" required> <br> 
-            
-            <label for="name" class="q">Name</label> <br> <br>
-            <input type="text" class="reg" name="name" required> <br> 
+            <label for="locList">Choose from the following approved locations:</label> <br> <br>
+            <select name ="id">
+                <c:forEach items="${locList}"  var="loc">
+                    <option value="<c:out value="${loc.getUid()}" />">${loc.getName()}, ${loc.getAddress()}</option>
+                </c:forEach>
+            </select><br><br>
             
             <label for="checkHours" class="secq">How long were you in the place?</label> <br> <br>
             <select name="checkHours" id="sec_ques_no">
@@ -34,12 +37,6 @@
                 <option value="11">11 hours</option>
                 <option value="12">12 hours</option>
             </select> <br> <br> <br>
-            
-            <label for="lat" class="q">Latitude</label> <br> <br>
-            <input type="text" class="reg" name="lat" required> <br> 
-            
-            <label for="long" class="q">Longitude</label> <br> <br>
-            <input type="text" class="reg" name="long" required> <br> 
             
             <input type="submit" class="fsubmitbtn" value="Submit">
         </form>    

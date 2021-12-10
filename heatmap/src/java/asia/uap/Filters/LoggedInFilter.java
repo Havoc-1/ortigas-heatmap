@@ -116,7 +116,7 @@ public class LoggedInFilter implements Filter {
         log(loggedIn+"");
         
         if (loggedIn == true){
-            httpResponse.sendRedirect("home.jsp");
+            httpResponse.sendRedirect("do.maps");
             log("ur logged in already bro");
             return;
         }

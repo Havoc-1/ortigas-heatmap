@@ -17,7 +17,7 @@
     </head>
     <body>
         <div class="navbar">
-            <a href="home.jsp"><img src ="img/logo.png"></a>
+            <a href="do.maps"><img src ="img/logo.png"></a>
             <div class="dropdown">
                 <button class="dropbtn">Wilbert De La Cruz <%-- Make this fetch username --%>
                 <i class="fa fa-caret-down"></i>
@@ -46,7 +46,7 @@
                 <h3>Address</h3>
                 <h4><%out.print(address);%></h4> <br>
                 <a href ="do.editProfile" class="Edit">Edit Profile</a> <br>
-                <a href="home.jsp" class="Edit">Home</a>
+                <a href="do.maps" class="Edit">Home</a>
             </div>
         </div>
     </body>

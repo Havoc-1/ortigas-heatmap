@@ -65,7 +65,7 @@
               </div>
             </div>
           </div>
-        <a href="home.jsp" class="previous">Go back</a>
+        <a href="do.adminLogout" class="previous">Log Out</a> <br><br><br><br><br>
         <a href="do.adminApprove" class="previous">Approve Locations</a>
         </section>
     </body>

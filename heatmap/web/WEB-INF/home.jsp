@@ -27,13 +27,14 @@
     <body>
         <%-- MAVBAR --%>
         <div class="navbar">
-            <a href="home.jsp"><img src="img/logo.png"></a> 
+            <a href="do.maps"><img src="img/logo.png"></a> 
             <div class="dropdown">
              <button class="dropbtn">Dropdown <%-- this needs to fetch username --%>
             <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-content">
                 <a href="profile.jsp">Edit Profile</a>
+                <a href="do.onCheckOut">Checkout</a>
                 <a href="do.logout">Logout</a>
             </div>
             </div>

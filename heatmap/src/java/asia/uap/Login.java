@@ -72,7 +72,7 @@ public class Login extends HttpServlet {
                     if (daysBetween > 0 ){
                         redir = "survey.jsp";
                     } else{
-                        redir = "home.jsp";
+                        redir = "do.maps";
                     }
                     message = "Login Succesful!";
                     db.updateDate(d2, i);

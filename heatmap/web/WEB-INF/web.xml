@@ -14,7 +14,7 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>HomeFilter</filter-name>
-        <url-pattern>/home.jsp</url-pattern>
+        <url-pattern>/WEB-INF/home.jsp</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>ForgetPass</servlet-name>
@@ -92,6 +92,14 @@
         <servlet-name>Maps</servlet-name>
         <servlet-class>asia.uap.Maps</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>OnCheckOut</servlet-name>
+        <servlet-class>asia.uap.OnCheckOut</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminLogout</servlet-name>
+        <servlet-class>asia.uap.AdminLogout</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgetPass</servlet-name>
         <url-pattern>/do.forgor</url-pattern>
@@ -167,6 +175,14 @@
     <servlet-mapping>
         <servlet-name>Maps</servlet-name>
         <url-pattern>/do.maps</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OnCheckOut</servlet-name>
+        <url-pattern>/do.onCheckOut</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminLogout</servlet-name>
+        <url-pattern>/do.adminLogout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

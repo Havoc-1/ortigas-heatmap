@@ -83,7 +83,7 @@ public class updateSurvey extends HttpServlet {
             account.setUid(uid);
             java.sql.Date sqlDate = new java.sql.Date(date.getTime()); 
             db.updateUserSurvey(account, sqlDate);
-            response.sendRedirect("/WEB-INF/home.jsp");
+            response.sendRedirect("do.maps");
             
         }
         try (PrintWriter out = response.getWriter()) {

@@ -25,7 +25,7 @@ public class Maps extends HttpServlet {
             throws ServletException, IOException {
         
         
-        String uri ="/WEB-INF/home.jsp";
+        String uri ="WEB-INF/home.jsp";
     
         RequestDispatcher rd = request.getRequestDispatcher(uri);
         rd.forward(request,response);
