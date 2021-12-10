@@ -23,34 +23,33 @@
                     <tr>
                       <th scope="col">Name</th>
                       <th scope="col">Address</th>
-                      <th scope="col">Average Number of People Per Hour</th>
-                      <th scope="col">Average Length of Visits</th>
-                      <th scope="col">Compromised? (Within a week)</th>
-                      <th scope="col">Reviews</th>
+                      <th scope="col">Details</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                        <td><c:out value="${loc.getName()}" /></td>
-                        <td><c:out value="${loc.getAddress()}" /></td>
-                        <td><c:out value="${avgVPH}" /></td>
-                        <td><c:out value="${avgVL}" /></td>
-                        <td><c:out value="${compromised}" /></td>
-                        <td>
-                            <form action="do.viewReviews" method="POST" id="form1" class="formarea ">
-                                <input type="hidden" name="id" value="<c:out value="${loc.getUid()}" />">
-
-                                <input type="submit" class="fsubmitbtn" value="View Reviews">
-                            </form>
-                        </td>
-                    </tr>
+                    <c:forEach var="loc" items="${locList}">
+                        <tr>
+                            <td><c:out value="${loc.getName()}" /></td>
+                            <td><c:out value="${loc.getAddress()}" /></td>
+                            <td>
+                                <form action="do.viewLocDetails" method="POST" id="form1" class="formarea ">
+                                    <input type="hidden" name="id" value="<c:out value="${loc.getUid()}" />">
+                                    <input type="hidden" name="address" value="<c:out value="${loc.getAddress()}" />">
+                                    <input type="hidden" name="name" value="<c:out value="${loc.getName()}" />">
+                                    <input type="hidden" name="lat" value="<c:out value="${loc.getLat()}" />">
+                                    <input type="hidden" name="long" value="<c:out value="${loc.getLong()}" />">
+                                
+                                    <input type="submit" class="fsubmitbtn" value="Details">
+                                </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
-        <a href="do.adminLogout" class="previous">Log Out</a> <br><br><br><br><br>
-        <a href="do.adminApprove" class="previous">Approve Locations</a>
+        <a href="do.maps" class="previous">Home</a> 
         </section>
     </body>
 </html>

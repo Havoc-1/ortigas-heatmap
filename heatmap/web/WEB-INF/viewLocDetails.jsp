@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,34 +23,42 @@
                     <tr>
                       <th scope="col">Name</th>
                       <th scope="col">Address</th>
-                      <th scope="col">Details</th>
+                      <th scope="col">Average Number of People Per Hour</th>
+                      <th scope="col">Average Length of Visits</th>
+                      <th scope="col">Compromised? (Within a week)</th>
+                      <th scope="col">View Reviews</th>
+                      <th scope="col">Submit Reviews</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <c:forEach var="loc" items="${locList}">
-                        <tr>
-                            <td><c:out value="${loc.getName()}" /></td>
-                            <td><c:out value="${loc.getAddress()}" /></td>
-                            <td>
-                                <form action="do.viewLocDetails" method="POST" id="form1" class="formarea ">
-                                    <input type="hidden" name="id" value="<c:out value="${loc.getUid()}" />">
-                                    <input type="hidden" name="address" value="<c:out value="${loc.getAddress()}" />">
-                                    <input type="hidden" name="name" value="<c:out value="${loc.getName()}" />">
-                                    <input type="hidden" name="lat" value="<c:out value="${loc.getLat()}" />">
-                                    <input type="hidden" name="long" value="<c:out value="${loc.getLong()}" />">
-                                
-                                    <input type="submit" class="fsubmitbtn" value="Details">
-                                </form>
-                            </td>
-                        </tr>
-                    </c:forEach>
+                    <tr>
+                        <td><c:out value="${loc.getName()}" /></td>
+                        <td><c:out value="${loc.getAddress()}" /></td>
+                        <td><c:out value="${avgVPH}" /></td>
+                        <td><c:out value="${avgVL}" /></td>
+                        <td><c:out value="${compromised}" /></td>
+                        <td>
+                            <form action="do.onReview" method="POST" id="form1" class="formarea ">
+                                <input type="hidden" name="id" value="<c:out value="${loc.getUid()}" />">
+
+                                <input type="submit" class="fsubmitbtn" value="View Reviews">
+                            </form>
+                        </td>
+                        <td>
+                            <form action="do.onSubmitReview" method="POST" id="form1" class="formarea ">
+                                <input type="hidden" name="id" value="<c:out value="${loc.getUid()}" />">
+
+                                <input type="submit" class="fsubmitbtn" value="Submit Reviews">
+                            </form>
+                        </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
-        <a href="do.adminLogout" class="previous">Log Out</a> <br><br><br><br><br>
-        <a href="do.adminApprove" class="previous">Approve Locations</a>
+        <a href="do.maps" class="previous">Home</a> 
+        <a href="do.viewLocations" class="previous">Previous</a> 
         </section>
     </body>
 </html>

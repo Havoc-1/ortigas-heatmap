@@ -7,10 +7,12 @@ package asia.uap.LogInUserFunctions;
 
 import asia.uap.Classes.Accounts;
 import asia.uap.Classes.Location;
+import asia.uap.Classes.Reviews;
 import asia.uap.Classes.SQLThing;
 import asia.uap.Utils;
 import java.io.IOException;
-import java.io.PrintWriter;
+import static java.lang.Integer.parseInt;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -34,11 +36,10 @@ public class OnReview extends HttpServlet {
         HttpSession session = request.getSession();
         Utils util = new Utils();
         
-        int uid = (int) session.getAttribute("currentUserUID");
         String id = util.checkNull(request, "id");
-        Accounts account = db.getAccount(uid);
+        ArrayList<Reviews> list = db.getReviews(parseInt(id));
         
-        request.setAttribute("acc", account);
+        request.setAttribute("reviews", list);
         RequestDispatcher rd = request.getRequestDispatcher(uri);
         rd.forward(request,response);
     }

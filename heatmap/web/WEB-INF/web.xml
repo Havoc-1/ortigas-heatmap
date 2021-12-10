@@ -124,6 +124,10 @@
         <servlet-name>OnReview</servlet-name>
         <servlet-class>asia.uap.LogInUserFunctions.OnReview</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>OnSubmitReview</servlet-name>
+        <servlet-class>asia.uap.LogInUserFunctions.OnSubmitReview</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgetPass</servlet-name>
         <url-pattern>/do.forgor</url-pattern>
@@ -231,6 +235,10 @@
     <servlet-mapping>
         <servlet-name>OnReview</servlet-name>
         <url-pattern>/do.onReview</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OnSubmitReview</servlet-name>
+        <url-pattern>/do.onSubmitReview</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

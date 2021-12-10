@@ -208,10 +208,10 @@ public class SQLThing {
     
     // <editor-fold defaultstate="collapsed" desc="Update Methods: UserSurvey, Profile, Date, Pass, Location">
     public int updateUserSurvey(Accounts account, Date d) {
-        String insert = "UPDATE covidquestions " +  //sql statement
-        "(sq1, sq2, sq3, sq4, symptoms, lastUpdated) SELECT " +
-        "?, ?, ?, ?, ?, ? " +
-        "WHERE uid = ?";
+        String insert = "UPDATE covidquestions " +
+        "SET sq1 = ?, sq2 = ?, sq3 = ?, sq4 = ?, "
+        + "symptoms=?, lastUpdated = ? " +
+        "WHERE userUID = ?";
         
         int result = 0;
         Connection conn = null;
@@ -492,6 +492,39 @@ public class SQLThing {
                 loc.setLat(rs.getFloat("latitude"));
                 loc.setStatus(rs.getBoolean("status"));
                 list.add(loc);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+         return list;
+    }
+    
+    public ArrayList<Reviews> getReviews(int i) {
+        String get = "SELECT * " +
+                        "FROM reviews " +
+                        "WHERE locID = ?";
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ArrayList<Reviews> list = new ArrayList<>();
+        
+        loadClass();
+        
+         try {
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.prepareStatement(get);
+            stmt.setInt(1, i);
+            
+            System.out.println(stmt);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Reviews rev = new Reviews();
+                rev.setUid(rs.getInt("id"));
+                rev.setUserID(rs.getInt("userID"));
+                rev.setLocID(rs.getInt("locID"));
+                rev.setComment(rs.getString("comment"));
+                rev.setStatus(rs.getBoolean("status"));
+                list.add(rev);
             }
         } catch (SQLException e) {
             printSQLException(e);

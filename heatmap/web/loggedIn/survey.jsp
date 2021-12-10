@@ -16,7 +16,7 @@
     <body>
         <section class="regarea2">
             <h1>Survey of the day</h1>
-            <form action="do.updateSurvey" id="form1" class="formarea">
+            <form action="/ortigas-heatmap/do.updateSurvey" method="POST" id="form1" class="formarea">
                 <fieldset>
                     <div class="regcontain2">
                         <div class="survey">

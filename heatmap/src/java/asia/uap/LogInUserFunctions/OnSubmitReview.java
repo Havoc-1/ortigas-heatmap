@@ -12,22 +12,20 @@ import asia.uap.Classes.SQLThing;
 import asia.uap.Utils;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.Boolean.parseBoolean;
-import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Nofuente
  */
-public class SubmitReview extends HttpServlet {
+public class OnSubmitReview extends HttpServlet {
     private Accounts account;
     private Location loc;
     SQLThing db = new SQLThing();
@@ -35,40 +33,18 @@ public class SubmitReview extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String uri = "WEB-INF/submitReview.jsp";
+        HttpSession session = request.getSession();
         Utils util = new Utils();
-       
-        //user details
-        String locID = util.checkNull(request, "locID");
-        String uID = util.checkNull(request, "uid");
-        String feedback = util.checkNull(request, "feedback");
-        String comments = util.checkNull(request, "comments");
         
-        if(locID.equals(util.NO_VALUE)) {
-            System.out.println("1");
-            response.sendRedirect("RevFail.jsp");
-        } else if(uID.equals(util.NO_VALUE)){
-            System.out.println("2");
-            response.sendRedirect("RevFail.jsp");
-        } else if(feedback.equals(util.NO_VALUE)){
-            System.out.println("3");
-            response.sendRedirect("RevFail.jsp");
-        } else if(comments.equals(util.NO_VALUE)){
-            System.out.println("4");
-            response.sendRedirect("RevFail.jsp");
-        } else {
-            Reviews rev = new Reviews();
-            rev.setLocID(parseInt(locID));
-            rev.setUid(parseInt(uID));
-            rev.setStatus(parseBoolean(feedback));
-            rev.setComment(comments);
-            
-            try {
-                db.registerReview(rev);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(SubmitReview.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            response.sendRedirect("RevSuccess.jsp");
-        }
+        String s = util.checkNull(request, "id");
+       
+        int userID = (int) session.getAttribute("currentUserUID");
+        
+        request.setAttribute("locID", s);
+        request.setAttribute("id", userID);
+        RequestDispatcher rd = request.getRequestDispatcher(uri);
+        rd.forward(request,response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
