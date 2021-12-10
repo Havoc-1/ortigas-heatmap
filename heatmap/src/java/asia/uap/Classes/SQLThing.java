@@ -418,6 +418,41 @@ public class SQLThing {
          return account;
     }
     
+    public ArrayList<History> getUserHistory(int uid) {
+        String getAcc = "SELECT ch.uid, l.name, ch.checkInTime, ch.checkOutTime " +
+                        "from checkin_history ch " +
+                        "INNER JOIN location l " +
+                        "ON ch.locID = l.uid " +
+                        "where userID = ?";
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ArrayList<History> list = new ArrayList<>();
+        
+        loadClass();
+        
+         try {
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.prepareStatement(getAcc);
+            
+            stmt.setInt(1, uid);
+            
+            System.out.println(stmt);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                History h = new History();
+                h.setUid(rs.getInt("ch.uid"));
+                h.setLoc(rs.getString("l.name"));
+                h.setCheckInDate(rs.getTimestamp("ch.checkInTime"));
+                h.setCheckOutDate(rs.getTimestamp("ch.checkOutTime"));
+                list.add(h);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+         return list;
+    }
+    
     public ArrayList<Accounts> getAllAccounts() {
         String getAcc = "SELECT u.uid, u.username, u.email, u.address, u.lastLogin, cq.sq1, cq.sq2, cq.sq3, cq.sq4, cq.symptoms, u.covidStatus " +
                         "FROM users u " +

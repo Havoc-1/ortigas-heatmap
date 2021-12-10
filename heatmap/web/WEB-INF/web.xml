@@ -152,6 +152,10 @@
         <servlet-name>AdminMarkNeg</servlet-name>
         <servlet-class>asia.uap.Admin.AdminMarkNeg</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserActivities</servlet-name>
+        <servlet-class>asia.uap.LogInUserFunctions.UserActivities</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgetPass</servlet-name>
         <url-pattern>/do.forgor</url-pattern>
@@ -287,6 +291,10 @@
     <servlet-mapping>
         <servlet-name>AdminMarkNeg</servlet-name>
         <url-pattern>/do.markNegative</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserActivities</servlet-name>
+        <url-pattern>/do.onActivities</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
