@@ -18,6 +18,7 @@
             <h1>Survey of the day</h1>
             <form action="do.updateSurvey" id="form1" class="formarea">
                 <fieldset>
+                    <div class="regcontain2">
                         <div class="survey">
                             <label for="username" class="q">Answer the questions truthfully.</label>
                             <!-- survey question 1 / sq1-->
@@ -65,9 +66,9 @@
                             <label for ="sq4" class="ans">No</label> <br>
                             <input type="hidden" name="username" value=>
                         </div>
-                    <br> <br> <br>
+                    </div>
+                    <div class="space"></div> <br> <br> <br> <br>
                     <input type="submit" class="fsubmitbtn" value="Submit">
-                    <br> <br> <br>
                     </fieldset>
                 </form>
             </section>

@@ -16,7 +16,7 @@
    <body>
     <section class ="txt1">
     <div class="center">
-      <h1>Login</h1>
+      <h1>Sign in to your account</h1>
       <form action ="do.signin" method="post">
         <div class="txt_field">
           <input type="text" name="userLogin" required>

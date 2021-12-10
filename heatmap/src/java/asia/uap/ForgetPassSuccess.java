@@ -63,21 +63,30 @@ public class ForgetPassSuccess extends HttpServlet {
                 out.println("<!DOCTYPE html>");
                 out.println("<html>");
                 out.println("<head>");
-                out.println("<title>Servlet ForgetPass</title>");            
+                out.println("<title>Forgot Password</title>");            
+                out.println("<link rel=\"stylesheet\" href=\"./style.css\"/>");
                 out.println("</head>");
                 out.println("<body>");
+                out.println("<section class=\"txt1\">");
+                out.println("<div class=\"center\">");
                 out.println("<h1>Update password</h1>\n" +
 "               <form action=\"do.updatePass\" method=\"POST\">\n" +
-"                   <label for=\"password\">New Password:</label> <br />\n" +
-"                   <input type=\"password\" name=\"password\" required><br>" +
-                        
-"                   <label for=\"passwordConfirm\">Confirm New Password:</label> <br />\n" +
-"                   <input type=\"password\" name=\"passwordConfirm\" required><br>" +
-                        
+"                   <div class=\"txt_field\">\n" +
+"                   <input type=\"password\" name=\"password\" required>" +
+                    "<span></span>\n" +
+"                   <label for=\"password\">New Password:</label>\n" +
+                    "</div>\n" +    
+"                   <div class=\"txt_field\">\n" +
+"                   <input type=\"password\" name=\"passwordConfirm\" required>" +
+                    "<span></span>\n" +
+"                   <label for=\"passwordConfirm\">Confirm New Password:</label>\n" +
+                    "</div>\n" +        
+
 "                   <input type=\"hidden\" name=\"sec_ques_ans\" value=\"" + ans + "\">" +
 "                   <input type=\"hidden\" name=\"forgotUser\" value=\"" + fu + "\">" +
-        
-"            \n" + "<input type=\"submit\" value=\"Submit\"> <br /><br />");
+"            \n" + "<input type=\"submit\" value=\"Submit\"><br>");
+                out.println("</div>");
+                out.println("</section>");
                 out.println("</body>");
                 out.println("</html>");
             }        }

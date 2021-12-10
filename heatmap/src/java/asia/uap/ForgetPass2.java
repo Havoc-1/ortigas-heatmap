@@ -59,14 +59,19 @@ public class ForgetPass2 extends HttpServlet {
                         out.println("<!DOCTYPE html>");
                         out.println("<html>");
                         out.println("<head>");
-                        out.println("<title>Servlet ForgetPass</title>");            
+                        out.println("<link rel=\"stylesheet\" href=\"./style.css\"/>");
+                        out.println("<title>Forgot Password</title>");            
                         out.println("</head>");
                         out.println("<body>");
+                        out.println("<section class=\"txt1\">");
+                        out.println("<div class=\"center\">");
                         out.println("<h1>Account authentication complete!</h1>\n" +
         "        <form action=\"do.successForget\" method=\"POST\">\n" +
         "            <input type=\"hidden\" name=\"sec_ques_ans\" value=\"" + ans + "\">" +
-        "            <input type=\"hidden\" name=\"forgotUser\" value=\"" + fu + "\">" +
-        "            \n" + "<input type=\"submit\" value=\"Proceed\"> <br /><br />");
+        "            <input type=\"hidden\" name=\"forgotUser\" value=\"" + fu + "\">");
+                    out.println("<input type=\"submit\" value=\"Proceed\">");
+                    out.println("</div>");
+                    out.println("</section>");
                         out.println("</body>");
                         out.println("</html>");
                     } catch (ClassNotFoundException ex) {

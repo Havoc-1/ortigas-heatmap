@@ -55,15 +55,25 @@ public class ForgetPass extends HttpServlet {
                 out.println("<!DOCTYPE html>");
                 out.println("<html>");
                 out.println("<head>");
-                out.println("<title>Servlet ForgetPass</title>");            
+                out.println("<link rel=\"stylesheet\" href=\"./style.css\"/>");
+                out.println("<title>Forgot Password</title>");            
                 out.println("</head>");
                 out.println("<body>");
+                out.println("<section class=\"txt1\">");
+                out.println("<div class=\"center\">");
                 out.println("<h1>" + st + "</h1>\n" +
 "        <form action=\"do.moreForgor\" method=\"POST\">\n" +
-"            <label for=\"sec_ques_ans\">Security Question Answer:</label> <br />\n" +
-"            <input type=\"text\" name=\"sec_ques_ans\" required> <br /><br />\n" +
-"            <input type=\"hidden\" name=\"forgotUser\" value=\"" + checkedUser + "\">" +
-"            \n" + "<input type=\"submit\" value=\"Submit\"> <br /><br />");
+"            <div class=\"txt_field\">\n" +
+"            <input type=\"text\" name=\"sec_ques_ans\" required>\n" +
+"            <label for=\"sec_ques_ans\">Security Question Answer:</label>\n" +
+"            <input type=\"hidden\" name=\"forgotUser\" value=\"" + checkedUser + "\">");
+            out.println("</div>");
+            out.println("<input type=\"submit\" value=\"Submit\"> ");
+            out.println("<div class=\"signup_link\">\n" +
+"                    <a href=\"login.jsp\">Go back</a>\n" +
+"                </div>");
+                out.println("</div>");
+                out.println("</section>");
                 out.println("</body>");
                 out.println("</html>");
             } catch (ClassNotFoundException ex) {

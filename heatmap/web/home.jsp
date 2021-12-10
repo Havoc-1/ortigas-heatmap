@@ -4,6 +4,8 @@
     Author     : Sandro
 --%>
 
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,6 +19,7 @@
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
         integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
         crossorigin=""></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
         <link rel="stylesheet" href="./style.css"/>
         <script defer src="./card.js"></script>
         <script defer src="./leafmaps.js"></script>
@@ -24,16 +27,15 @@
     <body>
         <%-- MAVBAR --%>
         <div class="navbar">
-            <a href="home.jsp"><img src ="img/logo.png"></a>
+            <a href="home.jsp"><img src="img/logo.png"></a> 
             <div class="dropdown">
-                <button class="dropbtn">Wilbert De La Cruz <%-- Make this fetch username --%>
-                <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content"> 
-                    <a href="profile.jsp">Profile Settings</a>
-                    <a href="checkout.jsp">Check Out</a>
-                    <a href="do.logout">Log Out</a>
-                </div>
+             <button class="dropbtn">Dropdown <%-- this needs to fetch username --%>
+            <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="profile.jsp">Edit Profile</a>
+                <a href="do.logout">Logout</a>
+            </div>
             </div>
         </div>
         <%-- MAVBAR END --%>

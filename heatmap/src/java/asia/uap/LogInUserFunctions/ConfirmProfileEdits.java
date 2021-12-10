@@ -78,7 +78,7 @@ public class ConfirmProfileEdits extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Edit Succesful!</h1>");
-            out.println("<a href=\"home.jsp\">Back to Home</a>");
+            out.println("<a href=\"/WEB-INF/home.jsp\">Back to Home</a>");
             out.println("</body>");
             out.println("</html>");
         }

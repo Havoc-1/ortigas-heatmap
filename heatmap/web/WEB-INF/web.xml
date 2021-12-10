@@ -88,6 +88,10 @@
         <servlet-name>AdminViewCLocation</servlet-name>
         <servlet-class>asia.uap.AdminViewCLocation</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Maps</servlet-name>
+        <servlet-class>asia.uap.Maps</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgetPass</servlet-name>
         <url-pattern>/do.forgor</url-pattern>
@@ -159,6 +163,10 @@
     <servlet-mapping>
         <servlet-name>AdminViewCLocation</servlet-name>
         <url-pattern>/do.adminViewLoc</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Maps</servlet-name>
+        <url-pattern>/do.maps</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

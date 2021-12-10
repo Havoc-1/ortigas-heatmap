@@ -37,5 +37,15 @@ L.marker([14.5803,121.0608])
         .addTo(mymap)
         .bindPopup(popupContents, popupOptions);
 
+var popup = L.popup();
 
+//handle events documentation to get coords (lat,lng) for user to populate markers
+function getLatLng(e) {
+    popup
+        .setLatLng(e.latlng)
+        .setContent("yo bro this is the location you clicked at " + e.latlng.toString())
+        .openOn(mymap);
+    console.log("you have clicked");
+}
+mymap.on('click', getLatLng);
 
