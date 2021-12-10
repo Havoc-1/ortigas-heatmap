@@ -51,6 +51,27 @@
                                     <td><p>Compromised</p></td>
                                 </c:otherwise>
                             </c:choose>
+                            <td> 
+                              <form action="do.deleteUser" id="form1" class="formarea">
+                                <input type="hidden" name="id" value="<c:out value="${acc.getUid()}" />">
+
+                                 <input type="submit" class="fsubmitbtn" value="Delete User">
+                             </form>
+                            </td>
+                            <td> 
+                              <form action="do.markPositive" id="form1" class="formarea">
+                                <input type="hidden" name="id" value="<c:out value="${acc.getUid()}" />">
+
+                                 <input type="submit" class="fsubmitbtn" value="Mark as Positive">
+                             </form>
+                            </td>
+                            <td> 
+                              <form action="do.markNegative" id="form1" class="formarea">
+                                <input type="hidden" name="id" value="<c:out value="${acc.getUid()}" />">
+
+                                 <input type="submit" class="fsubmitbtn" value="Mark as Negative">
+                             </form>
+                            </td>
                             <td> <%-- Implement administrator abilities here (icons are from bootstrap/fontisawesome --%> 
                               <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
                               <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
@@ -64,7 +85,8 @@
             </div>
           </div>
         <a href="do.adminLogout" class="previous">Log Out</a> <br><br><br><br><br>
-        <a href="do.adminApprove" class="previous">Approve Locations</a>
+        <a href="do.adminApprove" class="previous">Approve Locations</a> <br><br><br><br><br>
+        <a href="do.checkCSV" class="previous">Check CSV</a>
         </section>
     </body>
 </html>

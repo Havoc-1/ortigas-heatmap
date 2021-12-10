@@ -204,6 +204,30 @@ public class SQLThing {
         }
         return result;
     }
+    
+    public int registerCSV(String s) throws ClassNotFoundException {
+        int result = 0;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        //sql statement
+        String review = "INSERT INTO csv (content, datePosted) "
+                + "SELECT ?, NOW()";
+
+        loadClass();
+        
+        try {
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.prepareStatement(review);
+            stmt.setString(1, s);
+            
+            System.out.println(stmt);
+            result = stmt.executeUpdate();
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return result;
+    }
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Update Methods: UserSurvey, Profile, Date, Pass, Location">
@@ -395,7 +419,7 @@ public class SQLThing {
     }
     
     public ArrayList<Accounts> getAllAccounts() {
-        String getAcc = "SELECT u.uid, u.username, u.email, u.address, u.lastLogin, cq.sq1, cq.sq2, cq.sq3, cq.sq4, cq.symptoms " +
+        String getAcc = "SELECT u.uid, u.username, u.email, u.address, u.lastLogin, cq.sq1, cq.sq2, cq.sq3, cq.sq4, cq.symptoms, u.covidStatus " +
                         "FROM users u " +
                         "INNER JOIN covidquestions cq " +
                         "ON u.uid = cq.userUID ";
@@ -424,7 +448,7 @@ public class SQLThing {
                 account.setSQ3(rs.getInt("cq.sq3"));
                 account.setSQ4(rs.getInt("cq.sq4"));
                 account.setSymptoms(rs.getString("cq.symptoms"));
-                account.setCovidStatus();
+                account.setCovidStatus(rs.getBoolean("u.covidStatus"));
                 list.add(account);
             }
         } catch (SQLException e) {
@@ -532,6 +556,35 @@ public class SQLThing {
          return list;
     }
     
+    public ArrayList<CSV> getAllCSV() {
+        String get = "SELECT * " +
+                        "FROM csv ";
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ArrayList<CSV> list = new ArrayList<>();
+        
+        loadClass();
+        
+         try {
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.prepareStatement(get);
+            
+            System.out.println(stmt);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                CSV c = new CSV();
+                c.setUid(rs.getInt("id"));
+                c.setContent(rs.getString("content"));
+                c.setDateTime(rs.getDate("datePosted"));
+                list.add(c);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+         return list;
+    }
+    
     public Date getDate(int uid) {
         String getDate = "SELECT lastLogin FROM users where uid = ?";
         
@@ -620,6 +673,37 @@ public class SQLThing {
         return uid;
     }
     
+    public int getPortalUID(Accounts account) throws ClassNotFoundException {
+        int uid = 0;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        //sql statement
+        String check = "select uid from uploadusers where username = ? and password = SHA2(?, 256)";
+        
+        loadClass();
+        
+        try {
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.prepareStatement(check);
+            stmt.setString(1, account.getUsername());
+            stmt.setString(2, account.getPassword());
+            
+            System.out.println(stmt);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                uid = rs.getInt("uid");
+                System.out.println(uid);
+                return uid;
+            }
+            System.out.println("oh no it passed through");
+            
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return uid;
+    }
+    
     public String getSecQues(Accounts account) throws ClassNotFoundException {
         String secQues = null;
         Connection conn = null;
@@ -663,7 +747,7 @@ public class SQLThing {
                 "HOUR(checkInTime) as Hour, " +
                 "COUNT(*) as Count " +
             "FROM checkin_history " +
-            "WHERE DATE(checkInTime) = DATE(NOW()) AND locID = ?" +
+            "WHERE DATE(checkInTime) = DATE(NOW()) AND locID = ? " +
             "GROUP BY CONCAT(DATE(checkInTime), HOUR(checkInTime)) " +
             ")a";
         loadClass();
@@ -702,7 +786,7 @@ public class SQLThing {
                 "HOUR(checkOutTime) as HourEnded, " +
                 "(HOUR(checkOutTime) - HOUR(checkInTime)) as totalHourSpent " +
             "FROM checkin_history " +
-            "WHERE DATE(checkInTime) = DATE(NOW()) AND locID = ?" +
+            "WHERE DATE(checkInTime) = DATE(NOW()) AND locID = ? " +
             "GROUP BY CONCAT(DATE(checkInTime), HOUR(checkInTime)) " +
             ")a";
         loadClass();
@@ -833,6 +917,32 @@ public class SQLThing {
         return status;
     }
     
+    public boolean checkUploadLogin(Accounts account) throws ClassNotFoundException {
+        boolean status = false;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        //sql statement
+        String check = "select * from uploadUsers where username = ? and password = SHA2(?, 256)";
+        
+        loadClass();
+        
+        try {
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.prepareStatement(check);
+            stmt.setString(1, account.getUsername());
+            stmt.setString(2, account.getPassword());
+            
+            System.out.println(stmt);
+            ResultSet rs = stmt.executeQuery();
+            status = rs.next();
+            
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return status;
+    }
+    
     public boolean checkLocation(Accounts account) throws ClassNotFoundException { // to be revised
         boolean status = false;
         Connection conn = null;
@@ -865,10 +975,10 @@ public class SQLThing {
         PreparedStatement stmt = null;
         
         //sql statement
-        String check = "select ch.locID\n" +
-        "from checkin_history ch \n" +
-        "INNER JOIN users u\n" +
-        "ON ch.userID = u.uid\n" +
+        String check = "select ch.locID " +
+        "FROM checkin_history ch " +
+        "INNER JOIN users u " +
+        "ON ch.userID = u.uid " +
         "WHERE u.covidStatus = 1 AND checkInTime >= DATE_ADD(NOW(), INTERVAL - 7 DAY) "
         + "AND checkOutTime <= DATE(NOW()) AND ch.locID = ?";
         
@@ -891,11 +1001,9 @@ public class SQLThing {
     
 // </editor-fold>
     
-    // <editor-fold defaultstate="collapsed" desc="Check In Methods">
-    public int checkIn(Accounts account, Date d) { // TO BE REVISED
-        String insert = "INSERT INTO users" +  //sql statement
-        "(username, password, email, address, sec_ques_no, sec_ques_ans, lastLogin) SELECT " +
-        "?, SHA2(?, 256), ?, ?, ?, SHA2(?, 256), ?;";
+    // <editor-fold defaultstate="collapsed" desc="Marking Methods">
+    public int markUserAsPositive(int i) { // TO BE REVISED
+        String update = "UPDATE users SET covidStatus = 1 WHERE uid = ?";
         
         int result = 0;
         Connection conn = null;
@@ -906,15 +1014,9 @@ public class SQLThing {
         
          try {
             conn = DriverManager.getConnection(url, user, pass);
-            stmt = conn.prepareStatement(insert);
+            stmt = conn.prepareStatement(update);
             
-            stmt.setString(1, account.getUsername());
-            stmt.setString(2, account.getPassword());
-            stmt.setString(3, account.getEmail());
-            stmt.setString(4, account.getAddress());
-            stmt.setInt(5, account.getSecQuesNo());
-            stmt.setString(6, account.getSecQuesAns());
-            stmt.setDate(7, d);
+            stmt.setInt(1, i);
             
             System.out.println(stmt);
             result = stmt.executeUpdate();
@@ -924,10 +1026,8 @@ public class SQLThing {
          return result;
     }
     
-    public int checkOut(Accounts account, Date d) { // TO BE REVISED
-        String insert = "INSERT INTO users" +  //sql statement
-        "(username, password, email, address, sec_ques_no, sec_ques_ans, lastLogin) SELECT " +
-        "?, SHA2(?, 256), ?, ?, ?, SHA2(?, 256), ?;";
+    public int markUserAsNegative(int i) { // TO BE REVISED
+        String update = "UPDATE users SET covidStatus = 0 WHERE uid = ?";
         
         int result = 0;
         Connection conn = null;
@@ -938,15 +1038,9 @@ public class SQLThing {
         
          try {
             conn = DriverManager.getConnection(url, user, pass);
-            stmt = conn.prepareStatement(insert);
+            stmt = conn.prepareStatement(update);
             
-            stmt.setString(1, account.getUsername());
-            stmt.setString(2, account.getPassword());
-            stmt.setString(3, account.getEmail());
-            stmt.setString(4, account.getAddress());
-            stmt.setInt(5, account.getSecQuesNo());
-            stmt.setString(6, account.getSecQuesAns());
-            stmt.setDate(7, d);
+            stmt.setInt(1, i);
             
             System.out.println(stmt);
             result = stmt.executeUpdate();
@@ -958,6 +1052,29 @@ public class SQLThing {
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Delete Methods">
+    public int deleteUser(int i) throws ClassNotFoundException {
+        int result = 0;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        //sql statement
+        String update = "DELETE from users WHERE uid = ?";
+        
+        loadClass();
+        
+        try {
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.prepareStatement(update);
+            stmt.setInt(1, i);
+            
+            System.out.println(stmt);
+            result = stmt.executeUpdate();
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return result;
+    }
+    
     public int deleteLoc(Location l) throws ClassNotFoundException {
         int result = 0;
         Connection conn = null;

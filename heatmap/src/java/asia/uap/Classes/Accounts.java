@@ -82,7 +82,6 @@ public class Accounts implements Serializable {
     }
     
     public boolean getCovidStatus() {
-        setCovidStatus();
         return covidStatus;
     }
 
@@ -139,7 +138,11 @@ public class Accounts implements Serializable {
        this.lastLogin = d;
    }
    
-   public void setCovidStatus() {
+   public void setCovidStatus(boolean s) {
+       this.covidStatus = s;
+   }
+   
+   public void checkCovidStatus() {
        boolean qStatus = false;
        qStatus = this.sq1 == 0 && this.sq2 == 0 && this.sq3 == 0 && this.sq4 == 0;
        this.covidStatus = !(qStatus = true && symptoms.equals("None"));

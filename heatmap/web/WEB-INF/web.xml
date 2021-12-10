@@ -128,6 +128,30 @@
         <servlet-name>OnSubmitReview</servlet-name>
         <servlet-class>asia.uap.LogInUserFunctions.OnSubmitReview</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UploadLogin</servlet-name>
+        <servlet-class>Upload.UploadLogin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadCSV</servlet-name>
+        <servlet-class>Upload.UploadCSV</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckCSV</servlet-name>
+        <servlet-class>asia.uap.Admin.CheckCSV</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminDelete</servlet-name>
+        <servlet-class>asia.uap.Admin.AdminDelete</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminMarkPos</servlet-name>
+        <servlet-class>asia.uap.Admin.AdminMarkPos</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminMarkNeg</servlet-name>
+        <servlet-class>asia.uap.Admin.AdminMarkNeg</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgetPass</servlet-name>
         <url-pattern>/do.forgor</url-pattern>
@@ -239,6 +263,30 @@
     <servlet-mapping>
         <servlet-name>OnSubmitReview</servlet-name>
         <url-pattern>/do.onSubmitReview</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadLogin</servlet-name>
+        <url-pattern>/do.uploadLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadCSV</servlet-name>
+        <url-pattern>/do.uploadCSV</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckCSV</servlet-name>
+        <url-pattern>/do.checkCSV</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDelete</servlet-name>
+        <url-pattern>/do.deleteUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminMarkPos</servlet-name>
+        <url-pattern>/do.markPositive</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminMarkNeg</servlet-name>
+        <url-pattern>/do.markNegative</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
