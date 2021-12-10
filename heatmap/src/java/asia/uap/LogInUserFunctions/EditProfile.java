@@ -48,6 +48,7 @@ public class EditProfile extends HttpServlet {
             out.println("<head>");
             out.println("<title>Update Password</title>");
             out.println("<link rel=\"stylesheet\" href=\"./style.css\"/>");
+            out.println("<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css\"/>");
             out.println("</head>");
             out.println("<body>");
             //navbar
@@ -65,24 +66,25 @@ public class EditProfile extends HttpServlet {
             out.println("</div>");
             //main page
             out.println("<div class=\"viewprofile2\">");
+            out.println("<div class=\"profilecontain\">");
             out.println("<div class=\"sqlprof\">");
             out.println("<h1>Edit Profile</h1>");
             out.println("<h3>For user details that does not want to be edited, leave the input box blank.</h3>");
             out.println("<form action =\"do.confirmEdits\" method =\"post\">\n" +
-"                <label for=\"password\" class=\"q\">New Password:</label><br>\n" +
+"                <label for=\"password\" class=\"q1\">New Password:</label><br>\n" +
 "                <input type=\"password\" class=\"profeditp\" name=\"password\" onkeyup='check();'><br>\n" +
 "                \n" +
-"                <label for=\"passwordConfirm\" class=\"q\">Confirm New Password:</label><br>\n" +
+"                <label for=\"passwordConfirm\" class=\"q1\">Confirm New Password:</label><br>\n" +
 "                <input type=\"password\" class=\"profeditp\" name=\"passwordConfirm\" onkeyup='check();'><br>\n" +
 "                \n" +                 
-"                <label for=\"abtme\" class=\"q\">New Email:</label><br>\n" +
+"                <label for=\"abtme\" class=\"q1\">New Email:</label><br>\n" +
 "                <input type=\"text\" class=\"profedit\" name=\"email\"><br>\n" +
 "                \n" +
-"                <label for=\"url_photo\" class=\"q\">New Address:</label><br>\n" +
-"                <input type=\"text\" class=\"profedit\" name=\"address\"><br><br>\n" +
-"\n" +
-"                <input type=\"submit\" class=\"submitbtn2\" value=\"Submit\">\n" +
+"                <label for=\"url_photo\" class=\"q1\">New Address:</label><br>\n" +
+"                <input type=\"text\" class=\"profedit\" name=\"address\"><br><br>\n");
+            out.println("<input type=\"submit\" class=\"submitbtn2\" value=\"Submit\">\n" +
 "            </form>");
+            out.println("</div>");
             out.println("</div>");
             out.println("<script src='onKeyUp.js'></script>");
             out.println("</body>");

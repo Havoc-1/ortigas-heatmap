@@ -49,7 +49,7 @@
                 <div class="modal-header">Modal 1
                     <button class="icon modal-close"><i class="material-icons">close</i></button>
                 </div>
-                <div class="modal-body"></div>Put in form here
+                <div class="modal-body">test123</div>Put in form here
                 <div class="modal-footer"><button class="link modal-close">Close</button></div>
             </div>
         </div>
