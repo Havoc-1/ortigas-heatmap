@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package asia.uap;
+package asia.uap.LogInUserFunctions;
 
+import asia.uap.Classes.Location;
+import asia.uap.Classes.Accounts;
+import asia.uap.SQLThing;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -18,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Nofuente
  */
-public class AdminOnApprove extends HttpServlet {
+public class OnCheckOut extends HttpServlet {
     private Accounts account;
     SQLThing db = new SQLThing();
     
@@ -37,11 +40,10 @@ public class AdminOnApprove extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
         ArrayList<Location> list = new ArrayList<>();
-        String uri = "WEB-INF/adminApproveLoc.jsp";
+        String uri = "WEB-INF/checkout.jsp";
         
-        list = db.getPendingLocations();
+        list = db.getApprovedLocations();
         
         request.setAttribute("locList", list);
         RequestDispatcher rd = request.getRequestDispatcher(uri);

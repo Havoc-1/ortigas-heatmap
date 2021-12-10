@@ -3,27 +3,37 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package asia.uap;
+package asia.uap.LogInUserFunctions;
 
+import asia.uap.Classes.Location;
+import asia.uap.Classes.Accounts;
+import asia.uap.SQLThing;
+import asia.uap.Utils;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import javax.servlet.RequestDispatcher;
+import static java.lang.Float.parseFloat;
+import static java.lang.Integer.parseInt;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Nofuente
  */
-public class AdminOnLoad extends HttpServlet {
+public class RegisterLocation extends HttpServlet {
     private Accounts account;
+    private Location loc;
     SQLThing db = new SQLThing();
     
     public void init() {
         account = new Accounts();
+        loc = new Location();
     }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,18 +44,55 @@ public class AdminOnLoad extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+        protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        ArrayList<Accounts> list = new ArrayList<>();
-        String uri = "WEB-INF/admin.jsp";
+        Utils util = new Utils();
+        Date date = new Date();
+        String redir = "";
+        String message = "";
+       
+        //user details
+        String add = util.checkNull(request, "address");
+        String name = util.checkNull(request, "name");
+        String lat = util.checkNull(request, "lat");
+        String longi = util.checkNull(request, "long");
         
-        list = db.getAllAccounts();
-        
-        request.setAttribute("accList", list);
-        RequestDispatcher rd = request.getRequestDispatcher(uri);
-        rd.forward(request,response);
+        if(add.equals(util.NO_VALUE)) {
+            response.sendRedirect("do.maps");
+        } else if(name.equals(util.NO_VALUE)){
+            response.sendRedirect("do.maps");
+        } else if(lat.equals(util.NO_VALUE)){
+            response.sendRedirect("do.maps");
+        } else if(longi.equals(util.NO_VALUE)){
+            response.sendRedirect("do.maps");
+        } else {
+            Location loc = new Location();
+            loc.setName(name);
+            loc.setAddress(add);
+            loc.setLat(parseFloat(lat));
+            loc.setLong(parseFloat(longi));
+            loc.setStatus(false);
+
+            db.registerLocation(loc);
+            redir = "do.maps";
+            message = "Location has been succesfully registered! Wait a day for administrators to confirm details.";
+        }
+        try (PrintWriter out = response.getWriter()) {
+            HttpSession session = request.getSession();
+
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet Register</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>" + message + "</h1>");
+            out.println("<a href=\"" + redir + "\">Next page</a>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -4,7 +4,7 @@
  */
 package asia.uap;
 
-import asia.uap.Utils;
+import asia.uap.Classes.Accounts;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -29,10 +29,6 @@ public class ForgetPass extends HttpServlet {
      */
     private Accounts account;
     SQLThing db = new SQLThing();
-    
-    public void init() {
-        account = new Accounts();
-    }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

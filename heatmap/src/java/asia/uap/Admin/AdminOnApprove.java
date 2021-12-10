@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package asia.uap;
+package asia.uap.Admin;
 
+import asia.uap.Classes.Location;
+import asia.uap.Classes.Accounts;
+import asia.uap.SQLThing;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.Integer.parseInt;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,10 +21,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Nofuente
  */
-public class RejectLoc extends HttpServlet {
+public class AdminOnApprove extends HttpServlet {
     private Accounts account;
     SQLThing db = new SQLThing();
-
     
     public void init() {
         account = new Accounts();
@@ -39,21 +40,15 @@ public class RejectLoc extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Utils util = new Utils();
         
-        String id = util.checkNull(request, "id");
-        if(id.equals(util.NO_VALUE)) {
-            response.sendRedirect("WEB-INF/adminApproveLoc.jsp");
-        } else{
-            Location l = new Location();
-            l.setUid(parseInt(id));
-            try {
-                db.deleteLoc(l);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(RejectLoc.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        response.sendRedirect("do.admin");
+        ArrayList<Location> list = new ArrayList<>();
+        String uri = "WEB-INF/admin/adminApproveLoc.jsp";
+        
+        list = db.getPendingLocations();
+        
+        request.setAttribute("locList", list);
+        RequestDispatcher rd = request.getRequestDispatcher(uri);
+        rd.forward(request,response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

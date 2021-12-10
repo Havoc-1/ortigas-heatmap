@@ -9,6 +9,8 @@ package asia.uap;
  * @author Sandro
  */
 
+import asia.uap.Classes.Location;
+import asia.uap.Classes.Accounts;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;

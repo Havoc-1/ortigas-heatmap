@@ -3,22 +3,36 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package asia.uap;
+package asia.uap.Admin;
 
+import asia.uap.Classes.Location;
+import asia.uap.Classes.Accounts;
+import asia.uap.SQLThing;
+import asia.uap.Utils;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.Float.parseFloat;
+import static java.lang.Integer.parseInt;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Nofuente
  */
-public class AdminLogout extends HttpServlet {
+public class AdminViewCLocation extends HttpServlet {
+    private Accounts account;
+    SQLThing db = new SQLThing();
 
+    
+    public void init() {
+        account = new Accounts();
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,12 +45,37 @@ public class AdminLogout extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.removeAttribute("currentAdmin");
-            session.removeAttribute("currentAdminUID");
+        Utils util = new Utils();
+        String uri = "WEB-INF/adminConfirmLoc.jsp";
+        
+        String id = util.checkNull(request, "id");
+        String address = util.checkNull(request, "address");
+        String name = util.checkNull(request, "name");
+        String lat = util.checkNull(request, "lat");
+        String longi = util.checkNull(request, "long");
+        
+        if(id.equals(util.NO_VALUE)) {
+            response.sendRedirect("WEB-INF/admin/adminApproveLoc.jsp");
+        } else if(address.equals(util.NO_VALUE)){
+            response.sendRedirect("WEB-INF/admin/adminApproveLoc.jsp");
+        } else if(name.equals(util.NO_VALUE)){
+            response.sendRedirect("WEB-INF/admin/adminApproveLoc.jsp");
+        } else if(lat.equals(util.NO_VALUE)){
+            response.sendRedirect("WEB-INF/admin/adminApproveLoc.jsp");
+        } else if(longi.equals(util.NO_VALUE)){
+            response.sendRedirect("WEB-INF/admin/adminApproveLoc.jsp");
+        } else {
+            Location l = new Location();
+            l.setUid(parseInt(id));
+            l.setAddress(address);
+            l.setName(name);
+            l.setLat(parseFloat(lat));
+            l.setLong(parseFloat(longi));
+            
+            request.setAttribute("loc", l);
+            RequestDispatcher rd = request.getRequestDispatcher(uri);
+            rd.forward(request,response);
         }
-        response.sendRedirect("index.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

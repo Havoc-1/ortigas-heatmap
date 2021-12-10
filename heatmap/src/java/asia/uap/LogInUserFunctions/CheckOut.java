@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package asia.uap;
+package asia.uap.LogInUserFunctions;
 
+import asia.uap.Classes.Accounts;
+import asia.uap.SQLThing;
+import asia.uap.Utils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.Float.parseFloat;
@@ -15,14 +18,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Nofuente
  */
-public class ApproveLocation extends HttpServlet {
+public class CheckOut extends HttpServlet {
     private Accounts account;
     SQLThing db = new SQLThing();
+
     
     public void init() {
         account = new Accounts();
@@ -39,44 +44,28 @@ public class ApproveLocation extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        
         Utils util = new Utils();
         
         String id = util.checkNull(request, "id");
-        String address = util.checkNull(request, "address");
-        String name = util.checkNull(request, "name");
-        String lat = util.checkNull(request, "lat");
-        String longi = util.checkNull(request, "long");
+        String checkHours = util.checkNull(request, "checkHours");
+        int userID = (int) session.getAttribute("currentUserUID");
         
         if(id.equals(util.NO_VALUE)) {
             System.out.println("1");
-            response.sendRedirect("WEB-INF/adminApproveLocation.jsp");
-        } else if(address.equals(util.NO_VALUE)){
+            response.sendRedirect("checkOutFail.jsp");
+        } else if(checkHours.equals(util.NO_VALUE)){
             System.out.println("2");
-            response.sendRedirect("WEB-INF/adminApproveLocation.jsp");
-        } else if(name.equals(util.NO_VALUE)){
-            System.out.println("3");
-            response.sendRedirect("WEB-INF/adminApproveLocation.jsp");
-        } else if(lat.equals(util.NO_VALUE)){
-            System.out.println("4");
-            response.sendRedirect("WEB-INF/adminApproveLocation.jsp");
-        } else if(longi.equals(util.NO_VALUE)){
-            System.out.println("5");
-            response.sendRedirect("WEB-INF/adminApproveLocation.jsp");;
+            response.sendRedirect("checkOutFail.jsp");
         } else {
-            Location l = new Location();
-            l.setUid(parseInt(id));
-            System.out.println("AOPWEJPA ID: " + id);
-            l.setAddress(address);
-            l.setName(name);
-            l.setLat(parseFloat(lat));
-            l.setLong(parseFloat(longi));
-            
             try {
-                db.updateLocation(l);
+                db.registerCheckOut(parseInt(checkHours), parseInt(id), userID);
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ApproveLocation.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CheckOut.class.getName()).log(Level.SEVERE, null, ex);
+                response.sendRedirect("checkOutFail.jsp");
             }
-            response.sendRedirect("do.admin");;
+            response.sendRedirect("checkOutSuccess.jsp");
         }
     }
 

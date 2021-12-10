@@ -34,7 +34,7 @@
     </servlet>
     <servlet>
         <servlet-name>Logout</servlet-name>
-        <servlet-class>asia.uap.Logout</servlet-class>
+        <servlet-class>asia.uap.LogInUserFunctions.Logout</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Register</servlet-name>
@@ -54,7 +54,7 @@
     </servlet>
     <servlet>
         <servlet-name>AdminLogin</servlet-name>
-        <servlet-class>asia.uap.AdminLogin</servlet-class>
+        <servlet-class>asia.uap.Admin.AdminLogin</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>updateSurvey</servlet-name>
@@ -62,43 +62,43 @@
     </servlet>
     <servlet>
         <servlet-name>CheckOut</servlet-name>
-        <servlet-class>asia.uap.CheckOut</servlet-class>
+        <servlet-class>asia.uap.LogInUserFunctions.CheckOut</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RegisterLocation</servlet-name>
-        <servlet-class>asia.uap.RegisterLocation</servlet-class>
+        <servlet-class>asia.uap.LogInUserFunctions.RegisterLocation</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ApproveLocation</servlet-name>
-        <servlet-class>asia.uap.ApproveLocation</servlet-class>
+        <servlet-class>asia.uap.Admin.ApproveLocation</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RejectLoc</servlet-name>
-        <servlet-class>asia.uap.RejectLoc</servlet-class>
+        <servlet-class>asia.uap.Admin.RejectLoc</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminOnLoad</servlet-name>
-        <servlet-class>asia.uap.AdminOnLoad</servlet-class>
+        <servlet-class>asia.uap.Admin.AdminOnLoad</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminOnApprove</servlet-name>
-        <servlet-class>asia.uap.AdminOnApprove</servlet-class>
+        <servlet-class>asia.uap.Admin.AdminOnApprove</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminViewCLocation</servlet-name>
-        <servlet-class>asia.uap.AdminViewCLocation</servlet-class>
+        <servlet-class>asia.uap.Admin.AdminViewCLocation</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Maps</servlet-name>
-        <servlet-class>asia.uap.Maps</servlet-class>
+        <servlet-class>asia.uap.LogInUserFunctions.Maps</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>OnCheckOut</servlet-name>
-        <servlet-class>asia.uap.OnCheckOut</servlet-class>
+        <servlet-class>asia.uap.LogInUserFunctions.OnCheckOut</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminLogout</servlet-name>
-        <servlet-class>asia.uap.AdminLogout</servlet-class>
+        <servlet-class>asia.uap.Admin.AdminLogout</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ForgetPass</servlet-name>

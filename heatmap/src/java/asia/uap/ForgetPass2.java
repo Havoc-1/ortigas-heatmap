@@ -5,14 +5,13 @@
 package asia.uap;
 
 
-import asia.uap.Utils;
+import asia.uap.Classes.Accounts;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -21,10 +20,6 @@ import javax.servlet.http.HttpSession;
 public class ForgetPass2 extends HttpServlet {
     private Accounts account;
     SQLThing db = new SQLThing();
-    
-    public void init() {
-        account = new Accounts();
-    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

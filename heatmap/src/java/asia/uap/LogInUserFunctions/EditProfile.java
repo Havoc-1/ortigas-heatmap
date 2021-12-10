@@ -5,7 +5,7 @@
 package asia.uap.LogInUserFunctions;
 
 
-import asia.uap.Accounts;
+import asia.uap.Classes.Accounts;
 import asia.uap.SQLThing;
 import asia.uap.Utils;
 import java.io.IOException;
