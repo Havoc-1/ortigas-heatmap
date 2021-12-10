@@ -33,8 +33,9 @@
             <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-content">
-                <a href="profile.jsp">Edit Profile</a>
+                <a href="do.onProfile">Profile Settings</a>
                 <a href="do.onCheckOut">Checkout</a>
+                <a href="do.viewLocations">View Locations</a>
                 <a href="do.logout">Logout</a>
             </div>
             </div>

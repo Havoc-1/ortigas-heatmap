@@ -7,7 +7,7 @@ package asia.uap.LogInUserFunctions;
 
 import asia.uap.Classes.Location;
 import asia.uap.Classes.Accounts;
-import asia.uap.SQLThing;
+import asia.uap.Classes.SQLThing;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -24,19 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 public class OnCheckOut extends HttpServlet {
     private Accounts account;
     SQLThing db = new SQLThing();
-    
-    public void init() {
-        account = new Accounts();
-    }
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");

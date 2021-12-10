@@ -6,68 +6,79 @@
 package asia.uap.LogInUserFunctions;
 
 import asia.uap.Classes.Accounts;
+import asia.uap.Classes.Location;
+import asia.uap.Register;
 import asia.uap.Classes.SQLThing;
 import asia.uap.Utils;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.Float.parseFloat;
+import static java.lang.Integer.parseInt;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Nofuente
  */
-public class ConfirmProfileEdits extends HttpServlet {
+public class ViewLocDetails extends HttpServlet {
     private Accounts account;
     SQLThing db = new SQLThing();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
+        String uri = "WEB-INF/viewLocDetails.jsp";
+        ArrayList<Location> list = new ArrayList<>();
         Utils util = new Utils();
-        int uid = (int) session.getAttribute("currentUserUID");
-        Accounts account = db.getAccount(uid);
         
-        String checkedPass = util.checkNull(request, "password");
-        String checkedConfPass = util.checkNull(request, "passwordConfirm");
-        String checkedEmail = util.checkNull(request, "email");
-        String checkedAddress = util.checkNull(request, "address");
+        String id = util.checkNull(request, "id");
+        String add = util.checkNull(request, "address");
+        String name = util.checkNull(request, "name");
+        String lat = util.checkNull(request, "lat");
+        String longi = util.checkNull(request, "long");
+        float avgVPH = 0, avgVL = 0;
+        boolean compromised = false;
         
-        try {
-            if (!db.checkPass(uid, checkedPass) && !checkedPass.equals(util.NO_VALUE) && checkedPass.equals(checkedConfPass)){
-                account.setPassword(checkedPass);
+        if(id.equals(util.NO_VALUE)) {
+            response.sendRedirect("add.jsp");
+        } else if(add.equals(util.NO_VALUE)){
+            response.sendRedirect("add.jsp");
+        } else if(name.equals(util.NO_VALUE)){
+            response.sendRedirect("add.jsp");
+        } else if(lat.equals(util.NO_VALUE)){
+            response.sendRedirect("add.jsp");
+        } else if(longi.equals(util.NO_VALUE)){
+            response.sendRedirect("add.jsp");
+        } else {
+            Location loc = new Location();
+            loc.setUid(parseInt(id));
+            loc.setAddress(add);
+            loc.setName(name);
+            loc.setLong(parseFloat(longi));
+            loc.setLat(parseFloat(lat));
+
+            request.setAttribute("loc", loc);
+            
+            try {
+                avgVPH = db.getAverageVisitsPerHour(parseInt(id));
+                avgVL = db.getAverageVisitLength(parseInt(id));
+                compromised = db.checkIfLocationCompromised(parseInt(id));
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ViewLocDetails.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ConfirmProfileEdits.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        if (!checkedEmail.equals(util.NO_VALUE) && !checkedEmail.equals(account.getEmail())) {
-            account.setEmail(checkedEmail);
-        }
-        if (!checkedAddress.equals(util.NO_VALUE) && !checkedAddress.equals(account.getAddress())) {
-            account.setAddress(checkedAddress);
-        }
-
-        db.updateProfile(account, uid);
-        
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ConfirmProfileEdits</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Edit Succesful!</h1>");
-            out.println("<a href=\"do.maps\">Back to Home</a>");
-            out.println("</body>");
-            out.println("</html>");
+            
+            request.setAttribute("avgVPH", avgVPH);
+            request.setAttribute("avgVL", avgVL);
+            request.setAttribute("compromised", compromised);
+            RequestDispatcher rd = request.getRequestDispatcher(uri);
+            rd.forward(request, response);
         }
     }
 

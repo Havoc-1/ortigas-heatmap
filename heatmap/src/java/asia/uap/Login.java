@@ -4,6 +4,7 @@
  */
 package asia.uap;
 
+import asia.uap.Classes.SQLThing;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -70,7 +71,7 @@ public class Login extends HttpServlet {
                     float daysBetween = (difference / (1000*60*60*24));
                     System.out.println("daysBetween: " + daysBetween);
                     if (daysBetween > 0 ){
-                        redir = "survey.jsp";
+                        redir = "loggedIn/survey.jsp";
                     } else{
                         redir = "do.maps";
                     }

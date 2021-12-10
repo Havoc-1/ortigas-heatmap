@@ -4,8 +4,8 @@
     Author     : Sandro
 --%>
 
-<%@page import="asia.uap.Classes.Accounts"%>
-<%@page import="asia.uap.SQLThing"%>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,35 +20,29 @@
         <div class="navbar">
             <a href="do.maps"><img src ="img/logo.png"></a>
             <div class="dropdown">
-                <button class="dropbtn">Wilbert De La Cruz <%-- Make this fetch username --%>
+                <button class="dropbtn"><c:out value="${acc.getUsername()}" /> <%-- Make this fetch username --%>
                 <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
-                    <a href="profile.jsp">Profile Settings</a>
-                    <a href="do.logout">Log Out</a>
+                    <a href="do.onProfile">Profile Settings</a>
+                    <a href="do.onCheckOut">Checkout</a>
+                    <a href="do.viewLocations">View Locations</a>
+                    <a href="do.logout">Logout</a>
                 </div>
             </div>
         </div>
         <div class="viewprofile">
             <div class="profilecontain">
                 <div class="sqlprof">
-                    <%
-                    SQLThing db = new SQLThing();
-                    int uid = (int) session.getAttribute("currentUserUID");
-                    Accounts account = db.getAccount(uid);
-                    String user = account.getUsername();
-                    String email = account.getEmail();
-                    String address = account.getAddress();
-                    %>
                     <h1> User Profile</h1>
                     <h3>Username</h3>
-                    <h4><%out.print(user);%></h4>
+                    <h4><c:out value="${acc.getUsername()}" /></h4>
                     <h3>Email</h3>
-                    <h4><%out.print(email);%></h4>
+                    <h4><c:out value="${acc.getEmail()}" /></h4>
                     <h3>Address</h3>
-                    <h4><%out.print(address);%></h4> <br>
+                    <h4><c:out value="${acc.getAddress()}" /><br>
                     <a href ="do.editProfile" class="Edit">Edit Profile</a> <br>
-                    <a href="home.jsp" class="Edit">Home</a>
+                    <a href="do.maps" class="Edit">Home</a>
                 </div>
             </div>
         </div>

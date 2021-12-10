@@ -100,6 +100,30 @@
         <servlet-name>AdminLogout</servlet-name>
         <servlet-class>asia.uap.Admin.AdminLogout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>OnProfile</servlet-name>
+        <servlet-class>asia.uap.LogInUserFunctions.OnProfile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OnViewLocations</servlet-name>
+        <servlet-class>asia.uap.LogInUserFunctions.OnViewLocations</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewLocDetails</servlet-name>
+        <servlet-class>asia.uap.LogInUserFunctions.ViewLocDetails</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewReviews</servlet-name>
+        <servlet-class>asia.uap.LogInUserFunctions.ViewReviews</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SubmitReview</servlet-name>
+        <servlet-class>asia.uap.LogInUserFunctions.SubmitReview</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OnReview</servlet-name>
+        <servlet-class>asia.uap.LogInUserFunctions.OnReview</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgetPass</servlet-name>
         <url-pattern>/do.forgor</url-pattern>
@@ -183,6 +207,30 @@
     <servlet-mapping>
         <servlet-name>AdminLogout</servlet-name>
         <url-pattern>/do.adminLogout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OnProfile</servlet-name>
+        <url-pattern>/do.onProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OnViewLocations</servlet-name>
+        <url-pattern>/do.viewLocations</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewLocDetails</servlet-name>
+        <url-pattern>/do.viewLocDetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewReviews</servlet-name>
+        <url-pattern>/do.viewReviews</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubmitReview</servlet-name>
+        <url-pattern>/do.submitReview</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OnReview</servlet-name>
+        <url-pattern>/do.onReview</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -8,8 +8,6 @@
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <!DOCTYPE html>
-<%@ page import="java.sql.*" %>
-<% Class.forName("com.mysql.cj.jdbc.Driver"); %>
 <html>
     <head>
         <meta name ="viewport" content="width=device-width, initial-scale=1.0"> <%-- to make the webpage responsive --%>        

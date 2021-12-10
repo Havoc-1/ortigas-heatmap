@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package asia.uap;
+package asia.uap.Classes;
 
 /**
  *
@@ -60,7 +60,7 @@ public class SQLThing {
         loadSQL();
     }// </editor-fold>
     
-    // <editor-fold defaultstate="collapsed" desc="Register Methods: User, UserSurvey">
+    // <editor-fold defaultstate="collapsed" desc="Register Methods: User, UserSurvey, Location, CheckOut">
     public int registerUser(Accounts account, Date d) {
         String insert = "INSERT INTO users" +  //sql statement
         "(username, password, email, address, sec_ques_no, sec_ques_ans, lastLogin) SELECT " +
@@ -169,6 +169,33 @@ public class SQLThing {
             stmt.setInt(1, uID);
             stmt.setInt(2, locID);
             stmt.setInt(3, i);
+            
+            System.out.println(stmt);
+            result = stmt.executeUpdate();
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return result;
+    }
+    
+    public int registerReview(Reviews rev) throws ClassNotFoundException {
+        int result = 0;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        //sql statement
+        String review = "INSERT INTO reviews (locID, userID, status, comment) "
+                + "SELECT ?, ?, ?, ?";
+
+        loadClass();
+        
+        try {
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.prepareStatement(review);
+            stmt.setInt(1, rev.getLocID());
+            stmt.setInt(2, rev.getUserID());
+            stmt.setBoolean(3, rev.getStatus());
+            stmt.setString(4, rev.getComment());
             
             System.out.println(stmt);
             result = stmt.executeUpdate();
@@ -589,6 +616,83 @@ public class SQLThing {
         }
         return secQues;
     }
+    
+    public float getAverageVisitsPerHour(int i) throws ClassNotFoundException {
+        float avg = 0;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        //sql statement
+        String sql = "SELECT AVG (a.count)as average FROM " +
+            "( " +
+            "SELECT "+
+                "DATE(checkInTime) as Date, "  +
+                "HOUR(checkInTime) as Hour, " +
+                "COUNT(*) as Count " +
+            "FROM checkin_history " +
+            "WHERE DATE(checkInTime) = DATE(NOW()) AND locID = ?" +
+            "GROUP BY CONCAT(DATE(checkInTime), HOUR(checkInTime)) " +
+            ")a";
+        loadClass();
+        
+        try {
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, i);
+            
+            System.out.println(stmt);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                avg = rs.getFloat("average");
+                System.out.println(avg);
+                return avg;
+            }
+            System.out.println("oh no it passed through");
+            
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return avg;
+    }
+    
+    public float getAverageVisitLength(int i) throws ClassNotFoundException {
+        float avg = 0;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        //sql statement
+        String sql = "SELECT AVG (a.totalHourSpent) as average FROM " +
+            "( " +
+            "SELECT "+
+                "DATE(checkInTime) as Date, "  +
+                "HOUR(checkInTime) as HourStarted, " +
+                "HOUR(checkOutTime) as HourEnded, " +
+                "(HOUR(checkOutTime) - HOUR(checkInTime)) as totalHourSpent " +
+            "FROM checkin_history " +
+            "WHERE DATE(checkInTime) = DATE(NOW()) AND locID = ?" +
+            "GROUP BY CONCAT(DATE(checkInTime), HOUR(checkInTime)) " +
+            ")a";
+        loadClass();
+        
+        try {
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, i);
+            
+            System.out.println(stmt);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                avg = rs.getFloat("average");
+                System.out.println(avg);
+                return avg;
+            }
+            System.out.println("oh no it passed through");
+            
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return avg;
+    }
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Check Methods: Pass, ForgotPass, Login, AdminLogin">
@@ -711,6 +815,36 @@ public class SQLThing {
             stmt = conn.prepareStatement(check);
             stmt.setString(1, account.getUsername());
             stmt.setString(2, account.getPassword());
+            
+            System.out.println(stmt);
+            ResultSet rs = stmt.executeQuery();
+            status = rs.next();
+            
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return status;
+    }
+    
+    public boolean checkIfLocationCompromised(int i) throws ClassNotFoundException { // to be revised
+        boolean status = false;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        //sql statement
+        String check = "select ch.locID\n" +
+        "from checkin_history ch \n" +
+        "INNER JOIN users u\n" +
+        "ON ch.userID = u.uid\n" +
+        "WHERE u.covidStatus = 1 AND checkInTime >= DATE_ADD(NOW(), INTERVAL - 7 DAY) "
+        + "AND checkOutTime <= DATE(NOW()) AND ch.locID = ?";
+        
+        loadClass();
+        
+        try {
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.prepareStatement(check);
+            stmt.setInt(1, i);
             
             System.out.println(stmt);
             ResultSet rs = stmt.executeQuery();
