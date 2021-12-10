@@ -53,7 +53,7 @@ public class EditProfile extends HttpServlet {
             out.println("<body>");
             //navbar
             out.println("<div class=\"navbar\">");
-            out.println("<a href=\"/WEB-INF/home.jsp\"><img src =\"img/logo.png\"></a>");
+            out.println("<a href=\"do.maps\"><img src =\"img/logo.png\"></a>");
             out.println("<div class=\"dropdown\">");
             out.println("<button class=\"dropbtn\">Wilbert De La Cruz");
             out.println("<i class=\"fa fa-caret-down\"></i>");

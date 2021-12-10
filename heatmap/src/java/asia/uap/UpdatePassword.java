@@ -49,13 +49,13 @@ public class UpdatePassword extends HttpServlet {
         String pc = util.checkNull(request, "passwordConfirm");
         
         if(ans.equals(util.NO_VALUE)) {
-            response.sendRedirect("do.successForgot");
+            response.sendRedirect("do.successForget");
         } else if(fu.equals(util.NO_VALUE)) {
-            response.sendRedirect("do.successForgot");
+            response.sendRedirect("do.successForget");
         } else if (p.equals(util.NO_VALUE)) {
-            response.sendRedirect("do.successForgot");
+            response.sendRedirect("do.successForget");
         } else if (pc.equals(util.NO_VALUE)) {
-            response.sendRedirect("do.successForgot");
+            response.sendRedirect("do.successForget");
         } else if (p.equals(pc)) {
             account.setUsername(fu);
             account.setSecQuesAns(ans);
@@ -68,7 +68,7 @@ public class UpdatePassword extends HttpServlet {
             }
             response.sendRedirect("index.jsp");
         } else{
-            response.sendRedirect("do.successForgot");
+            response.sendRedirect("do.successForget");
         }
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */

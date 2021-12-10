@@ -56,23 +56,23 @@ public class RegisterLocation extends HttpServlet {
         String longi = util.checkNull(request, "long");
         
         if(add.equals(util.NO_VALUE)) {
-            response.sendRedirect("add.jsp");
+            response.sendRedirect("do.maps");
         } else if(name.equals(util.NO_VALUE)){
-            response.sendRedirect("add.jsp");
+            response.sendRedirect("do.maps");
         } else if(lat.equals(util.NO_VALUE)){
-            response.sendRedirect("add.jsp");
+            response.sendRedirect("do.maps");
         } else if(longi.equals(util.NO_VALUE)){
-            response.sendRedirect("add.jsp");
+            response.sendRedirect("do.maps");
         } else {
             Location loc = new Location();
-            loc.setAddress(add);
+            loc.setName(name);
             loc.setAddress(add);
             loc.setLat(parseFloat(lat));
             loc.setLong(parseFloat(longi));
             loc.setStatus(false);
 
             db.registerLocation(loc);
-            redir = "home.jsp";
+            redir = "do.maps";
             message = "Location has been succesfully registered! Wait a day for administrators to confirm details.";
         }
         try (PrintWriter out = response.getWriter()) {

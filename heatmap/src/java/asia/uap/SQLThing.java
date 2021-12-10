@@ -149,6 +149,32 @@ public class SQLThing {
         }
          return result;
     }
+    
+    public int registerCheckOut(int i, int locID, int uID) throws ClassNotFoundException {
+        int result = 0;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        //sql statement
+        String update = "INSERT INTO checkin_history (userID, locID, checkInTime, checkOutTime) "
+                + "SELECT ?,  ?, DATE_ADD(NOW(), INTERVAL - ? HOUR), NOW()";
+
+        loadClass();
+        
+        try {
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.prepareStatement(update);
+            stmt.setInt(1, uID);
+            stmt.setInt(2, locID);
+            stmt.setInt(3, i);
+            
+            System.out.println(stmt);
+            result = stmt.executeUpdate();
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return result;
+    }
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Update Methods: UserSurvey, Profile, Date, Pass, Location">
@@ -252,7 +278,7 @@ public class SQLThing {
         PreparedStatement stmt = null;
         
         //sql statement
-        String update = "UPDATE users SET password = SHA2(?, 256) WHERE username = ? and sec_ques_ans = ?;";
+        String update = "UPDATE users SET password = SHA2(?, 256) WHERE username = ? and sec_ques_ans = SHA2(?, 256)";
         
         loadClass();
         
@@ -382,6 +408,39 @@ public class SQLThing {
         String getAcc = "SELECT * " +
                         "FROM location " +
                         "WHERE status = 0";
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ArrayList<Location> list = new ArrayList<>();
+        
+        loadClass();
+        
+         try {
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.prepareStatement(getAcc);
+            
+            System.out.println(stmt);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Location loc = new Location();
+                loc.setUid(rs.getInt("uid"));
+                loc.setName(rs.getString("name"));
+                loc.setAddress(rs.getString("address"));
+                loc.setLong(rs.getFloat("longitude"));
+                loc.setLat(rs.getFloat("latitude"));
+                loc.setStatus(rs.getBoolean("status"));
+                list.add(loc);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+         return list;
+    }
+    
+    public ArrayList<Location> getApprovedLocations() {
+        String getAcc = "SELECT * " +
+                        "FROM location " +
+                        "WHERE status = 1";
         
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -729,7 +788,7 @@ public class SQLThing {
     }
     // </editor-fold>
     
-    // <editor-fold defaultstate="collapsed" desc="Check In Methods">
+    // <editor-fold defaultstate="collapsed" desc="Delete Methods">
     public int deleteLoc(Location l) throws ClassNotFoundException {
         int result = 0;
         Connection conn = null;

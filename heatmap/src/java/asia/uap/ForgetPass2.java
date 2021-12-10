@@ -37,7 +37,6 @@ public class ForgetPass2 extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
         Utils util = new Utils();
         
         String ans = util.checkNull(request, "sec_ques_ans");
@@ -79,7 +78,8 @@ public class ForgetPass2 extends HttpServlet {
                     }
                     response.sendRedirect("do.successForget");
                 } else{
-                    response.sendRedirect("index.jsp"); // how to send an error message? ask sir
+                    System.out.println("dies");
+                    response.sendRedirect("index.jsp"); 
                 }
             } catch (ClassNotFoundException ex) {
                 ex.printStackTrace();
