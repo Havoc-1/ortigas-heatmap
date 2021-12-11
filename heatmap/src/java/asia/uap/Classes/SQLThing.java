@@ -63,8 +63,8 @@ public class SQLThing {
     // <editor-fold defaultstate="collapsed" desc="Register Methods: User, UserSurvey, Location, CheckOut">
     public int registerUser(Accounts account, Date d) {
         String insert = "INSERT INTO users" +  //sql statement
-        "(username, password, email, address, sec_ques_no, sec_ques_ans, lastLogin) SELECT " +
-        "?, SHA2(?, 256), ?, ?, ?, SHA2(?, 256), ?;";
+        "(username, password, email, address, sec_ques_no, sec_ques_ans, lastLogin, covidStatus) SELECT " +
+        "?, SHA2(?, 256), ?, ?, ?, SHA2(?, 256), ?, 0;";
         
         int result = 0;
         Connection conn = null;
@@ -485,6 +485,42 @@ public class SQLThing {
                 account.setSymptoms(rs.getString("cq.symptoms"));
                 account.setCovidStatus(rs.getBoolean("u.covidStatus"));
                 list.add(account);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+         return list;
+    }
+    
+    public ArrayList<Reviews> getAllReviews() {
+        String getAcc = "SELECT r.id, l.name, u.username, r.status, r.comment " +
+                        "FROM reviews r " +
+                        "INNER JOIN location l " +
+                        "ON l.uid = r.locID " +
+                        "INNER JOIN users u " +
+                        "ON u.uid = r.userID";
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ArrayList<Reviews> list = new ArrayList<>();
+        
+        loadClass();
+        
+         try {
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.prepareStatement(getAcc);
+            
+            System.out.println(stmt);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Reviews r = new Reviews();
+                r.setUid(rs.getInt("r.id"));
+                r.setLocName(rs.getString("l.name"));
+                r.setUserName(rs.getString("u.username"));
+                r.setStatus(rs.getBoolean("r.status"));
+                r.setComment(rs.getString("r.comment"));
+
+                list.add(r);
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -1124,6 +1160,29 @@ public class SQLThing {
             conn = DriverManager.getConnection(url, user, pass);
             stmt = conn.prepareStatement(update);
             stmt.setInt(1, l.getUid());
+            
+            System.out.println(stmt);
+            result = stmt.executeUpdate();
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return result;
+    }
+    
+    public int deleteReview(int i) throws ClassNotFoundException {
+        int result = 0;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        //sql statement
+        String update = "DELETE from reviews WHERE id = ?";
+        
+        loadClass();
+        
+        try {
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.prepareStatement(update);
+            stmt.setInt(1, i);
             
             System.out.println(stmt);
             result = stmt.executeUpdate();

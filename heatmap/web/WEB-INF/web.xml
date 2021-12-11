@@ -156,6 +156,14 @@
         <servlet-name>UserActivities</servlet-name>
         <servlet-class>asia.uap.LogInUserFunctions.UserActivities</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminReviews</servlet-name>
+        <servlet-class>asia.uap.Admin.AdminReviews</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminDeleteReview</servlet-name>
+        <servlet-class>asia.uap.Admin.AdminDeleteReview</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgetPass</servlet-name>
         <url-pattern>/do.forgor</url-pattern>
@@ -295,6 +303,14 @@
     <servlet-mapping>
         <servlet-name>UserActivities</servlet-name>
         <url-pattern>/do.onActivities</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminReviews</servlet-name>
+        <url-pattern>/do.adminReviews</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDeleteReview</servlet-name>
+        <url-pattern>/do.adminDeleteReview</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -80,5 +80,9 @@
             </table>
         </div>
         </div>
+        <a href="do.adminLogout" class="previous">Log Out</a> <br><br><br><br><br>
+        <a href="do.adminApprove" class="previous">Approve Locations</a> <br><br><br><br><br>
+        <a href="do.adminReviews" class="previous">Manage Reviews</a> <br><br><br><br><br>
+        <a href="do.checkCSV" class="previous">Check CSV</a>
     </body>
 </html>

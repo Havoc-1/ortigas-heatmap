@@ -15,6 +15,8 @@ public class Reviews {
     private int userID;
     private boolean status;
     private String comment;
+    private String locName;
+    private String userName;
 
     //getter methods
 
@@ -32,6 +34,14 @@ public class Reviews {
 
     public String getComment() {
         return comment;
+    }
+
+    public String getLocName() {
+        return locName;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 
     public boolean getStatus() {
@@ -53,6 +63,14 @@ public class Reviews {
 
    public void setComment(String c) {
        this.comment = c;
+   }
+
+   public void setUserName(String u) {
+       this.userName = u;
+   }
+
+   public void setLocName(String l) {
+       this.locName = l;
    }
 
    public void setStatus(boolean s) {
