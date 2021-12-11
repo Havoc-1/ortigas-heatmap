@@ -90,7 +90,7 @@ a.link1:active {
     background-color: #EC632D;
     position: absolute;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 125px;
     margin: 100px 0 0; 
 }
 
@@ -98,6 +98,7 @@ a.link1:active {
     border: 1px solid #FFBB0D;
     background: #FFBB0D;
     transition: 1s;
+    border-radius: 25px;
 }
 
 .reg-btn {
@@ -111,7 +112,7 @@ a.link1:active {
     top: 10px;
     right: 100px;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 25px;
     margin: 50px 0 0; 
 }
 
@@ -132,7 +133,7 @@ a.link1:active {
     top: 10px;
     right: 230px;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 25px;
     margin: 50px 50px 0; 
 }
 
@@ -999,123 +1000,54 @@ p.back {
 
 /* ----- CHECK IN/CHECKOUT ----*/
 
-.modal-open {
-    padding: 8px 16px;
-    background: #8e111e;
-    color: white;
-    border-radius: 4px;
-    outline: none;
-    border: none;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    cursor: pointer;
-    position: absolute;
-    left: 10px;
-    bottom: 20px;
-    z-index: 400;
-}
-
-.modal-open1 {
-    padding: 8px 16px;
-    background: #8e111e;
-    color: white;
-    border-radius: 4px;
-    outline: none;
-    border: none;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    cursor: pointer;
-    position: absolute;
-    left: 135px;
-    bottom: 20px;
-}
-
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 400;
-  background-color: white;
-  width: 500px;
-  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-  display: none;
-  animation: modal-open .5s;
-  
-}
-
-.modal-content {
-    background: #fff;
-    margin-top: 100px;
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 8px 24px;
-    z-index: 4;
-}
-
-.modal-header {
-    font-weight: 500;
-    padding: 10px 0;
-    font-size: 26px;
-}
-
-.modal-header .modal-close {
-    float: right;
-    font-size: 20px;
-    background: white;
-    border: 0;
-    outline: 0;
-    padding: 5px 8px;
-    border-radius: 50%;
-}
-
-.modal-body {
-    color: #7b7b7b;
-    padding: 15px 0;
-}
-
-.modal-footer {
-    padding: 15px 0;
-}
-
-.modal-footer .modal-close {
-    padding: 8px 16px;
-    font-size: 14px;
-    border: none;
-    outline: none;
-    border-radius: 4px;
-    color: #EC632D;
-}
 
 
 /* ----- ADMIN PAGE ----*/
 
-.container {
-  padding: 2rem 0rem;
+.adminbg {
+    background-image: url(./img/adminbg1.png);
+    height: 979px;
 }
 
-.admintab {
-    background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
-    color: white;
-    height: 100vh;
+table{
+  width:100%;
+  table-layout: fixed;
+}
+.tbl-header{
+  background-color: rgba(255,255,255,0.3);
+  padding-top: 50px;
+  padding-left: 50px;
+ }
+.tbl-content{
+  height:800px;
+  overflow-x:auto;
+  margin-top: 0px;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+th{
+  padding: 20px 15px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 25px;
+  color: white;
+  text-transform: uppercase;
+}
+tr {
+    height: 2px;
+}
+td{
+  witdh: 10px;
+  padding: 15px;
+  text-align: left;
+  vertical-align:middle;
+  font-weight: 300;
+  font-size: 12px;
+  color: #fff;
+  border-bottom: solid 1px rgba(255,255,255,0.1);
 }
 
-admintab.h4 {
-  margin: 2rem 0rem 1rem;  
-}
-
-.table-image {
-  td, th {
-    vertical-align: middle;
-  }
-}
-
-.previous {
-  background-color: #FFBB0D;
-  color: black;
-  position:absolute;
-  left: 380px;
-  padding: 20px;
+.adminbtn {
+    
 }
 
 /* ----- PROFILE PAGE ----*/
@@ -1208,6 +1140,8 @@ a.Edit {
     color: white;
     padding: 12px;
     border-radius: 25px;
+    margin: 25px;
+    margin-left: 125px;
 }
 
 

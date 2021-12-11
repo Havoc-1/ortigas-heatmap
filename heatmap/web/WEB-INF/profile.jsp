@@ -42,9 +42,9 @@
                     <h4><c:out value="${acc.getEmail()}" /></h4>
                     <h3>Address</h3>
                     <h4><c:out value="${acc.getAddress()}" /><br>
-                    <a href ="do.editProfile" class="Edit">Edit Profile</a> <br>
-                    <a href="do.maps" class="Edit">Home</a>
                 </div>
+                <a href ="do.editProfile" class="Edit">Edit Profile</a>
+                <a href="do.maps" class="Edit">Home</a>
             </div>
         </div>
     </body>

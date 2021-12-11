@@ -23,6 +23,7 @@
         <link rel="stylesheet" href="./style.css"/>
         <script defer src="./card.js"></script>
         <script defer src="./leafmaps.js"></script>
+        <script src="leaflet-heat.js"></script>
     </head>
     <body>
         <%-- MAVBAR --%>
@@ -42,21 +43,56 @@
             </div>
         </div>
         <%-- MAVBAR END --%>
-        <%-- LEAFLETJS --%>
-        <div id="map"></div>        
-        <%-- LEAFLETJS END --%>
-        <%-- MODALS --%>
-        <button class="modal-open" data-modal="modal1">Check In / Check out</button> 
-        <div class="modal" id="modal1">
-            <div class="modal-content">
-                <div class="modal-header">Modal 1
-                    <button class="icon modal-close"><i class="material-icons">close</i></button>
-                </div>
-                <div class="modal-body">test123</div>Put in form here
-                <div class="modal-footer"><button class="link modal-close">Close</button></div>
-            </div>
-        </div>
-        <%-- MODALS END --%>
+        <script defer>
+        var contents = [
+            <c:forEach var="cont" items = "${contList}">
+                {
+                    "uid": <c:out value="${cont.getUid()}" />,
+                    "name": '<c:out value="${cont.getName()}" />',         
+                    "long": <c:out value="${cont.getLong()}" />,
+                    "lat":<c:out value="${cont.getLat()}" />,
+                    "rating": <c:out value="${cont.getRating()}" />,
+                },
+            </c:forEach>
+        ];
         
+        var reviews = new Map([
+            <c:forEach var="revs" items="${reviews}">
+                [<c:out value="${revs.key}" />,
+                [
+                <c:forEach var="rev" items="${revs.value}">
+                    {
+                        "userId":<c:out value="${rev.getUserID()}" />,
+                        "comment":"<c:out value="${rev.getComment()}" />",
+                        "status":"<c:out value="${rev.getStatus()}" />"
+                    },
+                </c:forEach>
+                ]
+                ],
+        </c:forEach>])
+        var hours = new Map([
+            <c:forEach var="hr" items = "${avghr}">
+                [<c:out value="${hr.key}"/>,<c:out value="${hr.value}"/>],
+            </c:forEach>])
+        var lengths = new Map([
+            <c:forEach var="length" items = "${lengthr}">
+                [<c:out value="${length.key}"/>,<c:out value="${length.value}"/>],
+            </c:forEach>])
+        
+        var heatmap = [
+            <c:forEach var="input" items = "${heatmap}">
+            [<c:out value="${input}"/>],
+            </c:forEach>
+        ]
+        
+        for (var content of contents) {
+            content.reviews = reviews.get(content.uid)
+            content.hour = hours.get(content.uid)
+            content.length = lengths.get(content.uid)
+        }
+        </script>
+        <%-- LEAFLETJS --%>
+        <div id="map"></div>                
+        <%-- LEAFLETJS END --%>
     </body>
 </html>

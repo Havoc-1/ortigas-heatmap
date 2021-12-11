@@ -19,74 +19,66 @@
         <title>Admin Page</title>
     </head>
     <body>
-        <section class="admintab">
-             <div class="container">
-            <div class="row">
-              <div class="col-12">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th scope="col">UID</th>
-                      <th scope="col">Username</th>
-                      <th scope="col">Email</th>
-                      <th scope="col">Address</th>
-                      <th scope="col">Last Login</th>
-                      <th scope="col">Status</th>
-                      <th scope="col">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <c:forEach var="acc" items="${accList}">
-                        <tr>
-                            <td><c:out value="${acc.getUid()}" /></td>
-                            <td><c:out value="${acc.getUsername()}" /></td>
-                            <td><c:out value="${acc.getEmail()}" /></td>
-                            <td><c:out value="${acc.getAddress()}" /></td>
-                            <td><c:out value="${acc.getLastLogin()}" /></td>
-                            <c:choose>
-                                <c:when test='${(acc.getCovidStatus() == false)}'>
-                                    <td><p>Safe</p></td>
-                                </c:when>
-                                <c:otherwise>
-                                    <td><p>Compromised</p></td>
-                                </c:otherwise>
-                            </c:choose>
-                            <td> 
-                              <form action="do.deleteUser" id="form1" class="formarea">
-                                <input type="hidden" name="id" value="<c:out value="${acc.getUid()}" />">
+        <div class="adminbg">
+        <div class="tbl-header">
+            <table cellpadding="0" cellspacing="0" border="0">
+            <thead>
+                <tr>
+                    <th>UID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Last Login</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            </table>
+        </div>
+        <div class="tbl-content">
+            <table cellpadding="0" cellspacing="0" border="0">
+             <tbody>
+                <c:forEach var="acc" items="${accList}">
+                <tr>
+                    <td><c:out value="${acc.getUid()}" /></td>
+                        <td><c:out value="${acc.getUsername()}" /></td>
+                        <td><c:out value="${acc.getEmail()}" /></td>
+                        <td><c:out value="${acc.getAddress()}" /></td>
+                        <td><c:out value="${acc.getLastLogin()}" /></td>
+                        <c:choose>
+                            <c:when test='${(acc.getCovidStatus() == false)}'>
+                                <td><p>Safe</p></td>
+                            </c:when>
+                            <c:otherwise>
+                                <td><p>Compromised</p></td>
+                            </c:otherwise>
+                        </c:choose>
+                    <td> 
+                        <form action="do.deleteUser" id="form1" class="formarea">
+                            <input type="hidden" name="id" value="<c:out value="${acc.getUid()}" />">
 
-                                 <input type="submit" class="fsubmitbtn" value="Delete User">
-                             </form>
-                            </td>
-                            <td> 
-                              <form action="do.markPositive" id="form1" class="formarea">
-                                <input type="hidden" name="id" value="<c:out value="${acc.getUid()}" />">
+                            <input type="submit" class="adminbtn" value="Delete User">
+                        </form>
+                    </td>
+                    <td> 
+                        <form action="do.markPositive" id="form1" class="formarea">
+                            <input type="hidden" name="id" value="<c:out value="${acc.getUid()}" />">
 
-                                 <input type="submit" class="fsubmitbtn" value="Mark as Positive">
-                             </form>
-                            </td>
-                            <td> 
-                              <form action="do.markNegative" id="form1" class="formarea">
-                                <input type="hidden" name="id" value="<c:out value="${acc.getUid()}" />">
+                            <input type="submit" class="adminbtn" value="Mark as Positive">
+                        </form>
+                    </td>
+                    <td> 
+                        <form action="do.markNegative" id="form1" class="formarea">
+                            <input type="hidden" name="id" value="<c:out value="${acc.getUid()}" />">
 
-                                 <input type="submit" class="fsubmitbtn" value="Mark as Negative">
-                             </form>
-                            </td>
-                            <td> <%-- Implement administrator abilities here (icons are from bootstrap/fontisawesome --%> 
-                              <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
-                              <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                              <button type="button" class="btn btn-danger"><i class="far fa-trash-alt" ></i></button>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        <a href="do.adminLogout" class="previous">Log Out</a> <br><br><br><br><br>
-        <a href="do.adminApprove" class="previous">Approve Locations</a> <br><br><br><br><br>
-        <a href="do.checkCSV" class="previous">Check CSV</a>
-        </section>
+                            <input type="submit" class="adminbtn" value="Mark as Negative">
+                        </form>
+                    </td>   
+                </tr>
+                </c:forEach>
+            </tbody>   
+            </table>
+        </div>
+        </div>
     </body>
 </html>
