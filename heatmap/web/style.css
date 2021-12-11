@@ -1000,6 +1000,108 @@ p.back {
 
 /* ----- CHECK IN/CHECKOUT ----*/
 
+.holder {
+    background-image: url(./img/bg3.png);
+    height: 979px;
+    background-size: cover;
+    background-position: center;
+}
+
+.holder label {
+    margin-top: 40px;
+    margin: 20px;
+    color: white;
+    font-weight: 400;
+    font-size: 25px;
+    padding-top: 30px;
+    
+}
+
+.checkincont {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: inherit;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2); 
+  border-radius: 5px;
+  overflow: hidden;
+  z-index: 1;
+  width: 780px;
+  padding: 10px 5px;
+  height: 400px;
+}
+
+.checkincont:before {
+  content: "";
+  position: absolute;
+  background: inherit;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);
+  filter: blur(50px);
+  margin: -5px;
+}
+
+.checkdiv {
+  position: relative;
+  float: left;
+  min-width: 250px;
+  margin: 10px;
+}
+
+
+check::-ms-expand {
+display: none;
+}
+
+.checkdiv:after {
+  content: '<>';
+  font: 17px "Consolas", monospace;
+  color: #333;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  right: 11px;
+  
+  
+  top: 18px;
+  padding: 0 0 2px;
+  border-bottom: 1px solid #999;
+  /*left line */
+  
+  position: absolute;
+  pointer-events: none;
+}
+
+.checkdiv select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+ 
+  
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  height: 50px;
+  float: right;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  padding: 0px 24px;
+  font-size: 16px;
+  line-height: 1.75;
+  color: #333;
+  background-color: #ffffff;
+  background-image: none;
+  border: 1px solid #cccccc;
+  -ms-word-break: normal;
+  word-break: normal;
+}
+
 
 
 /* ----- ADMIN PAGE ----*/
