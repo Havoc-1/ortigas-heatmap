@@ -23,7 +23,7 @@ public class CSV {
     }
 
     public String getContent() {
-        return content;
+        return content; 
     }
 
     public Date getDateTime() {

@@ -38,7 +38,7 @@ function populateContents() {
     for(var content of contents) {
         var revcollection = "";
         for (var review of content.reviews) {
-            revcollection += `<p>Review [i]: ${review.comment}</p>` ; //conver to a counter // include userID 
+            revcollection += `<p>Review: ${review.comment}</p>` ; //conver to a counter // include userID 
         }
         var popupContents = `<h1>${content.name}</h1><h3>Average Visits Per Hour</h3> <p>${content.hour}</p><h3>Average Visit Length</h3> <p>${content.length}</p><h3>Reviews</h3>${revcollection}`;
         console.log(content);

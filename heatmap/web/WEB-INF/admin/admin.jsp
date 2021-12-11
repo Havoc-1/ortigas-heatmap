@@ -13,7 +13,7 @@
         <meta name ="viewport" content="width=device-width, initial-scale=1.0"> <%-- to make the webpage responsive --%>        
         <link rel="stylesheet" href="./style.css"/>
         <%-- CDN to call bootstrap --%>        
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
+        
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Admin Page</title>
@@ -57,21 +57,21 @@
                         <form action="do.deleteUser" id="form1" class="formarea">
                             <input type="hidden" name="id" value="<c:out value="${acc.getUid()}" />">
 
-                            <input type="submit" class="adminbtn" value="Delete User">
+                            <input type="submit" class="" value="Delete User">
                         </form>
                     </td>
                     <td> 
                         <form action="do.markPositive" id="form1" class="formarea">
                             <input type="hidden" name="id" value="<c:out value="${acc.getUid()}" />">
 
-                            <input type="submit" class="adminbtn" value="Mark as Positive">
+                            <input type="submit" class="" value="Mark as Positive">
                         </form>
                     </td>
                     <td> 
                         <form action="do.markNegative" id="form1" class="formarea">
                             <input type="hidden" name="id" value="<c:out value="${acc.getUid()}" />">
 
-                            <input type="submit" class="adminbtn" value="Mark as Negative">
+                            <input type="submit" class="" value="Mark as Negative">
                         </form>
                     </td>   
                 </tr>

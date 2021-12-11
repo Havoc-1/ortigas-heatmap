@@ -11,7 +11,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Checkout Placeholder</title>
+        <link rel="stylesheet" href="./style.css"/>
+        <title>Checkout</title>
     </head>
     <body>
         <form action="do.checkout" id="form1" class="formarea">
@@ -37,7 +38,6 @@
                 <option value="11">11 hours</option>
                 <option value="12">12 hours</option>
             </select> <br> <br> <br>
-            
             <input type="submit" class="fsubmitbtn" value="Submit">
         </form>    
         <a href ="locForm.jsp">Register Location</a>

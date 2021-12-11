@@ -9,10 +9,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Checkout Success</title>
+        <link rel="stylesheet" href="./style.css"/>
     </head>
     <body>
-        <h1>Checkout was successful</h1><br />
-        <a href="do.maps">Go Back</a>
+        <div class="logmessage">
+            <div class="logcontain">
+                <h1>Checkout was successful</h1><br />
+                <a href="do.maps">Go Back</a>
+            </div>
+        </div>
     </body>
 </html>

@@ -30,7 +30,7 @@
         <div class="navbar">
             <a href="do.maps"><img src="img/logo.png"></a> 
             <div class="dropdown">
-             <button class="dropbtn">Dropdown <%-- this needs to fetch username --%>
+             <button class="dropbtn">Options <%-- this needs to fetch username --%>
             <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-content">
@@ -94,5 +94,10 @@
         <%-- LEAFLETJS --%>
         <div id="map"></div>                
         <%-- LEAFLETJS END --%>
+        
+        <%-- EMERGENCY NUMBERS --%>
+        <div class="emergency">
+            <p>DOH LAUNCHES COVID-19 HOTLINES 1555, 02-894-COVID</p>
+        </div>
     </body>
 </html>

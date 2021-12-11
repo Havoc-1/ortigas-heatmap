@@ -57,11 +57,6 @@
                     <div class ="name">Sandro Yguico
                         <br />3rd Year BSIT University of Asia and the Pacific</div>
                 </div>
-                <div class ="member">
-                    <img src="img/franc_pic.png" class="img-responsive img-thumbnail" alt="Responsive image" />
-                    <div class ="name">Francine Calivozo
-                        <br />3rd Year BSIT University of Asia and the Pacific</div>
-                </div>
             </div>
         </section>
             

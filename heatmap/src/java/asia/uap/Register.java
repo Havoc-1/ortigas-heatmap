@@ -130,11 +130,15 @@ public class Register extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
+            out.println("<link rel=\"stylesheet\" href=\"./style.css\"/>");
             out.println("<title>Servlet Register</title>");            
             out.println("</head>");
-            out.println("<body>");
+            out.println("<div class=\"logmessage\">\n" +
+"            <div class=\"logcontain\">\n");
             out.println("<h1>" + message + "</h1>");
             out.println("<a href=\"" + redir + "\">Next page</a>");
+            out.println("</div>");
+            out.println("</div>");
             out.println("</body>");
             out.println("</html>");
         }
